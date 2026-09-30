@@ -334,75 +334,52 @@
         }
         .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
 
-        /* Бодикамера кнопка */
-        .action-btn.bodycam {
-            background: rgba(255, 0, 85, 0.1);
-            border-color: var(--neon-pink);
-            color: var(--neon-pink);
-        }
-        .action-btn.bodycam.on {
-            background: var(--neon-pink);
-            color: #fff;
-            box-shadow: 0 0 25px var(--neon-pink);
-            animation: recPulse 1.5s infinite;
-        }
-        @keyframes recPulse {
-            0%, 100% { box-shadow: 0 0 15px var(--neon-pink); }
-            50% { box-shadow: 0 0 30px var(--neon-pink); }
-        }
-        .action-btn.bodycam:hover { background: var(--neon-pink); color: #fff; }
-
-        /* Индикатор REC в углу */
-        .rec-indicator {
-            position: fixed;
-            top: 80px;
-            right: 20px;
-            z-index: 9995;
-            background: rgba(10, 14, 20, 0.9);
-            border: 2px solid var(--neon-red);
-            border-radius: 4px;
-            padding: 10px 16px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75rem;
-            color: #fff;
-            box-shadow: 0 0 30px rgba(255, 34, 51, 0.5);
-            animation: recBorder 1.5s infinite;
+        /* Профиль / аватарка в шапке */
+        .top-profile {
             display: flex;
             align-items: center;
             gap: 10px;
+            padding: 4px 12px 4px 4px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        @keyframes recBorder {
-            0%, 100% { border-color: var(--neon-red); }
-            50% { border-color: rgba(255, 34, 51, 0.3); }
-        }
-        .rec-dot {
-            width: 12px;
-            height: 12px;
+        .top-profile:hover { border-color: var(--neon-cyan); }
+        .top-profile .tp-avatar {
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            background: var(--neon-red);
-            box-shadow: 0 0 10px var(--neon-red);
-            animation: recBlink 1s infinite;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: #000;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
         }
-        @keyframes recBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.2; }
+        .top-profile .tp-info {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.7rem;
+            line-height: 1.2;
         }
-        .rec-info { display: flex; flex-direction: column; }
-        .rec-info .rec-label {
-            font-size: 0.6rem;
-            color: var(--neon-red);
-            letter-spacing: 2px;
-            font-weight: 700;
-        }
-        .rec-info .rec-time {
-            font-size: 0.85rem;
+        .top-profile .tp-info .tp-name {
             color: #fff;
             font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
         }
-        .rec-info .rec-meta {
-            font-size: 0.55rem;
-            color: var(--text-dim);
+        .top-profile .tp-info .tp-rank {
+            color: var(--neon-cyan);
+            font-size: 0.6rem;
             letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .main-layout {
@@ -748,47 +725,6 @@
         }
         .role-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-        /* Записи бодикамеры */
-        .rec-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            background: var(--bg-panel-2);
-            border: 1px solid var(--border);
-            border-radius: 5px;
-            margin-bottom: 8px;
-            flex-wrap: wrap;
-        }
-        .rec-row:hover { border-color: var(--neon-pink); }
-        .rec-row .rec-thumb {
-            width: 100px;
-            height: 60px;
-            background: #000;
-            border-radius: 3px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            color: var(--neon-red);
-            flex-shrink: 0;
-        }
-        .rec-row .rec-info-block { flex: 1; min-width: 200px; }
-        .rec-row .rec-info-block .rec-title {
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            color: #fff;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-        .rec-row .rec-info-block .rec-meta {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.72rem;
-            color: var(--text-dim);
-            line-height: 1.6;
-        }
-
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -976,6 +912,210 @@
         .add-btn.purple { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(179, 0, 255, 0.08); }
         .add-btn.purple:hover { background: var(--neon-purple); color: #000; box-shadow: 0 0 25px var(--neon-purple); }
 
+        /* ================== ПЛАВАЮЩИЕ ВИДЖЕТЫ ================== */
+        .float-widget {
+            position: fixed;
+            bottom: 20px;
+            z-index: 9990;
+            background: var(--bg-panel);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 6px;
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            font-family: 'Rajdhani', sans-serif;
+            transition: 0.25s;
+            display: flex;
+            flex-direction: column;
+            max-height: 480px;
+            width: 320px;
+            overflow: hidden;
+        }
+        .float-widget.chat { right: 360px; }
+        .float-widget.robocop { right: 20px; }
+        .float-widget.collapsed { max-height: 42px; }
+
+        .float-widget .fw-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            background: linear-gradient(180deg, #0a0e14, #05070a);
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            user-select: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--neon-cyan);
+            flex-shrink: 0;
+        }
+        .float-widget.robocop .fw-header { color: var(--neon-orange); }
+        .float-widget .fw-header .fw-badge {
+            margin-left: auto;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--neon-cyan);
+            color: #000;
+            font-weight: 900;
+        }
+        .float-widget.robocop .fw-header .fw-badge { background: var(--neon-orange); }
+        .float-widget .fw-header .fw-toggle {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .float-widget .fw-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-height: 0;
+        }
+
+        .fw-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            min-height: 250px;
+            max-height: 350px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .fw-messages::-webkit-scrollbar { width: 5px; }
+        .fw-messages::-webkit-scrollbar-track { background: transparent; }
+        .fw-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .fw-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+        .fw-msg {
+            display: flex;
+            gap: 8px;
+            font-size: 0.78rem;
+            line-height: 1.4;
+        }
+        .fw-msg .msg-avatar {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.7rem;
+            color: #000;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            background-size: cover;
+            background-position: center;
+        }
+        .fw-msg.robocop-msg .msg-avatar {
+            background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow));
+        }
+        .fw-msg .msg-content { flex: 1; min-width: 0; }
+        .fw-msg .msg-author {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 1px;
+        }
+        .fw-msg.robocop-msg .msg-author { color: var(--neon-orange); }
+        .fw-msg .msg-text {
+            color: var(--text);
+            word-wrap: break-word;
+        }
+        .fw-msg .msg-time {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            margin-top: 2px;
+        }
+
+        .fw-input {
+            display: flex;
+            gap: 6px;
+            padding: 8px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-dark);
+            flex-shrink: 0;
+        }
+        .fw-input input {
+            flex: 1;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            transition: 0.2s;
+        }
+        .fw-input input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        .float-widget.robocop .fw-input input:focus {
+            border-color: var(--neon-orange);
+            box-shadow: 0 0 10px rgba(255, 136, 0, 0.3);
+        }
+        .fw-input button {
+            background: transparent;
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 6px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: 0.2s;
+            font-size: 0.8rem;
+        }
+        .fw-input button:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 12px var(--neon-cyan);
+        }
+        .float-widget.robocop .fw-input button {
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+        .float-widget.robocop .fw-input button:hover {
+            background: var(--neon-orange);
+            color: #000;
+            box-shadow: 0 0 12px var(--neon-orange);
+        }
+
+        /* RoboCop быстрые команды */
+        .robocop-quick {
+            padding: 8px;
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            border-top: 1px solid var(--border);
+            background: rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+        .robocop-quick button {
+            font-size: 0.6rem;
+            padding: 4px 8px;
+            background: rgba(255, 136, 0, 0.1);
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
+            border-radius: 3px;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: 0.2s;
+        }
+        .robocop-quick button:hover {
+            background: var(--neon-orange);
+            color: #000;
+        }
+
         @media (max-width: 900px) {
             .main-layout { grid-template-columns: 1fr; }
             .sidebar { position: relative; height: auto; top: 0; border-right: none; border-bottom: 1px solid var(--border); }
@@ -984,7 +1124,10 @@
             .top-bar { padding: 8px 12px; gap: 10px; }
             .top-actions { width: 100%; margin-left: 0; }
             .content { padding: 16px; }
-            .rec-indicator { top: auto; bottom: 20px; right: 20px; }
+            .float-widget { width: calc(100vw - 24px); right: 12px !important; left: 12px; }
+            .float-widget.chat { bottom: 12px; }
+            .float-widget.robocop { bottom: 12px; }
+            .float-widget.chat.collapsed + .float-widget.robocop { bottom: 62px; }
         }
         @media (max-width: 600px) {
             .tarkov-display { flex-wrap: wrap; }
@@ -1069,18 +1212,11 @@
                 <span class="d-label">SHIFT TIME</span>
                 <span class="d-value green" id="shiftTimer">00:00:00</span>
             </div>
-            <div class="display-item">
-                <span class="d-label">OPERATOR</span>
-                <span class="d-value" id="opName">---</span>
-            </div>
         </div>
 
         <div class="top-actions">
             <button class="action-btn shift" id="shiftBtn" onclick="toggleShift()">
                 <i class="fas fa-user-clock"></i> Заступить на смену
-            </button>
-            <button class="action-btn bodycam" id="bodycamBtn" onclick="toggleBodycam()">
-                <i class="fas fa-video"></i> БОДИКАМЕРА
             </button>
             <button class="action-btn weapon" onclick="openWeaponModal()">
                 <i class="fas fa-crosshairs"></i> Применить оружие
@@ -1088,6 +1224,15 @@
             <button class="action-btn panic" onclick="triggerPanic()">
                 <i class="fas fa-exclamation-triangle"></i> ПАНИКА
             </button>
+
+            <div class="top-profile" onclick="openMyProfileModal()" title="Нажмите, чтобы изменить аватарку">
+                <div class="tp-avatar" id="topAvatar">?</div>
+                <div class="tp-info">
+                    <div class="tp-name" id="topName">---</div>
+                    <div class="tp-rank" id="topRank">---</div>
+                </div>
+            </div>
+
             <button class="action-btn" onclick="logout()" style="border-color:var(--neon-pink);color:var(--neon-pink);">
                 <i class="fas fa-sign-out-alt"></i> Выход
             </button>
@@ -1109,9 +1254,6 @@
                 </div>
 
                 <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
-                <div class="sidebar-item supervisor-only hidden" data-section="recordings" onclick="switchSection('recordings')">
-                    <i class="fas fa-video"></i> Записи бодикамер
-                </div>
                 <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
                     <i class="fas fa-file-alt"></i> Отчёты сотрудников
                 </div>
@@ -1129,14 +1271,12 @@
                 <div class="announce-title">
                     <i class="fas fa-bullhorn"></i> Оповещения
                 </div>
-
                 <div id="announceFormBox" class="hidden">
                     <textarea id="announceText" rows="3" placeholder="Текст оповещения..."></textarea>
                     <button class="announce-send" onclick="sendAnnounce()">
                         <i class="fas fa-paper-plane"></i> Отправить
                     </button>
                 </div>
-
                 <div id="announceList">
                     <div class="announce-empty">Нет оповещений</div>
                 </div>
@@ -1147,13 +1287,41 @@
     </div>
 </div>
 
-<!-- Индикатор REC -->
-<div class="rec-indicator hidden" id="recIndicator">
-    <div class="rec-dot"></div>
-    <div class="rec-info">
-        <div class="rec-label">● REC</div>
-        <div class="rec-time" id="recTime">00:00:00</div>
-        <div class="rec-meta" id="recMeta">AXON BODY 3 · --.--.---- --:--:--</div>
+<!-- ===== ЧАТ СОТРУДНИКОВ ===== -->
+<div class="float-widget chat" id="chatWidget">
+    <div class="fw-header" onclick="toggleWidget('chatWidget')">
+        <i class="fas fa-comments"></i> Чат сотрудников
+        <span class="fw-badge" id="chatBadge">0</span>
+        <span class="fw-toggle">▼</span>
+    </div>
+    <div class="fw-body">
+        <div class="fw-messages" id="chatMessages"></div>
+        <div class="fw-input">
+            <input type="text" id="chatInput" placeholder="Сообщение..." onkeydown="if(event.key==='Enter') sendChatMsg()" />
+            <button onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+</div>
+
+<!-- ===== ROBOCOP ===== -->
+<div class="float-widget robocop" id="robocopWidget">
+    <div class="fw-header" onclick="toggleWidget('robocopWidget')">
+        <i class="fas fa-robot"></i> RoboCop
+        <span class="fw-badge">AI</span>
+        <span class="fw-toggle">▼</span>
+    </div>
+    <div class="fw-body">
+        <div class="fw-messages" id="robocopMessages"></div>
+        <div class="robocop-quick">
+            <button onclick="askRobocop('розыск')">🔍 Розыск</button>
+            <button onclick="askRobocop('правила')">📜 Правила</button>
+            <button onclick="askRobocop('статистика')">📊 Статистика</button>
+            <button onclick="askRobocop('помощь')">❓ Помощь</button>
+        </div>
+        <div class="fw-input">
+            <input type="text" id="robocopInput" placeholder="Спросите RoboCop..." onkeydown="if(event.key==='Enter') sendRobocopMsg()" />
+            <button onclick="sendRobocopMsg()"><i class="fas fa-paper-plane"></i></button>
+        </div>
     </div>
 </div>
 
@@ -1275,7 +1443,7 @@
     </div>
 </div>
 
-<!-- Модалка редактирования сотрудника -->
+<!-- Модалка редактирования сотрудника (админ) -->
 <div class="modal-overlay hidden" id="editUserModal">
     <div class="modal" style="border-color: var(--neon-cyan);">
         <h3><i class="fas fa-user-edit"></i> Редактировать сотрудника</h3>
@@ -1318,6 +1486,43 @@
     </div>
 </div>
 
+<!-- Модалка СВОЕГО профиля (для смены аватарки) -->
+<div class="modal-overlay hidden" id="myProfileModal">
+    <div class="modal" style="border-color: var(--neon-cyan);">
+        <h3><i class="fas fa-user-circle"></i> Мой профиль</h3>
+        <form id="myProfileForm">
+            <div class="form-group" style="text-align:center;">
+                <div id="myProfilePreview" style="
+                    width:120px; height:120px;
+                    border-radius:50%;
+                    background:linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+                    display:flex; align-items:center; justify-content:center;
+                    font-family:'Orbitron',sans-serif; font-size:3rem; font-weight:900; color:#000;
+                    margin:0 auto 10px;
+                    background-size:cover; background-position:center;
+                    border:3px solid var(--neon-cyan);">?</div>
+            </div>
+
+            <div class="form-group">
+                <label>Ваш позывной</label>
+                <input type="text" id="myProfileName" disabled style="opacity:0.6; cursor:not-allowed;" />
+                <small style="color:var(--text-dim); font-size:0.7rem;">Никнейм может менять только администратор</small>
+            </div>
+
+            <div class="form-group">
+                <label for="myAvatarFile">Сменить аватарку</label>
+                <input type="file" id="myAvatarFile" accept="image/*" />
+                <small style="color:var(--text-dim); font-size:0.7rem;">JPG/PNG, до 500 КБ</small>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeMyProfileModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -1339,10 +1544,9 @@
         setWeaponLog(w) { localStorage.setItem('ncpd_weapon_log', JSON.stringify(w)); }
     };
 
-    // Отдельная база для записей бодикамер (base64 может быть тяжелой — храним отдельно)
-    const RecDB = {
-        get() { return JSON.parse(localStorage.getItem('ncpd_recordings')) || []; },
-        set(r) { localStorage.setItem('ncpd_recordings', JSON.stringify(r)); }
+    const ChatDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_chat')) || []; },
+        set(m) { localStorage.setItem('ncpd_chat', JSON.stringify(m)); }
     };
 
     function initAdmin() {
@@ -1427,6 +1631,17 @@
         setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
     };
 
+    // ================== ЭСКЕЙП ==================
+    function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+    }
+
+    function getInitials(name) {
+        return name ? name.charAt(0).toUpperCase() : '?';
+    }
+
     // ================== ОПОВЕЩЕНИЯ ==================
     const AnnounceDB = {
         get() { return JSON.parse(localStorage.getItem('ncpd_announce')) || []; },
@@ -1460,12 +1675,6 @@
         showToast('Оповещение отправлено', 'Все сотрудники увидят его', 'success');
     };
 
-    function escapeHtml(text) {
-        const d = document.createElement('div');
-        d.textContent = text;
-        return d.innerHTML;
-    }
-
     function renderAnnounce() {
         const list = AnnounceDB.get();
         const container = document.getElementById('announceList');
@@ -1493,141 +1702,260 @@
 
     setInterval(renderAnnounce, 5000);
 
-    // ================== БОДИКАМЕРА ==================
-    let mediaRecorder = null;
-    let recordedChunks = [];
-    let recStartTime = null;
-    let recInterval = null;
-    let bodycamActive = false;
+    // ================== ЧАТ ==================
+    let chatLastCount = 0;
 
-    function fmtTime(ms) {
-        const totalSec = Math.floor(ms / 1000);
-        const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
-        const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
-        const s = String(totalSec % 60).padStart(2, '0');
-        return `${h}:${m}:${s}`;
+    function renderChat() {
+        const msgs = ChatDB.get();
+        const container = document.getElementById('chatMessages');
+        const badge = document.getElementById('chatBadge');
+
+        if (msgs.length === 0) {
+            container.innerHTML = '<div style="text-align:center; opacity:0.4; padding:20px; font-family:\'Share Tech Mono\'; font-size:0.75rem;">Пока нет сообщений</div>';
+        } else {
+            container.innerHTML = msgs.map(m => {
+                const isMine = currentUser && m.authorId === currentUser.id;
+                return `
+                <div class="fw-msg" style="${isMine ? 'flex-direction:row-reverse;' : ''}">
+                    <div class="msg-avatar" style="${m.avatar ? 'background-image:url(' + m.avatar + ');' : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
+                    <div class="msg-content" style="${isMine ? 'text-align:right;' : ''}">
+                        <div class="msg-author" style="${isMine ? 'color:var(--neon-green);' : ''}">${escapeHtml(m.author)} <span style="opacity:0.5; font-weight:400;">· ${escapeHtml(m.rank || '')}</span></div>
+                        <div class="msg-text">${escapeHtml(m.text)}</div>
+                        <div class="msg-time">${escapeHtml(m.date)}</div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+
+        // Автоскролл
+        container.scrollTop = container.scrollHeight;
+
+        // Бейдж непрочитанных
+        if (msgs.length > chatLastCount) {
+            const unread = msgs.length - chatLastCount;
+            badge.textContent = unread;
+            badge.style.background = 'var(--neon-pink)';
+            badge.style.color = '#fff';
+        } else {
+            badge.textContent = msgs.length;
+            badge.style.background = 'var(--neon-cyan)';
+        }
     }
 
-    window.toggleBodycam = async function() {
-        const btn = document.getElementById('bodycamBtn');
-        const indicator = document.getElementById('recIndicator');
+    window.sendChatMsg = function() {
+        const input = document.getElementById('chatInput');
+        const text = input.value.trim();
+        if (!text || !currentUser) return;
 
-        if (!bodycamActive) {
-            try {
-                // Запрос на запись экрана
-                const stream = await navigator.mediaDevices.getDisplayMedia({
-                    video: { frameRate: { ideal: 30 } },
-                    audio: true
-                });
+        const msgs = ChatDB.get();
+        msgs.push({
+            id: Date.now(),
+            author: currentUser.username,
+            authorId: currentUser.id,
+            rank: currentUser.rank,
+            avatar: currentUser.avatar || null,
+            text: text,
+            date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
+        });
+        ChatDB.set(msgs);
+        input.value = '';
+        chatLastCount = msgs.length;
+        renderChat();
+    };
 
-                recordedChunks = [];
-                mediaRecorder = new MediaRecorder(stream, {
-                    mimeType: MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm'
-                });
+    setInterval(renderChat, 3000);
 
-                mediaRecorder.ondataavailable = (e) => {
-                    if (e.data && e.data.size > 0) recordedChunks.push(e.data);
-                };
+    // ================== ВИДЖЕТЫ (свернуть/развернуть) ==================
+    window.toggleWidget = function(id) {
+        const w = document.getElementById(id);
+        w.classList.toggle('collapsed');
+        const toggle = w.querySelector('.fw-toggle');
+        toggle.textContent = w.classList.contains('collapsed') ? '▲' : '▼';
+        if (id === 'chatWidget' && !w.classList.contains('collapsed')) {
+            chatLastCount = ChatDB.get().length;
+            renderChat();
+        }
+    };
 
-                mediaRecorder.onstop = async () => {
-                    // Сохраняем запись
-                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
-                    const reader = new FileReader();
-                    reader.onload = () => {
-                        const base64 = reader.result;
+    // ================== ROBOCOP ==================
+    const ROBOCOP_KB = {
+        'розыск': () => {
+            const list = wantedList.slice(0, 3).map(w => `${w.name} (${w.id}) — ${w.status}`).join('\n');
+            return `🔍 Активные ордера:\n\n${list}\n\nВсего в базе: ${wantedList.length}`;
+        },
+        'правила': () => `📜 Правила NCPD:\n\n1. Уважение к сотрудникам\n2. Соблюдение протоколов\n3. Не разглашать данные\n4. Применять оружие только при угрозе\n5. Докладывать о нарушениях\n\nПолные правила — в брифинге.` ,
+        'статистика': () => {
+            const users = DB.getUsers();
+            const reports = DB.getReports();
+            return `📊 Статистика NCPD:\n\n👮 Сотрудников: ${users.length}\n🚨 Ордеров: ${wantedList.length}\n📝 Отчётов: ${reports.length}\n🔫 Оружия: ${weaponsList.length}`;
+        },
+        'помощь': () => `🤖 Я RoboCop — ИИ-помощник NCPD.\n\nЧто я умею:\n• «розыск» — показать ордера\n• «правила» — свод правил\n• «статистика» — статистика департамента\n• «помощь» — это сообщение\n\nМожно писать обычные вопросы — я отвечу по базе.`,
+        'привет': () => `Здравствуйте, ${currentUser ? currentUser.username : 'офицер'}. RoboCop на связи. Чем могу помочь?`,
+        'кто ты': () => `Я RoboCop — искусственный интеллект NCPD. Помогаю сотрудникам: ищу информацию в базе, отвечаю на вопросы, слежу за порядком.`,
+        'погода': () => `🌃 Найт-Сити: облачно, смог. Температура +18°C. Рекомендую быть осторожным — преступность высокая.`,
+        'время': () => `⏰ Текущее время МСК: ${document.getElementById('clock').textContent}\nДата: ${document.getElementById('dateDisplay').textContent}`,
+        'дежурство': () => `📅 Смена: ${document.getElementById('shiftStatus').textContent}\nВремя на смене: ${document.getElementById('shiftTimer').textContent}`,
+        'discord': () => `💬 Наш Discord: свяжитесь с администрацией через внутренние каналы NCPD.`,
+        'доступ': () => `🔒 Доступ: ваш ID — ${currentUser ? currentUser.id : '—'}\nЗвание — ${currentUser ? currentUser.rank : '—'}\nПрава — ${currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin') ? 'АДМИН' : (currentUser && currentUser.isSupervisor ? 'СУПЕРВАЙЗЕР' : 'СТАНДАРТ')}`
+    };
 
-                        const recs = RecDB.get();
-                        recs.push({
-                            id: Date.now(),
-                            operator: currentUser.username,
-                            operatorId: currentUser.id,
-                            duration: fmtTime(Date.now() - recStartTime),
-                            date: new Date().toLocaleString('ru-RU'),
-                            startTime: new Date(recStartTime).toLocaleString('ru-RU'),
-                            size: (blob.size / 1024 / 1024).toFixed(2) + ' МБ',
-                            data: base64
-                        });
-                        try {
-                            RecDB.set(recs);
-                            showToast('Запись сохранена', `Бодикамера ${currentUser.username}: ${fmtTime(Date.now() - recStartTime)}`, 'success');
-                        } catch (e) {
-                            // Если переполнение localStorage — удаляем старую запись
-                            const list = RecDB.get();
-                            if (list.length > 1) list.shift();
-                            try { RecDB.set(list); } catch(e2) {}
-                            showToast('Ошибка', 'Хранилище переполнено, старая запись удалена', 'danger');
-                        }
-                    };
-                    reader.readAsDataURL(blob);
+    function robocopReply(question) {
+        const q = question.toLowerCase().trim();
 
-                    // Останавливаем все треки
-                    stream.getTracks().forEach(t => t.stop());
-                };
+        for (const key in ROBOCOP_KB) {
+            if (q.includes(key)) return ROBOCOP_KB[key]();
+        }
 
-                mediaRecorder.start(1000);
-                bodycamActive = true;
-                recStartTime = Date.now();
+        // Умные ответы
+        if (q.includes('ордер') || q.includes('преступ') || q.includes('розыск')) return ROBOCOP_KB['розыск']();
+        if (q.includes('правил') || q.includes('закон')) return ROBOCOP_KB['правила']();
+        if (q.includes('стат') || q.includes('сколько')) return ROBOCOP_KB['статистика']();
+        if (q.includes('помощ') || q.includes('help')) return ROBOCOP_KB['помощь']();
+        if (q.includes('привет') || q.includes('hello') || q.includes('hi')) return ROBOCOP_KB['привет']();
+        if (q.includes('время') || q.includes('час')) return ROBOCOP_KB['время']();
+        if (q.includes('смена') || q.includes('дежурств')) return ROBOCOP_KB['дежурство']();
+        if (q.includes('кто ты') || q.includes('что ты')) return ROBOCOP_KB['кто ты']();
+        if (q.includes('доступ') || q.includes('права')) return ROBOCOP_KB['доступ']();
 
-                btn.classList.add('on');
-                btn.innerHTML = '<i class="fas fa-stop-circle"></i> ОСТАНОВИТЬ ЗАПИСЬ';
-                indicator.classList.remove('hidden');
+        // Дефолт
+        return `Запрос: «${question}»\n\nЯ не нашёл точного ответа. Попробуйте:\n• розыск\n• правила\n• статистика\n• помощь\n\nИли свяжитесь с администрацией.`;
+    }
 
-                // Обновление таймера + метаданных
-                recInterval = setInterval(() => {
-                    const elapsed = Date.now() - recStartTime;
-                    document.getElementById('recTime').textContent = fmtTime(elapsed);
-                    const d = new Date(recStartTime);
-                    document.getElementById('recMeta').textContent =
-                        `AXON BODY 3 · ${d.toLocaleDateString('ru-RU')} ${d.toLocaleTimeString('ru-RU')}`;
-                }, 1000);
+    function renderRobocop() {
+        const container = document.getElementById('robocopMessages');
+        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
 
-                showToast('Бодикамера ВКЛ', 'Запись экрана начата', 'danger');
-            } catch (e) {
-                showToast('Ошибка', 'Запись отменена или не поддерживается', 'danger');
-            }
+        if (history.length === 0) {
+            // Приветственное сообщение
+            history.push({
+                author: 'RoboCop',
+                text: 'Здравствуйте. Я RoboCop — ИИ-помощник NCPD. Готов помочь. Введите "помощь" для списка команд.',
+                date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
+                isBot: true
+            });
+            localStorage.setItem('ncpd_robocop', JSON.stringify(history));
+        }
+
+        container.innerHTML = history.map(m => `
+            <div class="fw-msg ${m.isBot ? 'robocop-msg' : ''}">
+                <div class="msg-avatar">${m.isBot ? '<i class="fas fa-robot" style="font-size:0.8rem;"></i>' : getInitials(m.author)}</div>
+                <div class="msg-content">
+                    <div class="msg-author">${escapeHtml(m.author)}</div>
+                    <div class="msg-text">${escapeHtml(m.text).replace(/\n/g, '<br>')}</div>
+                    <div class="msg-time">${escapeHtml(m.date)}</div>
+                </div>
+            </div>
+        `).join('');
+
+        container.scrollTop = container.scrollHeight;
+    }
+
+    window.askRobocop = function(question) {
+        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
+        const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+
+        history.push({
+            author: currentUser ? currentUser.username : 'Офицер',
+            text: question,
+            date: time,
+            isBot: false
+        });
+
+        const reply = robocopReply(question);
+        history.push({
+            author: 'RoboCop',
+            text: reply,
+            date: time,
+            isBot: true
+        });
+
+        localStorage.setItem('ncpd_robocop', JSON.stringify(history.slice(-50)));
+        renderRobocop();
+    };
+
+    window.sendRobocopMsg = function() {
+        const input = document.getElementById('robocopInput');
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        askRobocop(text);
+    };
+
+    // ================== СВОЙ ПРОФИЛЬ ==================
+    let myAvatarData = null;
+
+    window.openMyProfileModal = function() {
+        if (!currentUser) return;
+        myAvatarData = currentUser.avatar || null;
+        document.getElementById('myProfileName').value = currentUser.username;
+
+        const preview = document.getElementById('myProfilePreview');
+        if (currentUser.avatar) {
+            preview.style.backgroundImage = `url(${currentUser.avatar})`;
+            preview.textContent = '';
         } else {
-            // Остановка
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
-                mediaRecorder.stop();
-            }
-            bodycamActive = false;
-            btn.classList.remove('on');
-            btn.innerHTML = '<i class="fas fa-video"></i> БОДИКАМЕРА';
-            indicator.classList.add('hidden');
-            if (recInterval) { clearInterval(recInterval); recInterval = null; }
-            showToast('Бодикамера ВЫКЛ', 'Запись остановлена и сохранена', 'info');
+            preview.style.backgroundImage = 'none';
+            preview.textContent = getInitials(currentUser.username);
         }
+
+        document.getElementById('myProfileModal').classList.remove('hidden');
     };
 
-    window.deleteRecording = function(id) {
-        if (!confirm('Удалить запись навсегда?')) return;
-        let recs = RecDB.get();
-        recs = recs.filter(r => r.id !== id);
-        RecDB.set(recs);
-        showToast('Запись удалена', `ID: ${id}`, 'danger');
-        renderSection('recordings');
+    window.closeMyProfileModal = function() {
+        document.getElementById('myProfileModal').classList.add('hidden');
+        myAvatarData = null;
     };
 
-    window.playRecording = function(id) {
-        const rec = RecDB.get().find(r => r.id === id);
-        if (!rec || !rec.data) {
-            showToast('Ошибка', 'Запись не найдена', 'danger');
-            return;
+    document.getElementById('myAvatarFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            myAvatarData = ev.target.result;
+            const preview = document.getElementById('myProfilePreview');
+            preview.style.backgroundImage = `url(${myAvatarData})`;
+            preview.textContent = '';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('myProfileForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!currentUser) return;
+
+        const users = DB.getUsers();
+        const user = users.find(u => u.id === currentUser.id);
+        if (!user) return;
+
+        if (myAvatarData) user.avatar = myAvatarData;
+        DB.setUsers(users);
+
+        currentUser = user;
+        DB.setCurrent(user);
+
+        // Обновление UI
+        updateTopProfile();
+
+        showToast('Профиль обновлён', 'Аватарка сохранена', 'success');
+        closeMyProfileModal();
+        renderChat();
+        renderSection(currentSection);
+    });
+
+    function updateTopProfile() {
+        if (!currentUser) return;
+        const avatar = document.getElementById('topAvatar');
+        if (currentUser.avatar) {
+            avatar.style.backgroundImage = `url(${currentUser.avatar})`;
+            avatar.textContent = '';
+        } else {
+            avatar.style.backgroundImage = 'none';
+            avatar.textContent = getInitials(currentUser.username);
         }
-        // Открываем в новом окне
-        const w = window.open('', '_blank');
-        w.document.write(`
-            <html><head><title>AXON BODY 3 · ${rec.operator}</title>
-            <style>body{background:#000;color:#0ff;font-family:monospace;text-align:center;padding:20px;}
-            video{max-width:100%;border:2px solid #ff0055;box-shadow:0 0 30px #ff0055;}
-            h2{color:#00f0ff;letter-spacing:3px;}</style></head>
-            <body>
-                <h2>AXON BODY 3 · ${rec.operator} (${rec.operatorId})</h2>
-                <p>${rec.startTime} · ${rec.duration} · ${rec.size}</p>
-                <video controls autoplay src="${rec.data}"></video>
-            </body></html>
-        `);
-    };
+        document.getElementById('topName').textContent = currentUser.username;
+        document.getElementById('topRank').textContent = currentUser.rank || 'Офицер';
+    }
 
     // ================== АВТОРИЗАЦИЯ ==================
     const authScreen = document.getElementById('authScreen');
@@ -1709,16 +2037,15 @@
     function openApp() {
         authScreen.classList.add('hidden');
         app.classList.add('active');
-        document.getElementById('opName').textContent = currentUser.username;
+        updateTopProfile();
         updatePermissionsUI();
         updateAnnounceUI();
+        renderChat();
+        renderRobocop();
         switchSection('dashboard');
     }
 
     window.logout = function() {
-        if (bodycamActive) {
-            if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
-        }
         if (!confirm('Завершить сессию?')) return;
         currentUser = null;
         DB.setCurrent(null);
@@ -1968,7 +2295,7 @@
         renderSection('roles');
     };
 
-    // ================== РЕДАКТИРОВАНИЕ СОТРУДНИКА ==================
+    // ================== РЕДАКТИРОВАНИЕ СОТРУДНИКА (АДМИН) ==================
     let editAvatarData = null;
 
     window.openEditUserModal = function(id) {
@@ -1986,7 +2313,7 @@
             preview.textContent = '';
         } else {
             preview.style.backgroundImage = 'none';
-            preview.textContent = user.username.charAt(0).toUpperCase();
+            preview.textContent = getInitials(user.username);
         }
 
         const roleSelect = document.getElementById('editRole');
@@ -2006,7 +2333,7 @@
         const file = e.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-        reader.onload = function(ev) {
+        reader.onload = (ev) => {
             editAvatarData = ev.target.result;
             const preview = document.getElementById('editUserPreview');
             preview.style.backgroundImage = `url(${editAvatarData})`;
@@ -2041,7 +2368,7 @@
         if (currentUser && currentUser.id === id) {
             currentUser = user;
             DB.setCurrent(user);
-            document.getElementById('opName').textContent = currentUser.username;
+            updateTopProfile();
         }
 
         showToast('Сотрудник обновлён', `${newName} · ${newRole}`, 'success');
@@ -2085,8 +2412,8 @@
                             <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Применений оружия</div>
                         </div>
                         <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
-                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-pink); font-weight:900;">${RecDB.get().length}</div>
-                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Записей бодикамер</div>
+                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-pink); font-weight:900;">${ChatDB.get().length}</div>
+                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Сообщений в чате</div>
                         </div>
                     </div>
                 </div>
@@ -2186,41 +2513,6 @@
             `;
         }
 
-        else if (section === 'recordings') {
-            const recs = RecDB.get();
-            let rows = recs.slice().reverse().map(r => `
-                <div class="rec-row">
-                    <div class="rec-thumb"><i class="fas fa-video"></i></div>
-                    <div class="rec-info-block">
-                        <div class="rec-title">AXON BODY 3 · ${escapeHtml(r.operator)}</div>
-                        <div class="rec-meta">
-                            ID: ${escapeHtml(r.operatorId)} · Начало: ${escapeHtml(r.startTime)}<br>
-                            Длительность: ${escapeHtml(r.duration)} · Размер: ${escapeHtml(r.size)}
-                        </div>
-                    </div>
-                    <div class="emp-actions">
-                        <button class="btn btn-cyan" style="padding:6px 14px; font-size:0.7rem;" onclick="playRecording(${r.id})">
-                            <i class="fas fa-play"></i> Смотреть
-                        </button>
-                        <button class="btn btn-red" style="padding:6px 14px; font-size:0.7rem;" onclick="deleteRecording(${r.id})">
-                            <i class="fas fa-trash"></i> Удалить
-                        </button>
-                    </div>
-                </div>
-            `).join('') || '<div class="empty-state"><div class="icon">📼</div><p>Записей бодикамер нет</p></div>';
-
-            content.innerHTML = `
-                <div class="content-header">
-                    <h1>ЗАПИСИ БОДИКАМЕР</h1>
-                    <div class="breadcrumb">// NCPD · Супервайзер · <span>AXON BODY 3</span></div>
-                </div>
-                <div class="panel pink">
-                    <div class="panel-title"><i class="fas fa-video"></i> Всего записей: ${recs.length}</div>
-                    ${rows}
-                </div>
-            `;
-        }
-
         else if (section === 'reports') {
             const reports = DB.getReports();
             let rows = reports.slice().reverse().map(r => `
@@ -2262,7 +2554,7 @@
                 <div class="employee-row">
                     ${u.avatar
                         ? `<div class="emp-avatar-img" style="background-image:url(${u.avatar});"></div>`
-                        : `<div class="emp-avatar">${escapeHtml(u.username.charAt(0).toUpperCase())}</div>`
+                        : `<div class="emp-avatar">${escapeHtml(getInitials(u.username))}</div>`
                     }
                     <div class="emp-info">
                         <div class="emp-name">${escapeHtml(u.username)} ${isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
@@ -2377,7 +2669,7 @@
         if (currentUser && currentUser.id === oldId) {
             currentUser = user;
             DB.setCurrent(user);
-            document.getElementById('opName').textContent = currentUser.username;
+            updateTopProfile();
         }
         showToast('ID изменён', `${user.username}: ${newId}`, 'info');
         renderSection('employees');
