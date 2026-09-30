@@ -279,7 +279,7 @@
         .tarkov-display .display-item .d-value.red { color: var(--neon-red); text-shadow: 0 0 8px var(--neon-red); }
         .tarkov-display .display-item .d-value.yellow { color: var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); }
 
-        .top-actions { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
+        .top-actions { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; align-items: center; }
         .action-btn {
             display: flex;
             align-items: center;
@@ -334,7 +334,6 @@
         }
         .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
 
-        /* Профиль / аватарка в шапке */
         .top-profile {
             display: flex;
             align-items: center;
@@ -430,8 +429,17 @@
             box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
         }
         .sidebar-item i { width: 18px; text-align: center; font-size: 0.9rem; }
+        .sidebar-item .badge-count {
+            margin-left: auto;
+            background: var(--neon-pink);
+            color: #fff;
+            font-size: 0.6rem;
+            padding: 1px 7px;
+            border-radius: 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+        }
 
-        /* Оповещения */
         .announce-box {
             border-top: 1px solid var(--border);
             padding: 14px 16px 16px;
@@ -489,7 +497,7 @@
             box-shadow: 0 0 15px var(--neon-cyan);
         }
         #announceList {
-            max-height: 220px;
+            max-height: 200px;
             overflow-y: auto;
             font-family: 'Share Tech Mono', monospace;
             font-size: 0.7rem;
@@ -532,7 +540,6 @@
             font-size: 0.7rem;
         }
 
-        /* Контент */
         .content { padding: 24px 28px; overflow-x: hidden; }
         .content-header {
             margin-bottom: 24px;
@@ -912,25 +919,168 @@
         .add-btn.purple { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(179, 0, 255, 0.08); }
         .add-btn.purple:hover { background: var(--neon-purple); color: #000; box-shadow: 0 0 25px var(--neon-purple); }
 
-        /* ================== ПЛАВАЮЩИЕ ВИДЖЕТЫ ================== */
+        /* ============ ЧАТ (встроенный в content) ============ */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            overflow: hidden;
+            height: calc(100vh - 260px);
+            min-height: 400px;
+            position: relative;
+        }
+        .chat-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 50px; height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .chat-messages::-webkit-scrollbar { width: 6px; }
+        .chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+        .chat-msg {
+            display: flex;
+            gap: 12px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+        .chat-msg.mine {
+            flex-direction: row-reverse;
+        }
+        .chat-msg .cm-avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 0.9rem;
+            color: #000;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            background-size: cover;
+            background-position: center;
+            border: 2px solid var(--border);
+        }
+        .chat-msg.mine .cm-avatar {
+            background: linear-gradient(135deg, var(--neon-green), var(--neon-cyan));
+        }
+        .chat-msg .cm-content {
+            flex: 1;
+            min-width: 0;
+            background: var(--bg-panel-2);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .chat-msg.mine .cm-content {
+            background: rgba(0, 255, 136, 0.05);
+            border-color: rgba(0, 255, 136, 0.2);
+            text-align: right;
+        }
+        .chat-msg .cm-author {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        .chat-msg.mine .cm-author { color: var(--neon-green); }
+        .chat-msg .cm-author .cm-rank {
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 400;
+            color: var(--text-dim);
+            font-size: 0.65rem;
+            text-transform: uppercase;
+        }
+        .chat-msg .cm-text {
+            color: var(--text);
+            word-wrap: break-word;
+        }
+        .chat-msg .cm-time {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.65rem;
+            color: var(--text-dim);
+            margin-top: 4px;
+        }
+
+        .chat-input-area {
+            display: flex;
+            gap: 10px;
+            padding: 14px;
+            border-top: 1px solid var(--border);
+            background: var(--bg-dark);
+            flex-shrink: 0;
+        }
+        .chat-input-area input {
+            flex: 1;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 4px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .chat-input-area input:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+        .chat-input-area button {
+            background: var(--neon-cyan);
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .chat-input-area button:hover {
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* ================== ROBOCOP ================== */
         .float-widget {
             position: fixed;
             bottom: 20px;
+            right: 20px;
             z-index: 9990;
             background: var(--bg-panel);
-            border: 2px solid var(--neon-cyan);
+            border: 2px solid var(--neon-orange);
             border-radius: 6px;
-            box-shadow: 0 0 30px rgba(0, 240, 255, 0.3);
+            box-shadow: 0 0 30px rgba(255, 136, 0, 0.3);
             font-family: 'Rajdhani', sans-serif;
             transition: 0.25s;
             display: flex;
             flex-direction: column;
-            max-height: 480px;
-            width: 320px;
+            max-height: 500px;
+            width: 340px;
             overflow: hidden;
         }
-        .float-widget.chat { right: 360px; }
-        .float-widget.robocop { right: 20px; }
         .float-widget.collapsed { max-height: 42px; }
 
         .float-widget .fw-header {
@@ -947,20 +1097,18 @@
             font-weight: 700;
             letter-spacing: 1.5px;
             text-transform: uppercase;
-            color: var(--neon-cyan);
+            color: var(--neon-orange);
             flex-shrink: 0;
         }
-        .float-widget.robocop .fw-header { color: var(--neon-orange); }
         .float-widget .fw-header .fw-badge {
             margin-left: auto;
             font-size: 0.6rem;
             padding: 2px 8px;
             border-radius: 10px;
-            background: var(--neon-cyan);
+            background: var(--neon-orange);
             color: #000;
             font-weight: 900;
         }
-        .float-widget.robocop .fw-header .fw-badge { background: var(--neon-orange); }
         .float-widget .fw-header .fw-toggle {
             font-size: 0.8rem;
             opacity: 0.7;
@@ -981,13 +1129,13 @@
             flex-direction: column;
             gap: 8px;
             min-height: 250px;
-            max-height: 350px;
+            max-height: 340px;
             background: rgba(0, 0, 0, 0.3);
         }
         .fw-messages::-webkit-scrollbar { width: 5px; }
         .fw-messages::-webkit-scrollbar-track { background: transparent; }
         .fw-messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        .fw-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+        .fw-messages::-webkit-scrollbar-thumb:hover { background: var(--neon-orange); }
 
         .fw-msg {
             display: flex;
@@ -1055,17 +1203,13 @@
         }
         .fw-input input:focus {
             outline: none;
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
-        }
-        .float-widget.robocop .fw-input input:focus {
             border-color: var(--neon-orange);
             box-shadow: 0 0 10px rgba(255, 136, 0, 0.3);
         }
         .fw-input button {
             background: transparent;
-            border: 1px solid var(--neon-cyan);
-            color: var(--neon-cyan);
+            border: 1px solid var(--neon-orange);
+            color: var(--neon-orange);
             padding: 6px 10px;
             border-radius: 3px;
             cursor: pointer;
@@ -1073,21 +1217,11 @@
             font-size: 0.8rem;
         }
         .fw-input button:hover {
-            background: var(--neon-cyan);
-            color: #000;
-            box-shadow: 0 0 12px var(--neon-cyan);
-        }
-        .float-widget.robocop .fw-input button {
-            border-color: var(--neon-orange);
-            color: var(--neon-orange);
-        }
-        .float-widget.robocop .fw-input button:hover {
             background: var(--neon-orange);
             color: #000;
             box-shadow: 0 0 12px var(--neon-orange);
         }
 
-        /* RoboCop быстрые команды */
         .robocop-quick {
             padding: 8px;
             display: flex;
@@ -1124,10 +1258,8 @@
             .top-bar { padding: 8px 12px; gap: 10px; }
             .top-actions { width: 100%; margin-left: 0; }
             .content { padding: 16px; }
-            .float-widget { width: calc(100vw - 24px); right: 12px !important; left: 12px; }
-            .float-widget.chat { bottom: 12px; }
-            .float-widget.robocop { bottom: 12px; }
-            .float-widget.chat.collapsed + .float-widget.robocop { bottom: 62px; }
+            .float-widget { width: calc(100vw - 24px); right: 12px; left: 12px; }
+            .chat-container { height: calc(100vh - 320px); }
         }
         @media (max-width: 600px) {
             .tarkov-display { flex-wrap: wrap; }
@@ -1136,6 +1268,7 @@
             .data-table th, .data-table td { padding: 7px 8px; }
             .employee-row { padding: 10px 12px; }
             .action-btn { font-size: 0.68rem; padding: 7px 10px; }
+            .top-profile .tp-info { display: none; }
         }
     </style>
 </head>
@@ -1252,6 +1385,10 @@
                 <div class="sidebar-item" data-section="weapons" onclick="switchSection('weapons')">
                     <i class="fas fa-gun"></i> Реестр оружия
                 </div>
+                <div class="sidebar-item" data-section="chat" onclick="switchSection('chat')">
+                    <i class="fas fa-comments"></i> Чат сотрудников
+                    <span class="badge-count" id="chatBadgeSidebar">0</span>
+                </div>
 
                 <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
                 <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
@@ -1287,24 +1424,8 @@
     </div>
 </div>
 
-<!-- ===== ЧАТ СОТРУДНИКОВ ===== -->
-<div class="float-widget chat" id="chatWidget">
-    <div class="fw-header" onclick="toggleWidget('chatWidget')">
-        <i class="fas fa-comments"></i> Чат сотрудников
-        <span class="fw-badge" id="chatBadge">0</span>
-        <span class="fw-toggle">▼</span>
-    </div>
-    <div class="fw-body">
-        <div class="fw-messages" id="chatMessages"></div>
-        <div class="fw-input">
-            <input type="text" id="chatInput" placeholder="Сообщение..." onkeydown="if(event.key==='Enter') sendChatMsg()" />
-            <button onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i></button>
-        </div>
-    </div>
-</div>
-
-<!-- ===== ROBOCOP ===== -->
-<div class="float-widget robocop" id="robocopWidget">
+<!-- ===== ROBOCOP (плавающий) ===== -->
+<div class="float-widget" id="robocopWidget">
     <div class="fw-header" onclick="toggleWidget('robocopWidget')">
         <i class="fas fa-robot"></i> RoboCop
         <span class="fw-badge">AI</span>
@@ -1486,7 +1607,7 @@
     </div>
 </div>
 
-<!-- Модалка СВОЕГО профиля (для смены аватарки) -->
+<!-- Модалка СВОЕГО профиля -->
 <div class="modal-overlay hidden" id="myProfileModal">
     <div class="modal" style="border-color: var(--neon-cyan);">
         <h3><i class="fas fa-user-circle"></i> Мой профиль</h3>
@@ -1702,49 +1823,55 @@
 
     setInterval(renderAnnounce, 5000);
 
-    // ================== ЧАТ ==================
-    let chatLastCount = 0;
+    // ================== ЧАТ (сохраняется, в сайдбаре) ==================
+    let chatLastRead = 0;
 
-    function renderChat() {
+    function renderChatSection() {
+        const content = document.getElementById('content');
         const msgs = ChatDB.get();
-        const container = document.getElementById('chatMessages');
-        const badge = document.getElementById('chatBadge');
 
-        if (msgs.length === 0) {
-            container.innerHTML = '<div style="text-align:center; opacity:0.4; padding:20px; font-family:\'Share Tech Mono\'; font-size:0.75rem;">Пока нет сообщений</div>';
-        } else {
-            container.innerHTML = msgs.map(m => {
+        let messagesHtml = msgs.length === 0
+            ? '<div style="text-align:center; padding:40px 20px; color:var(--text-dim); font-family:\'Share Tech Mono\'; font-size:0.85rem;"><i class="fas fa-comments" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Пока нет сообщений.<br>Напишите первое сообщение!</div>'
+            : msgs.map(m => {
                 const isMine = currentUser && m.authorId === currentUser.id;
                 return `
-                <div class="fw-msg" style="${isMine ? 'flex-direction:row-reverse;' : ''}">
-                    <div class="msg-avatar" style="${m.avatar ? 'background-image:url(' + m.avatar + ');' : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
-                    <div class="msg-content" style="${isMine ? 'text-align:right;' : ''}">
-                        <div class="msg-author" style="${isMine ? 'color:var(--neon-green);' : ''}">${escapeHtml(m.author)} <span style="opacity:0.5; font-weight:400;">· ${escapeHtml(m.rank || '')}</span></div>
-                        <div class="msg-text">${escapeHtml(m.text)}</div>
-                        <div class="msg-time">${escapeHtml(m.date)}</div>
+                <div class="chat-msg ${isMine ? 'mine' : ''}">
+                    <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
+                    <div class="cm-content">
+                        <div class="cm-author">${escapeHtml(m.author)} <span class="cm-rank">· ${escapeHtml(m.rank || '')}</span></div>
+                        <div class="cm-text">${escapeHtml(m.text)}</div>
+                        <div class="cm-time">${escapeHtml(m.date)}</div>
                     </div>
                 </div>
                 `;
             }).join('');
-        }
+
+        content.innerHTML = `
+            <div class="content-header">
+                <h1>ЧАТ СОТРУДНИКОВ</h1>
+                <div class="breadcrumb">// NCPD · Терминал · <span>Общий канал</span></div>
+            </div>
+            <div class="chat-container">
+                <div class="chat-messages" id="chatMessages">${messagesHtml}</div>
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Введите сообщение..." onkeydown="if(event.key==='Enter') sendChatMsg()" />
+                    <button onclick="sendChatMsg()"><i class="fas fa-paper-plane"></i> Отправить</button>
+                </div>
+            </div>
+        `;
 
         // Автоскролл
-        container.scrollTop = container.scrollHeight;
+        const cm = document.getElementById('chatMessages');
+        if (cm) cm.scrollTop = cm.scrollHeight;
 
-        // Бейдж непрочитанных
-        if (msgs.length > chatLastCount) {
-            const unread = msgs.length - chatLastCount;
-            badge.textContent = unread;
-            badge.style.background = 'var(--neon-pink)';
-            badge.style.color = '#fff';
-        } else {
-            badge.textContent = msgs.length;
-            badge.style.background = 'var(--neon-cyan)';
-        }
+        // Обновляем бейдж непрочитанных
+        chatLastRead = msgs.length;
+        updateChatBadge();
     }
 
     window.sendChatMsg = function() {
         const input = document.getElementById('chatInput');
+        if (!input) return;
         const text = input.value.trim();
         if (!text || !currentUser) return;
 
@@ -1760,23 +1887,35 @@
         });
         ChatDB.set(msgs);
         input.value = '';
-        chatLastCount = msgs.length;
-        renderChat();
+        chatLastRead = msgs.length;
+        renderChatSection();
     };
 
-    setInterval(renderChat, 3000);
-
-    // ================== ВИДЖЕТЫ (свернуть/развернуть) ==================
-    window.toggleWidget = function(id) {
-        const w = document.getElementById(id);
-        w.classList.toggle('collapsed');
-        const toggle = w.querySelector('.fw-toggle');
-        toggle.textContent = w.classList.contains('collapsed') ? '▲' : '▼';
-        if (id === 'chatWidget' && !w.classList.contains('collapsed')) {
-            chatLastCount = ChatDB.get().length;
-            renderChat();
+    function updateChatBadge() {
+        const msgs = ChatDB.get();
+        const unread = msgs.length - chatLastRead;
+        const badge = document.getElementById('chatBadgeSidebar');
+        if (!badge) return;
+        if (unread > 0) {
+            badge.textContent = unread;
+            badge.style.display = 'inline-block';
+        } else {
+            badge.textContent = msgs.length;
         }
-    };
+    }
+
+    // Автообновление чата, если открыт
+    setInterval(() => {
+        if (currentSection === 'chat') {
+            const msgs = ChatDB.get();
+            const currentCount = document.querySelectorAll('#chatMessages .chat-msg').length;
+            if (msgs.length !== currentCount) {
+                renderChatSection();
+            }
+        } else {
+            updateChatBadge();
+        }
+    }, 3000);
 
     // ================== ROBOCOP ==================
     const ROBOCOP_KB = {
@@ -1784,7 +1923,7 @@
             const list = wantedList.slice(0, 3).map(w => `${w.name} (${w.id}) — ${w.status}`).join('\n');
             return `🔍 Активные ордера:\n\n${list}\n\nВсего в базе: ${wantedList.length}`;
         },
-        'правила': () => `📜 Правила NCPD:\n\n1. Уважение к сотрудникам\n2. Соблюдение протоколов\n3. Не разглашать данные\n4. Применять оружие только при угрозе\n5. Докладывать о нарушениях\n\nПолные правила — в брифинге.` ,
+        'правила': () => `📜 Правила NCPD:\n\n1. Уважение к сотрудникам\n2. Соблюдение протоколов\n3. Не разглашать данные\n4. Применять оружие только при угрозе\n5. Докладывать о нарушениях\n\nПолные правила — в брифинге.`,
         'статистика': () => {
             const users = DB.getUsers();
             const reports = DB.getReports();
@@ -1796,7 +1935,6 @@
         'погода': () => `🌃 Найт-Сити: облачно, смог. Температура +18°C. Рекомендую быть осторожным — преступность высокая.`,
         'время': () => `⏰ Текущее время МСК: ${document.getElementById('clock').textContent}\nДата: ${document.getElementById('dateDisplay').textContent}`,
         'дежурство': () => `📅 Смена: ${document.getElementById('shiftStatus').textContent}\nВремя на смене: ${document.getElementById('shiftTimer').textContent}`,
-        'discord': () => `💬 Наш Discord: свяжитесь с администрацией через внутренние каналы NCPD.`,
         'доступ': () => `🔒 Доступ: ваш ID — ${currentUser ? currentUser.id : '—'}\nЗвание — ${currentUser ? currentUser.rank : '—'}\nПрава — ${currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin') ? 'АДМИН' : (currentUser && currentUser.isSupervisor ? 'СУПЕРВАЙЗЕР' : 'СТАНДАРТ')}`
     };
 
@@ -1807,7 +1945,6 @@
             if (q.includes(key)) return ROBOCOP_KB[key]();
         }
 
-        // Умные ответы
         if (q.includes('ордер') || q.includes('преступ') || q.includes('розыск')) return ROBOCOP_KB['розыск']();
         if (q.includes('правил') || q.includes('закон')) return ROBOCOP_KB['правила']();
         if (q.includes('стат') || q.includes('сколько')) return ROBOCOP_KB['статистика']();
@@ -1818,7 +1955,6 @@
         if (q.includes('кто ты') || q.includes('что ты')) return ROBOCOP_KB['кто ты']();
         if (q.includes('доступ') || q.includes('права')) return ROBOCOP_KB['доступ']();
 
-        // Дефолт
         return `Запрос: «${question}»\n\nЯ не нашёл точного ответа. Попробуйте:\n• розыск\n• правила\n• статистика\n• помощь\n\nИли свяжитесь с администрацией.`;
     }
 
@@ -1827,7 +1963,6 @@
         const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
 
         if (history.length === 0) {
-            // Приветственное сообщение
             history.push({
                 author: 'RoboCop',
                 text: 'Здравствуйте. Я RoboCop — ИИ-помощник NCPD. Готов помочь. Введите "помощь" для списка команд.',
@@ -1882,6 +2017,14 @@
         askRobocop(text);
     };
 
+    // ================== ВИДЖЕТ ROBOCOP ==================
+    window.toggleWidget = function(id) {
+        const w = document.getElementById(id);
+        w.classList.toggle('collapsed');
+        const toggle = w.querySelector('.fw-toggle');
+        toggle.textContent = w.classList.contains('collapsed') ? '▲' : '▼';
+    };
+
     // ================== СВОЙ ПРОФИЛЬ ==================
     let myAvatarData = null;
 
@@ -1934,13 +2077,12 @@
         currentUser = user;
         DB.setCurrent(user);
 
-        // Обновление UI
         updateTopProfile();
 
         showToast('Профиль обновлён', 'Аватарка сохранена', 'success');
         closeMyProfileModal();
-        renderChat();
-        renderSection(currentSection);
+        if (currentSection === 'chat') renderChatSection();
+        if (currentSection === 'employees') renderSection('employees');
     });
 
     function updateTopProfile() {
@@ -2040,7 +2182,6 @@
         updateTopProfile();
         updatePermissionsUI();
         updateAnnounceUI();
-        renderChat();
         renderRobocop();
         switchSection('dashboard');
     }
@@ -2295,7 +2436,7 @@
         renderSection('roles');
     };
 
-    // ================== РЕДАКТИРОВАНИЕ СОТРУДНИКА (АДМИН) ==================
+    // ================== РЕДАКТИРОВАНИЕ СОТРУДНИКА ==================
     let editAvatarData = null;
 
     window.openEditUserModal = function(id) {
@@ -2511,6 +2652,10 @@
                     </div>
                 </div>
             `;
+        }
+
+        else if (section === 'chat') {
+            renderChatSection();
         }
 
         else if (section === 'reports') {
