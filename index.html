@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NCPD · Terminal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --neon-cyan: #00f0ff;
+            --neon-pink: #ff0055;
+            --neon-yellow: #f7ff00;
+            --neon-purple: #b300ff;
+            --neon-green: #00ff88;
+            --neon-red: #ff2233;
+            --neon-orange: #ff8800;
+            --bg-dark: #05070a;
+            --bg-panel: #0a0e14;
+            --bg-panel-2: #0f141c;
+            --bg-panel-3: #141a24;
+            --border: #1a2332;
+            --text: #c8d8e8;
+            --text-dim: #607080;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            font-size: 14px;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0) 0px,
+                rgba(0, 0, 0, 0) 2px,
+                rgba(0, 240, 255, 0.015) 2px,
+                rgba(0, 240, 255, 0.015) 3px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        ::selection { background: var(--neon-cyan); color: #000; }
+
+        /* ================== ЭКРАН АВТОРИЗАЦИИ ================== */
+        .auth-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg-dark);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .auth-screen::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 240, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 240, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .auth-screen::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px, transparent 2px,
+                rgba(0, 240, 255, 0.03) 2px, rgba(0, 240, 255, 0.03) 3px
+            );
+        }
+        .auth-box {
+            position: relative;
+            z-index: 1;
+            background: var(--bg-panel);
+            border: 2px solid var(--neon-cyan);
+            border-radius: 6px;
+            padding: 40px 44px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(0, 240, 255, 0.3);
+        }
+        .auth-box::before {
+            content: '';
+            position: absolute;
+            top: -2px; left: 20px; right: 20px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+        }
+        .auth-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-align: center;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 15px var(--neon-cyan);
+            margin-bottom: 6px;
+        }
+        .auth-logo span { color: var(--neon-pink); text-shadow: 0 0 15px var(--neon-pink); }
+        .auth-sub {
+            text-align: center;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--neon-yellow);
+            letter-spacing: 3px;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+        }
+        .auth-tabs { display: flex; gap: 8px; margin-bottom: 22px; }
+        .auth-tabs button {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .auth-tabs button.active {
+            color: #000;
+            background: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* ================== ОБЩИЕ ================== */
+        .form-group { margin-bottom: 14px; }
+        .form-group label {
+            display: block;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px 14px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.85rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+        }
+        .form-group select option { background: var(--bg-panel); }
+
+        .btn {
+            display: inline-block;
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 1px solid var(--neon-cyan);
+            padding: 9px 22px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.25s;
+            text-decoration: none;
+            border-radius: 3px;
+        }
+        .btn:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+        .btn-pink { color: var(--neon-pink); border-color: var(--neon-pink); }
+        .btn-pink:hover { background: var(--neon-pink); color: #000; box-shadow: 0 0 20px var(--neon-pink); }
+        .btn-red { color: var(--neon-red); border-color: var(--neon-red); }
+        .btn-red:hover { background: var(--neon-red); color: #000; box-shadow: 0 0 20px var(--neon-red); }
+        .btn-green { color: var(--neon-green); border-color: var(--neon-green); }
+        .btn-green:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
+        .btn-orange { color: var(--neon-orange); border-color: var(--neon-orange); }
+        .btn-orange:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
+        .btn-full { width: 100%; }
+
+        /* ================== ОСНОВНОЙ ИНТЕРФЕЙС ================== */
+        .app { display: none; }
+        .app.active { display: block; }
+
+        /* ---------- Верхняя панель (Тарков-стиль) ---------- */
+        .top-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: linear-gradient(180deg, #0a0e14 0%, #05070a 100%);
+            border-bottom: 2px solid var(--neon-cyan);
+            box-shadow: 0 0 30px rgba(0, 240, 255, 0.15);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .top-brand {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+        .top-brand span { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+
+        .top-divider {
+            width: 1px;
+            height: 32px;
+            background: var(--border);
+        }
+
+        /* Табло статуса */
+        .tarkov-display {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #000;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 6px 14px;
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .tarkov-display .display-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 8px;
+        }
+        .tarkov-display .display-item .d-label {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .tarkov-display .display-item .d-value {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--neon-cyan);
+        }
+        .tarkov-display .display-item .d-value.green { color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green); }
+        .tarkov-display .display-item .d-value.red { color: var(--neon-red); text-shadow: 0 0 8px var(--neon-red); }
+        .tarkov-display .display-item .d-value.yellow { color: var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); }
+
+        /* Кнопки действий на верхней панели */
+        .top-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+            flex-wrap: wrap;
+        }
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 14px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: 0.25s;
+            white-space: nowrap;
+        }
+        .action-btn:hover { border-color: var(--neon-cyan); color: var(--neon-cyan); }
+        .action-btn i { font-size: 0.9rem; }
+
+        .action-btn.panic {
+            background: rgba(255, 34, 51, 0.1);
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+            animation: panicPulse 2s infinite;
+        }
+        .action-btn.panic:hover {
+            background: var(--neon-red);
+            color: #000;
+            box-shadow: 0 0 25px var(--neon-red);
+        }
+        @keyframes panicPulse {
+            0%, 100% { box-shadow: 0 0 0 rgba(255, 34, 51, 0); }
+            50% { box-shadow: 0 0 20px rgba(255, 34, 51, 0.6); }
+        }
+
+        .action-btn.shift {
+            background: rgba(0, 255, 136, 0.1);
+            border-color: var(--neon-green);
+            color: var(--neon-green);
+        }
+        .action-btn.shift.on {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-green);
+        }
+        .action-btn.shift:hover { background: var(--neon-green); color: #000; }
+
+        .action-btn.weapon {
+            background: rgba(255, 136, 0, 0.1);
+            border-color: var(--neon-orange);
+            color: var(--neon-orange);
+        }
+        .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
+
+        /* ---------- Основной контент ---------- */
+        .main-layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: calc(100vh - 60px);
+        }
+
+        /* ---------- Боковая панель ---------- */
+        .sidebar {
+            background: var(--bg-panel);
+            border-right: 1px solid var(--border);
+            padding: 16px 0;
+            position: sticky;
+            top: 60px;
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+        }
+        .sidebar-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 20px 4px;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 11px 20px;
+            color: var(--text-dim);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+            transition: 0.2s;
+        }
+        .sidebar-item:hover {
+            background: rgba(0, 240, 255, 0.05);
+            color: var(--neon-cyan);
+        }
+        .sidebar-item.active {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--neon-cyan);
+            border-left-color: var(--neon-cyan);
+            box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
+        }
+        .sidebar-item i { width: 18px; text-align: center; font-size: 0.9rem; }
+        .sidebar-item .badge-count {
+            margin-left: auto;
+            background: var(--neon-red);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 1px 7px;
+            border-radius: 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-weight: 700;
+        }
+
+        /* ---------- Контент ---------- */
+        .content {
+            padding: 24px 28px;
+            overflow-x: hidden;
+        }
+
+        .content-header {
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 16px;
+        }
+        .content-header h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+            margin-bottom: 4px;
+        }
+        .content-header .breadcrumb {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+        .content-header .breadcrumb span { color: var(--neon-cyan); }
+
+        .panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 50px; height: 2px;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 8px var(--neon-cyan);
+        }
+        .panel.pink::before { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+        .panel-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .panel.pink .panel-title { color: var(--neon-pink); }
+
+        /* ---------- Таблицы ---------- */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+        }
+        .data-table th {
+            text-align: left;
+            padding: 10px 12px;
+            background: var(--bg-dark);
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.7rem;
+            border-bottom: 2px solid var(--neon-cyan);
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+        }
+        .data-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--border);
+            color: var(--text);
+        }
+        .data-table tr:hover td { background: rgba(0, 240, 255, 0.03); }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 9px;
+            border-radius: 3px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Rajdhani', sans-serif;
+        }
+        .badge-danger { background: rgba(255, 34, 51, 0.2); color: var(--neon-red); border: 1px solid var(--neon-red); }
+        .badge-warn { background: rgba(247, 255, 0, 0.15); color: var(--neon-yellow); border: 1px solid var(--neon-yellow); }
+        .badge-safe { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border: 1px solid var(--neon-green); }
+        .badge-info { background: rgba(0, 240, 255, 0.15); color: var(--neon-cyan); border: 1px solid var(--neon-cyan); }
+        .badge-admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
+        .badge-orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
+
+        .warn-badge { color: var(--neon-yellow); font-weight: 700; }
+
+        /* ---------- Список сотрудников ---------- */
+        .employee-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            transition: 0.2s;
+        }
+        .employee-row:hover { border-color: var(--neon-cyan); }
+        .emp-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #000;
+            flex-shrink: 0;
+        }
+        .emp-info { flex: 1; min-width: 160px; }
+        .emp-info .emp-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .emp-info .emp-meta {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+        }
+        .emp-id {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--neon-cyan);
+            background: rgba(0, 240, 255, 0.08);
+            padding: 4px 10px;
+            border-radius: 3px;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+        .emp-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        /* ---------- Форма отчёта ---------- */
+        .empty-state {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-dim);
+            font-family: 'Share Tech Mono', monospace;
+        }
+        .empty-state .icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.4; }
+
+        .alert {
+            padding: 10px 16px;
+            border-radius: 3px;
+            margin-bottom: 14px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            border-left: 3px solid;
+        }
+        .alert-success { background: rgba(0, 255, 136, 0.1); color: var(--neon-green); border-color: var(--neon-green); }
+        .alert-danger { background: rgba(255, 34, 51, 0.1); color: var(--neon-red); border-color: var(--neon-red); }
+        .alert-info { background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); border-color: var(--neon-cyan); }
+        .hidden { display: none !important; }
+
+        /* ---------- Алерт паники (оверлей) ---------- */
+        .panic-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 34, 51, 0.15);
+            backdrop-filter: blur(4px);
+            z-index: 9998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: panicFlash 1s infinite;
+        }
+        @keyframes panicFlash {
+            0%, 100% { background: rgba(255, 34, 51, 0.15); }
+            50% { background: rgba(255, 34, 51, 0.3); }
+        }
+        .panic-modal {
+            background: #0a0e14;
+            border: 3px solid var(--neon-red);
+            border-radius: 6px;
+            padding: 36px 44px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 60px var(--neon-red);
+        }
+        .panic-modal h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--neon-red);
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px var(--neon-red);
+            margin-bottom: 12px;
+        }
+        .panic-modal p {
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        /* ---------- Форма оружия (модалка) ---------- */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 9997;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal {
+            background: var(--bg-panel);
+            border: 2px solid var(--neon-orange);
+            border-radius: 6px;
+            padding: 28px 32px;
+            max-width: 460px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(255, 136, 0, 0.4);
+        }
+        .modal h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-orange);
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        /* ---------- Адаптив ---------- */
+        @media (max-width: 900px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar {
+                position: relative;
+                height: auto;
+                top: 0;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+            .sidebar-item { display: inline-flex; padding: 10px 14px; }
+            .sidebar-title { display: none; }
+            .top-bar { padding: 8px 12px; gap: 10px; }
+            .top-actions { width: 100%; margin-left: 0; }
+            .content { padding: 16px; }
+        }
+        @media (max-width: 600px) {
+            .tarkov-display { flex-wrap: wrap; }
+            .content-header h1 { font-size: 1.2rem; }
+            .data-table { font-size: 0.7rem; }
+            .data-table th, .data-table td { padding: 7px 8px; }
+            .employee-row { padding: 10px 12px; }
+            .action-btn { font-size: 0.68rem; padding: 7px 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ================== ЭКРАН АВТОРИЗАЦИИ ================== -->
+<div class="auth-screen" id="authScreen">
+    <div class="auth-box">
+        <div class="auth-logo">NCPD<span>·</span>TERM</div>
+        <div class="auth-sub">// Night City Police Department //</div>
+
+        <div class="auth-tabs">
+            <button id="tabLogin" class="active">Вход</button>
+            <button id="tabRegister">Регистрация</button>
+        </div>
+
+        <form id="authLoginForm">
+            <div class="form-group">
+                <label for="authLoginUser">ID службы</label>
+                <input type="text" id="authLoginUser" placeholder="Введите логин" required />
+            </div>
+            <div class="form-group">
+                <label for="authLoginPass">Код доступа</label>
+                <input type="password" id="authLoginPass" placeholder="Введите пароль" required />
+            </div>
+            <button type="submit" class="btn btn-full">🔓 Авторизация</button>
+            <div id="authLoginMsg" class="hidden" style="margin-top:12px;"></div>
+        </form>
+
+        <form id="authRegisterForm" class="hidden">
+            <div class="form-group">
+                <label for="authRegUser">ID службы</label>
+                <input type="text" id="authRegUser" placeholder="Придумайте логин" required />
+            </div>
+            <div class="form-group">
+                <label for="authRegPass">Код доступа</label>
+                <input type="password" id="authRegPass" placeholder="Минимум 4 символа" required />
+            </div>
+            <div class="form-group">
+                <label for="authRegRank">Звание</label>
+                <select id="authRegRank">
+                    <option value="Офицер">Офицер</option>
+                    <option value="Сержант">Сержант</option>
+                    <option value="Лейтенант">Лейтенант</option>
+                    <option value="Капитан">Капитан</option>
+                    <option value="Супервайзер">Супервайзер</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-pink btn-full">📝 Регистрация</button>
+            <div id="authRegisterMsg" class="hidden" style="margin-top:12px;"></div>
+        </form>
+    </div>
+</div>
+
+<!-- ================== ОСНОВНОЕ ПРИЛОЖЕНИЕ ================== -->
+<div class="app" id="app">
+
+    <!-- Топ-панель (Тарков-стиль) -->
+    <div class="top-bar">
+        <div class="top-brand">NCPD<span>·</span>TERM</div>
+        <div class="top-divider"></div>
+
+        <div class="tarkov-display">
+            <div class="display-item">
+                <span class="d-label">MSK TIME</span>
+                <span class="d-value" id="clock">--:--:--</span>
+            </div>
+            <div class="display-item">
+                <span class="d-label">DATE</span>
+                <span class="d-value yellow" id="dateDisplay">--.--.----</span>
+            </div>
+            <div class="display-item">
+                <span class="d-label">SHIFT</span>
+                <span class="d-value" id="shiftStatus">OFF</span>
+            </div>
+            <div class="display-item">
+                <span class="d-label">SHIFT TIME</span>
+                <span class="d-value green" id="shiftTimer">00:00:00</span>
+            </div>
+            <div class="display-item">
+                <span class="d-label">OPERATOR</span>
+                <span class="d-value" id="opName">---</span>
+            </div>
+        </div>
+
+        <div class="top-actions">
+            <button class="action-btn shift" id="shiftBtn" onclick="toggleShift()">
+                <i class="fas fa-user-clock"></i> Заступить на смену
+            </button>
+            <button class="action-btn weapon" onclick="openWeaponModal()">
+                <i class="fas fa-crosshairs"></i> Применить оружие
+            </button>
+            <button class="action-btn panic" onclick="triggerPanic()">
+                <i class="fas fa-exclamation-triangle"></i> ПАНИКА
+            </button>
+            <button class="action-btn" onclick="logout()" style="border-color:var(--neon-pink);color:var(--neon-pink);">
+                <i class="fas fa-sign-out-alt"></i> Выход
+            </button>
+        </div>
+    </div>
+
+    <!-- Основной layout -->
+    <div class="main-layout">
+
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="sidebar-title">// Терминал</div>
+            <div class="sidebar-item active" data-section="dashboard" onclick="switchSection('dashboard')">
+                <i class="fas fa-tachometer-alt"></i> Главная
+            </div>
+            <div class="sidebar-item" data-section="wanted" onclick="switchSection('wanted')">
+                <i class="fas fa-search"></i> База розыска
+            </div>
+            <div class="sidebar-item" data-section="weapons" onclick="switchSection('weapons')">
+                <i class="fas fa-gun"></i> Реестр оружия
+            </div>
+
+            <div class="sidebar-title" id="supervisorSection" style="margin-top:12px;">// Супервайзер</div>
+            <div class="sidebar-item supervisor-only" data-section="reports" onclick="switchSection('reports')">
+                <i class="fas fa-file-alt"></i> Отчёты сотрудников
+                <span class="badge-count" id="reportsCount">0</span>
+            </div>
+            <div class="sidebar-item supervisor-only" data-section="employees" onclick="switchSection('employees')">
+                <i class="fas fa-users"></i> База данных сотрудников
+            </div>
+        </aside>
+
+        <!-- Контент -->
+        <div class="content" id="content">
+            <!-- Секции переключаются JS -->
+        </div>
+
+    </div>
+</div>
+
+<!-- Модалка оружия -->
+<div class="modal-overlay hidden" id="weaponModal">
+    <div class="modal">
+        <h3><i class="fas fa-crosshairs"></i> Применение оружия</h3>
+        <form id="weaponForm">
+            <div class="form-group">
+                <label for="weaponType">Тип оружия</label>
+                <select id="weaponType">
+                    <option value="Табельный пистолет">Табельный пистолет</option>
+                    <option value="SMG">SMG</option>
+                    <option value="Дробовик">Дробовик</option>
+                    <option value="Штурмовая винтовка">Штурмовая винтовка</option>
+                    <option value="Снайперская винтовка">Снайперская винтовка</option>
+                    <option value="Электрошокер">Электрошокер</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="weaponReason">Причина применения</label>
+                <textarea id="weaponReason" rows="3" placeholder="Опишите причину..." required></textarea>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button type="submit" class="btn btn-orange" style="flex:1;">Подтвердить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeWeaponModal()">Отмена</button>
+            </div>
+        </form>
+        <div id="weaponMsg" class="hidden" style="margin-top:12px;"></div>
+    </div>
+</div>
+
+<script>
+(function() {
+    'use strict';
+
+    // ================== БАЗА ==================
+    const DB = {
+        getUsers() { return JSON.parse(localStorage.getItem('ncpd_users')) || []; },
+        setUsers(u) { localStorage.setItem('ncpd_users', JSON.stringify(u)); },
+        getCurrent() { return JSON.parse(localStorage.getItem('ncpd_current')) || null; },
+        setCurrent(u) {
+            if (u) localStorage.setItem('ncpd_current', JSON.stringify(u));
+            else localStorage.removeItem('ncpd_current');
+        },
+        getReports() { return JSON.parse(localStorage.getItem('ncpd_reports')) || []; },
+        setReports(r) { localStorage.setItem('ncpd_reports', JSON.stringify(r)); },
+        getWeaponLog() { return JSON.parse(localStorage.getItem('ncpd_weapon_log')) || []; },
+        setWeaponLog(w) { localStorage.setItem('ncpd_weapon_log', JSON.stringify(w)); }
+    };
+
+    function initAdmin() {
+        const users = DB.getUsers();
+        if (!users.some(u => u.username === 'Superadmin')) {
+            users.push({
+                id: 'NCPD-0001',
+                username: 'Superadmin',
+                password: '12348ef',
+                rank: 'СУПЕР-АДМИН',
+                isAdmin: true,
+                isSupervisor: true,
+                warnings: 0,
+                registered: new Date().toLocaleDateString('ru-RU')
+            });
+            DB.setUsers(users);
+        }
+    }
+    initAdmin();
+
+    let currentUser = DB.getCurrent();
+    let currentSection = 'dashboard';
+
+    // ================== ДАННЫЕ ==================
+    const wantedList = [
+        { id: 'NC-001', name: 'Джеки Уэллс', status: 'Особо опасен', crime: 'Убийство, ограбление', reward: '50,000 €$', location: 'Уотсон' },
+        { id: 'NC-002', name: 'Сандевистан', status: 'Опасен', crime: 'Кибертерроризм', reward: '35,000 €$', location: 'Санто-Доминго' },
+        { id: 'NC-003', name: 'Ви (V)', status: 'Розыск', crime: 'Незаконные импланты', reward: '15,000 €$', location: 'Найт-Сити' },
+        { id: 'NC-004', name: 'Адам Смэшер', status: 'Особо опасен', crime: 'Множественные убийства', reward: '250,000 €$', location: 'Неизвестно' },
+        { id: 'NC-005', name: 'Джуди Альварес', status: 'Наблюдение', crime: 'Хакерство', reward: '—', location: 'Уотсон' },
+        { id: 'NC-006', name: 'Панам Палмер', status: 'Опасен', crime: 'Контрабанда', reward: '25,000 €$', location: 'Бадлендс' },
+        { id: 'NC-007', name: 'Ривер Уорд', status: 'Розыск', crime: 'Коррупция', reward: '10,000 €$', location: 'Хейвуд' },
+        { id: 'NC-008', name: 'Киану Ривз', status: 'Особо опасен', crime: 'Терроризм', reward: '100,000 €$', location: 'Центр' }
+    ];
+
+    const weaponsList = [
+        { id: 'W-001', name: 'Taкэда CK-1', type: 'Пистолет', ammo: '9mm', status: 'В арсенале' },
+        { id: 'W-002', name: 'Арasaka HJKE-11', type: 'SMG', ammo: '9mm', status: 'В арсенале' },
+        { id: 'W-003', name: 'Морозный дробовик', type: 'Дробовик', ammo: '12g', status: 'В арсенале' },
+        { id: 'W-004', name: 'Silenced Nova', type: 'Штурмовая винтовка', ammo: '5.56', status: 'В арсенале' },
+        { id: 'W-005', name: 'Табельный TASER', type: 'Электрошокер', ammo: '—', status: 'У оператора' }
+    ];
+
+    // ================== АВТОРИЗАЦИЯ ==================
+    const authScreen = document.getElementById('authScreen');
+    const app = document.getElementById('app');
+
+    document.getElementById('tabLogin').addEventListener('click', () => {
+        document.getElementById('tabLogin').classList.add('active');
+        document.getElementById('tabRegister').classList.remove('active');
+        document.getElementById('authLoginForm').classList.remove('hidden');
+        document.getElementById('authRegisterForm').classList.add('hidden');
+    });
+    document.getElementById('tabRegister').addEventListener('click', () => {
+        document.getElementById('tabRegister').classList.add('active');
+        document.getElementById('tabLogin').classList.remove('active');
+        document.getElementById('authRegisterForm').classList.remove('hidden');
+        document.getElementById('authLoginForm').classList.add('hidden');
+    });
+
+    document.getElementById('authLoginForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('authLoginUser').value.trim();
+        const password = document.getElementById('authLoginPass').value.trim();
+        const msg = document.getElementById('authLoginMsg');
+        msg.classList.remove('hidden', 'alert-success', 'alert-danger');
+
+        const user = DB.getUsers().find(u => u.username === username && u.password === password);
+        if (user) {
+            currentUser = user;
+            DB.setCurrent(user);
+            msg.textContent = '✓ ДОСТУП РАЗРЕШЁН. Загрузка терминала...';
+            msg.className = 'alert alert-success';
+            setTimeout(() => openApp(), 700);
+        } else {
+            msg.textContent = '✗ ОТКАЗАНО. Неверный ID или код.';
+            msg.className = 'alert alert-danger';
+        }
+    });
+
+    document.getElementById('authRegisterForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const username = document.getElementById('authRegUser').value.trim();
+        const password = document.getElementById('authRegPass').value.trim();
+        const rank = document.getElementById('authRegRank').value;
+        const msg = document.getElementById('authRegisterMsg');
+        msg.classList.remove('hidden', 'alert-success', 'alert-danger');
+
+        if (password.length < 4) {
+            msg.textContent = '✗ Код доступа минимум 4 символа';
+            msg.className = 'alert alert-danger';
+            return;
+        }
+        if (DB.getUsers().some(u => u.username === username)) {
+            msg.textContent = '✗ ID уже занят';
+            msg.className = 'alert alert-danger';
+            return;
+        }
+
+        const usersCount = DB.getUsers().length;
+        const newUser = {
+            id: 'NCPD-' + String(1000 + usersCount).padStart(4, '0'),
+            username,
+            password,
+            rank,
+            isAdmin: false,
+            isSupervisor: rank === 'Супервайзер',
+            warnings: 0,
+            registered: new Date().toLocaleDateString('ru-RU')
+        };
+        const users = DB.getUsers();
+        users.push(newUser);
+        DB.setUsers(users);
+        currentUser = newUser;
+        DB.setCurrent(newUser);
+        msg.textContent = '✓ АККАУНТ СОЗДАН. Загрузка...';
+        msg.className = 'alert alert-success';
+        setTimeout(() => openApp(), 700);
+    });
+
+    function openApp() {
+        authScreen.classList.add('hidden');
+        app.classList.add('active');
+        document.getElementById('opName').textContent = currentUser.username;
+        updateSupervisorUI();
+        updateReportsCount();
+        switchSection('dashboard');
+    }
+
+    window.logout = function() {
+        if (!confirm('Завершить сессию?')) return;
+        currentUser = null;
+        DB.setCurrent(null);
+        app.classList.remove('active');
+        authScreen.classList.remove('hidden');
+        document.getElementById('authLoginForm').reset();
+        document.getElementById('authRegisterForm').reset();
+        document.getElementById('authLoginMsg').classList.add('hidden');
+        document.getElementById('authRegisterMsg').classList.add('hidden');
+        if (shiftInterval) { clearInterval(shiftInterval); shiftInterval = null; }
+        shiftActive = false;
+    };
+
+    function updateSupervisorUI() {
+        const isSupervisor = currentUser && (currentUser.isSupervisor || currentUser.isAdmin);
+        document.querySelectorAll('.supervisor-only').forEach(el => {
+            if (isSupervisor) el.classList.remove('hidden');
+            else el.classList.add('hidden');
+        });
+        document.getElementById('supervisorSection').style.display = isSupervisor ? 'block' : 'none';
+    }
+
+    // ================== ЧАСЫ МСК ==================
+    function updateClock() {
+        const now = new Date();
+        // МСК = UTC+3
+        const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
+        const h = String(msk.getHours()).padStart(2, '0');
+        const m = String(msk.getMinutes()).padStart(2, '0');
+        const s = String(msk.getSeconds()).padStart(2, '0');
+        document.getElementById('clock').textContent = `${h}:${m}:${s}`;
+
+        const dd = String(msk.getDate()).padStart(2, '0');
+        const mm = String(msk.getMonth() + 1).padStart(2, '0');
+        const yyyy = msk.getFullYear();
+        document.getElementById('dateDisplay').textContent = `${dd}.${mm}.${yyyy}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ================== СМЕНА ==================
+    let shiftActive = false;
+    let shiftStart = null;
+    let shiftInterval = null;
+
+    window.toggleShift = function() {
+        const btn = document.getElementById('shiftBtn');
+        const status = document.getElementById('shiftStatus');
+        const timer = document.getElementById('shiftTimer');
+
+        if (!shiftActive) {
+            shiftActive = true;
+            shiftStart = Date.now();
+            btn.classList.add('on');
+            btn.innerHTML = '<i class="fas fa-user-clock"></i> Завершить смену';
+            status.textContent = 'ON';
+            status.classList.remove('red');
+            status.classList.add('green');
+
+            shiftInterval = setInterval(() => {
+                const elapsed = Date.now() - shiftStart;
+                const h = String(Math.floor(elapsed / 3600000)).padStart(2, '0');
+                const m = String(Math.floor((elapsed % 3600000) / 60000)).padStart(2, '0');
+                const s = String(Math.floor((elapsed % 60000) / 1000)).padStart(2, '0');
+                timer.textContent = `${h}:${m}:${s}`;
+            }, 1000);
+        } else {
+            shiftActive = false;
+            btn.classList.remove('on');
+            btn.innerHTML = '<i class="fas fa-user-clock"></i> Заступить на смену';
+            status.textContent = 'OFF';
+            status.classList.remove('green');
+            status.classList.add('red');
+            timer.textContent = '00:00:00';
+            if (shiftInterval) { clearInterval(shiftInterval); shiftInterval = null; }
+        }
+    };
+
+    // ================== ПАНИКА ==================
+    window.triggerPanic = function() {
+        const overlay = document.createElement('div');
+        overlay.className = 'panic-overlay';
+        overlay.innerHTML = `
+            <div class="panic-modal">
+                <h2>⚠ PANIC ⚠</h2>
+                <p>СИГНАЛ ТРЕВОГИ ОТПРАВЛЕН ВСЕМ ПАТРУЛЯМ<br>ОПЕРАТОР: ${currentUser.username}<br>ID: ${currentUser.id}</p>
+                <button class="btn btn-red" onclick="this.closest('.panic-overlay').remove()">ОТМЕНИТЬ</button>
+            </div>
+        `;
+        document.body.appendChild(overlay);
+
+        // Авто-скрытие через 10 секунд
+        setTimeout(() => {
+            if (overlay.parentNode) overlay.remove();
+        }, 10000);
+    };
+
+    // ================== ОРУЖИЕ ==================
+    window.openWeaponModal = function() {
+        document.getElementById('weaponModal').classList.remove('hidden');
+    };
+    window.closeWeaponModal = function() {
+        document.getElementById('weaponModal').classList.add('hidden');
+        document.getElementById('weaponMsg').classList.add('hidden');
+    };
+
+    document.getElementById('weaponForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const type = document.getElementById('weaponType').value;
+        const reason = document.getElementById('weaponReason').value.trim();
+        const msg = document.getElementById('weaponMsg');
+
+        if (!reason) {
+            msg.textContent = '⚠ Укажите причину';
+            msg.className = 'alert alert-danger';
+            msg.classList.remove('hidden');
+            return;
+        }
+
+        const log = DB.getWeaponLog();
+        log.push({
+            id: Date.now(),
+            operator: currentUser.username,
+            operatorId: currentUser.id,
+            weapon: type,
+            reason: reason,
+            date: new Date().toLocaleString('ru-RU')
+        });
+        DB.setWeaponLog(log);
+
+        msg.textContent = '✓ ЗАПИСЬ ДОБАВЛЕНА В ЖУРНАЛ ПРИМЕНЕНИЯ ОРУЖИЯ';
+        msg.className = 'alert alert-success';
+
+        setTimeout(() => {
+            closeWeaponModal();
+            this.reset();
+        }, 1500);
+    });
+
+    // ================== НАВИГАЦИЯ ПО СЕКЦИЯМ ==================
+    window.switchSection = function(section) {
+        currentSection = section;
+        document.querySelectorAll('.sidebar-item').forEach(el => {
+            el.classList.toggle('active', el.dataset.section === section);
+        });
+        renderSection(section);
+    };
+
+    function renderSection(section) {
+        const content = document.getElementById('content');
+
+        if (section === 'dashboard') {
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>ГЛАВНАЯ ПАНЕЛЬ</h1>
+                    <div class="breadcrumb">// NCPD · Терминал · <span>Главная</span></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-info-circle"></i> Оперативная сводка</div>
+                    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px;">
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
+                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-cyan); font-weight:900;">${wantedList.length}</div>
+                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Активных ордеров</div>
+                        </div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
+                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-green); font-weight:900;">${DB.getUsers().length}</div>
+                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Сотрудников</div>
+                        </div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
+                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-orange); font-weight:900;">${DB.getWeaponLog().length}</div>
+                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Применений оружия</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-terminal"></i> Системная информация</div>
+                    <div style="font-family:'Share Tech Mono',monospace; font-size:0.8rem; line-height:2; color:var(--text-dim);">
+                        <div>Оператор: <span style="color:var(--neon-cyan);">${currentUser.username}</span></div>
+                        <div>ID: <span style="color:var(--neon-cyan);">${currentUser.id}</span></div>
+                        <div>Звание: <span style="color:var(--neon-cyan);">${currentUser.rank}</span></div>
+                        <div>Выговоров: <span style="color:${currentUser.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">${currentUser.warnings || 0}</span></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        else if (section === 'wanted') {
+            let rows = wantedList.map(w => `
+                <tr>
+                    <td style="color:var(--neon-cyan);">${w.id}</td>
+                    <td>${w.name}</td>
+                    <td><span class="badge ${w.status === 'Особо опасен' ? 'badge-danger' : w.status === 'Опасен' ? 'badge-warn' : 'badge-info'}">${w.status}</span></td>
+                    <td>${w.crime}</td>
+                    <td style="color:var(--neon-yellow); font-weight:700;">${w.reward}</td>
+                    <td>${w.location}</td>
+                </tr>
+            `).join('');
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>БАЗА РОЗЫСКА</h1>
+                    <div class="breadcrumb">// NCPD · <span>База розыска</span></div>
+                </div>
+                <div class="panel">
+                    <div style="overflow-x:auto;">
+                        <table class="data-table">
+                            <thead>
+                                <tr><th>ID</th><th>Имя</th><th>Статус</th><th>Преступление</th><th>Награда</th><th>Локация</th></tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        else if (section === 'weapons') {
+            let rows = weaponsList.map(w => `
+                <tr>
+                    <td style="color:var(--neon-cyan);">${w.id}</td>
+                    <td>${w.name}</td>
+                    <td>${w.type}</td>
+                    <td>${w.ammo}</td>
+                    <td><span class="badge badge-safe">${w.status}</span></td>
+                </tr>
+            `).join('');
+
+            let logRows = DB.getWeaponLog().slice().reverse().slice(0, 10).map(l => `
+                <tr>
+                    <td style="color:var(--neon-cyan);">${l.operatorId}</td>
+                    <td>${l.operator}</td>
+                    <td>${l.weapon}</td>
+                    <td style="color:var(--text-dim);">${l.reason}</td>
+                    <td style="color:var(--text-dim); font-size:0.7rem;">${l.date}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--text-dim); padding:20px;">Журнал пуст</td></tr>';
+
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>РЕЕСТР ОРУЖИЯ</h1>
+                    <div class="breadcrumb">// NCPD · <span>Вооружение</span></div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-gun"></i> Доступное вооружение</div>
+                    <div style="overflow-x:auto;">
+                        <table class="data-table">
+                            <thead><tr><th>ID</th><th>Название</th><th>Тип</th><th>Калибр</th><th>Статус</th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel pink">
+                    <div class="panel-title"><i class="fas fa-history"></i> Журнал применения</div>
+                    <div style="overflow-x:auto;">
+                        <table class="data-table">
+                            <thead><tr><th>ID</th><th>Оператор</th><th>Оружие</th><th>Причина</th><th>Время</th></tr></thead>
+                            <tbody>${logRows}</tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        else if (section === 'reports') {
+            const reports = DB.getReports();
+            let rows = reports.slice().reverse().map(r => `
+                <tr>
+                    <td style="color:var(--neon-pink);">${r.operatorId || '—'}</td>
+                    <td>${r.name}</td>
+                    <td>${r.type}</td>
+                    <td style="color:var(--text-dim);">${r.content}</td>
+                    <td style="color:var(--text-dim); font-size:0.7rem;">${r.date}</td>
+                </tr>
+            `).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--text-dim); padding:20px;">Отчётов нет</td></tr>';
+
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>ОТЧЁТЫ СОТРУДНИКОВ</h1>
+                    <div class="breadcrumb">// NCPD · Супервайзер · <span>Отчёты</span></div>
+                </div>
+                <div class="panel pink">
+                    <div class="panel-title"><i class="fas fa-file-alt"></i> Все отчёты (${reports.length})</div>
+                    <div style="overflow-x:auto;">
+                        <table class="data-table">
+                            <thead><tr><th>ID</th><th>Сотрудник</th><th>Тип</th><th>Содержание</th><th>Дата</th></tr></thead>
+                            <tbody>${rows}</tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-trash"></i> Управление отчётами</div>
+                    <button class="btn btn-red" onclick="clearReports()">Очистить все отчёты</button>
+                </div>
+            `;
+        }
+
+        else if (section === 'employees') {
+            const users = DB.getUsers();
+            let rows = users.map(u => `
+                <div class="employee-row">
+                    <div class="emp-avatar">${u.username.charAt(0).toUpperCase()}</div>
+                    <div class="emp-info">
+                        <div class="emp-name">${u.username} ${u.isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
+                        <div class="emp-meta">${u.rank || 'Офицер'} · Регистрация: ${u.registered || '—'}</div>
+                    </div>
+                    <div class="emp-id">${u.id}</div>
+                    <div style="font-family:'Share Tech Mono'; font-size:0.8rem; color:${u.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">
+                        ⚠ ${u.warnings || 0}
+                    </div>
+                    <div class="emp-actions">
+                        <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="giveWarning('${u.id}')">
+                            <i class="fas fa-exclamation"></i> Выговор
+                        </button>
+                        <button class="btn btn-green" style="padding:5px 12px; font-size:0.65rem;" onclick="changeId('${u.id}')">
+                            <i class="fas fa-id-card"></i> ID
+                        </button>
+                        <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteUser('${u.id}')">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>БАЗА ДАННЫХ СОТРУДНИКОВ</h1>
+                    <div class="breadcrumb">// NCPD · Супервайзер · <span>Сотрудники</span></div>
+                </div>
+                <div class="panel pink">
+                    <div class="panel-title"><i class="fas fa-users"></i> Всего: ${users.length}</div>
+                    ${rows}
+                </div>
+            `;
+        }
+    }
+
+    // ================== ДЕЙСТВИЯ С СОТРУДНИКАМИ ==================
+    window.giveWarning = function(id) {
+        if (!confirm('Выдать выговор этому сотруднику?')) return;
+        const users = DB.getUsers();
+        const user = users.find(u => u.id === id);
+        if (!user) return;
+        user.warnings = (user.warnings || 0) + 1;
+        DB.setUsers(users);
+        if (currentUser.id === id) {
+            currentUser = user;
+            DB.setCurrent(user);
+        }
+        renderSection('employees');
+    };
+
+    window.changeId = function(id) {
+        const newId = prompt('Введите новый ID (формат NCPD-XXXX):', id);
+        if (!newId || newId === id) return;
+        const users = DB.getUsers();
+        if (users.some(u => u.id === newId)) {
+            alert('Такой ID уже существует');
+            return;
+        }
+        const user = users.find(u => u.id === id);
+        if (!user) return;
+        const oldId = user.id;
+        user.id = newId;
+        DB.setUsers(users);
+        if (currentUser && currentUser.id === oldId) {
+            currentUser = user;
+            DB.setCurrent(user);
+            document.getElementById('opName').textContent = currentUser.username;
+        }
+        renderSection('employees');
+    };
+
+    window.deleteUser = function(id) {
+        if (id === currentUser.id) {
+            alert('Нельзя удалить себя');
+            return;
+        }
+        if (!confirm('Удалить сотрудника навсегда?')) return;
+        let users = DB.getUsers();
+        users = users.filter(u => u.id !== id);
+        DB.setUsers(users);
+        renderSection('employees');
+    };
+
+    window.clearReports = function() {
+        if (!confirm('Очистить все отчёты?')) return;
+        DB.setReports([]);
+        updateReportsCount();
+        renderSection('reports');
+    };
+
+    function updateReportsCount() {
+        document.getElementById('reportsCount').textContent = DB.getReports().length;
+    }
+
+    // ================== СТАРТ ==================
+    if (currentUser) {
+        openApp();
+    } else {
+        authScreen.classList.remove('hidden');
+    }
+
+    console.log('NCPD Terminal loaded.');
+})();
+</script>
+
+</body>
+</html>
