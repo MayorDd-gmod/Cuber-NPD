@@ -334,6 +334,77 @@
         }
         .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
 
+        /* Бодикамера кнопка */
+        .action-btn.bodycam {
+            background: rgba(255, 0, 85, 0.1);
+            border-color: var(--neon-pink);
+            color: var(--neon-pink);
+        }
+        .action-btn.bodycam.on {
+            background: var(--neon-pink);
+            color: #fff;
+            box-shadow: 0 0 25px var(--neon-pink);
+            animation: recPulse 1.5s infinite;
+        }
+        @keyframes recPulse {
+            0%, 100% { box-shadow: 0 0 15px var(--neon-pink); }
+            50% { box-shadow: 0 0 30px var(--neon-pink); }
+        }
+        .action-btn.bodycam:hover { background: var(--neon-pink); color: #fff; }
+
+        /* Индикатор REC в углу */
+        .rec-indicator {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 9995;
+            background: rgba(10, 14, 20, 0.9);
+            border: 2px solid var(--neon-red);
+            border-radius: 4px;
+            padding: 10px 16px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            color: #fff;
+            box-shadow: 0 0 30px rgba(255, 34, 51, 0.5);
+            animation: recBorder 1.5s infinite;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        @keyframes recBorder {
+            0%, 100% { border-color: var(--neon-red); }
+            50% { border-color: rgba(255, 34, 51, 0.3); }
+        }
+        .rec-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-red);
+            box-shadow: 0 0 10px var(--neon-red);
+            animation: recBlink 1s infinite;
+        }
+        @keyframes recBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+        .rec-info { display: flex; flex-direction: column; }
+        .rec-info .rec-label {
+            font-size: 0.6rem;
+            color: var(--neon-red);
+            letter-spacing: 2px;
+            font-weight: 700;
+        }
+        .rec-info .rec-time {
+            font-size: 0.85rem;
+            color: #fff;
+            font-weight: 700;
+        }
+        .rec-info .rec-meta {
+            font-size: 0.55rem;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+        }
+
         .main-layout {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -677,6 +748,47 @@
         }
         .role-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
+        /* Записи бодикамеры */
+        .rec-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .rec-row:hover { border-color: var(--neon-pink); }
+        .rec-row .rec-thumb {
+            width: 100px;
+            height: 60px;
+            background: #000;
+            border-radius: 3px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-red);
+            flex-shrink: 0;
+        }
+        .rec-row .rec-info-block { flex: 1; min-width: 200px; }
+        .rec-row .rec-info-block .rec-title {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+        .rec-row .rec-info-block .rec-meta {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+            line-height: 1.6;
+        }
+
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -872,6 +984,7 @@
             .top-bar { padding: 8px 12px; gap: 10px; }
             .top-actions { width: 100%; margin-left: 0; }
             .content { padding: 16px; }
+            .rec-indicator { top: auto; bottom: 20px; right: 20px; }
         }
         @media (max-width: 600px) {
             .tarkov-display { flex-wrap: wrap; }
@@ -966,6 +1079,9 @@
             <button class="action-btn shift" id="shiftBtn" onclick="toggleShift()">
                 <i class="fas fa-user-clock"></i> Заступить на смену
             </button>
+            <button class="action-btn bodycam" id="bodycamBtn" onclick="toggleBodycam()">
+                <i class="fas fa-video"></i> БОДИКАМЕРА
+            </button>
             <button class="action-btn weapon" onclick="openWeaponModal()">
                 <i class="fas fa-crosshairs"></i> Применить оружие
             </button>
@@ -993,6 +1109,9 @@
                 </div>
 
                 <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
+                <div class="sidebar-item supervisor-only hidden" data-section="recordings" onclick="switchSection('recordings')">
+                    <i class="fas fa-video"></i> Записи бодикамер
+                </div>
                 <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
                     <i class="fas fa-file-alt"></i> Отчёты сотрудников
                 </div>
@@ -1006,7 +1125,6 @@
                 </div>
             </div>
 
-            <!-- ОПОВЕЩЕНИЯ -->
             <div class="announce-box">
                 <div class="announce-title">
                     <i class="fas fa-bullhorn"></i> Оповещения
@@ -1026,6 +1144,16 @@
         </aside>
 
         <div class="content" id="content"></div>
+    </div>
+</div>
+
+<!-- Индикатор REC -->
+<div class="rec-indicator hidden" id="recIndicator">
+    <div class="rec-dot"></div>
+    <div class="rec-info">
+        <div class="rec-label">● REC</div>
+        <div class="rec-time" id="recTime">00:00:00</div>
+        <div class="rec-meta" id="recMeta">AXON BODY 3 · --.--.---- --:--:--</div>
     </div>
 </div>
 
@@ -1190,7 +1318,6 @@
     </div>
 </div>
 
-<!-- Контейнер тостов -->
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -1210,6 +1337,12 @@
         setReports(r) { localStorage.setItem('ncpd_reports', JSON.stringify(r)); },
         getWeaponLog() { return JSON.parse(localStorage.getItem('ncpd_weapon_log')) || []; },
         setWeaponLog(w) { localStorage.setItem('ncpd_weapon_log', JSON.stringify(w)); }
+    };
+
+    // Отдельная база для записей бодикамер (base64 может быть тяжелой — храним отдельно)
+    const RecDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_recordings')) || []; },
+        set(r) { localStorage.setItem('ncpd_recordings', JSON.stringify(r)); }
     };
 
     function initAdmin() {
@@ -1358,8 +1491,143 @@
         renderAnnounce();
     }
 
-    // Автообновление оповещений каждые 5 секунд
     setInterval(renderAnnounce, 5000);
+
+    // ================== БОДИКАМЕРА ==================
+    let mediaRecorder = null;
+    let recordedChunks = [];
+    let recStartTime = null;
+    let recInterval = null;
+    let bodycamActive = false;
+
+    function fmtTime(ms) {
+        const totalSec = Math.floor(ms / 1000);
+        const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
+        const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
+        const s = String(totalSec % 60).padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+
+    window.toggleBodycam = async function() {
+        const btn = document.getElementById('bodycamBtn');
+        const indicator = document.getElementById('recIndicator');
+
+        if (!bodycamActive) {
+            try {
+                // Запрос на запись экрана
+                const stream = await navigator.mediaDevices.getDisplayMedia({
+                    video: { frameRate: { ideal: 30 } },
+                    audio: true
+                });
+
+                recordedChunks = [];
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm'
+                });
+
+                mediaRecorder.ondataavailable = (e) => {
+                    if (e.data && e.data.size > 0) recordedChunks.push(e.data);
+                };
+
+                mediaRecorder.onstop = async () => {
+                    // Сохраняем запись
+                    const blob = new Blob(recordedChunks, { type: 'video/webm' });
+                    const reader = new FileReader();
+                    reader.onload = () => {
+                        const base64 = reader.result;
+
+                        const recs = RecDB.get();
+                        recs.push({
+                            id: Date.now(),
+                            operator: currentUser.username,
+                            operatorId: currentUser.id,
+                            duration: fmtTime(Date.now() - recStartTime),
+                            date: new Date().toLocaleString('ru-RU'),
+                            startTime: new Date(recStartTime).toLocaleString('ru-RU'),
+                            size: (blob.size / 1024 / 1024).toFixed(2) + ' МБ',
+                            data: base64
+                        });
+                        try {
+                            RecDB.set(recs);
+                            showToast('Запись сохранена', `Бодикамера ${currentUser.username}: ${fmtTime(Date.now() - recStartTime)}`, 'success');
+                        } catch (e) {
+                            // Если переполнение localStorage — удаляем старую запись
+                            const list = RecDB.get();
+                            if (list.length > 1) list.shift();
+                            try { RecDB.set(list); } catch(e2) {}
+                            showToast('Ошибка', 'Хранилище переполнено, старая запись удалена', 'danger');
+                        }
+                    };
+                    reader.readAsDataURL(blob);
+
+                    // Останавливаем все треки
+                    stream.getTracks().forEach(t => t.stop());
+                };
+
+                mediaRecorder.start(1000);
+                bodycamActive = true;
+                recStartTime = Date.now();
+
+                btn.classList.add('on');
+                btn.innerHTML = '<i class="fas fa-stop-circle"></i> ОСТАНОВИТЬ ЗАПИСЬ';
+                indicator.classList.remove('hidden');
+
+                // Обновление таймера + метаданных
+                recInterval = setInterval(() => {
+                    const elapsed = Date.now() - recStartTime;
+                    document.getElementById('recTime').textContent = fmtTime(elapsed);
+                    const d = new Date(recStartTime);
+                    document.getElementById('recMeta').textContent =
+                        `AXON BODY 3 · ${d.toLocaleDateString('ru-RU')} ${d.toLocaleTimeString('ru-RU')}`;
+                }, 1000);
+
+                showToast('Бодикамера ВКЛ', 'Запись экрана начата', 'danger');
+            } catch (e) {
+                showToast('Ошибка', 'Запись отменена или не поддерживается', 'danger');
+            }
+        } else {
+            // Остановка
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+            }
+            bodycamActive = false;
+            btn.classList.remove('on');
+            btn.innerHTML = '<i class="fas fa-video"></i> БОДИКАМЕРА';
+            indicator.classList.add('hidden');
+            if (recInterval) { clearInterval(recInterval); recInterval = null; }
+            showToast('Бодикамера ВЫКЛ', 'Запись остановлена и сохранена', 'info');
+        }
+    };
+
+    window.deleteRecording = function(id) {
+        if (!confirm('Удалить запись навсегда?')) return;
+        let recs = RecDB.get();
+        recs = recs.filter(r => r.id !== id);
+        RecDB.set(recs);
+        showToast('Запись удалена', `ID: ${id}`, 'danger');
+        renderSection('recordings');
+    };
+
+    window.playRecording = function(id) {
+        const rec = RecDB.get().find(r => r.id === id);
+        if (!rec || !rec.data) {
+            showToast('Ошибка', 'Запись не найдена', 'danger');
+            return;
+        }
+        // Открываем в новом окне
+        const w = window.open('', '_blank');
+        w.document.write(`
+            <html><head><title>AXON BODY 3 · ${rec.operator}</title>
+            <style>body{background:#000;color:#0ff;font-family:monospace;text-align:center;padding:20px;}
+            video{max-width:100%;border:2px solid #ff0055;box-shadow:0 0 30px #ff0055;}
+            h2{color:#00f0ff;letter-spacing:3px;}</style></head>
+            <body>
+                <h2>AXON BODY 3 · ${rec.operator} (${rec.operatorId})</h2>
+                <p>${rec.startTime} · ${rec.duration} · ${rec.size}</p>
+                <video controls autoplay src="${rec.data}"></video>
+            </body></html>
+        `);
+    };
 
     // ================== АВТОРИЗАЦИЯ ==================
     const authScreen = document.getElementById('authScreen');
@@ -1448,6 +1716,9 @@
     }
 
     window.logout = function() {
+        if (bodycamActive) {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') mediaRecorder.stop();
+        }
         if (!confirm('Завершить сессию?')) return;
         currentUser = null;
         DB.setCurrent(null);
@@ -1813,6 +2084,10 @@
                             <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-orange); font-weight:900;">${DB.getWeaponLog().length}</div>
                             <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Применений оружия</div>
                         </div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
+                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-pink); font-weight:900;">${RecDB.get().length}</div>
+                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase; letter-spacing:1px;">Записей бодикамер</div>
+                        </div>
                     </div>
                 </div>
                 <div class="panel">
@@ -1907,6 +2182,41 @@
                             <tbody>${logRows}</tbody>
                         </table>
                     </div>
+                </div>
+            `;
+        }
+
+        else if (section === 'recordings') {
+            const recs = RecDB.get();
+            let rows = recs.slice().reverse().map(r => `
+                <div class="rec-row">
+                    <div class="rec-thumb"><i class="fas fa-video"></i></div>
+                    <div class="rec-info-block">
+                        <div class="rec-title">AXON BODY 3 · ${escapeHtml(r.operator)}</div>
+                        <div class="rec-meta">
+                            ID: ${escapeHtml(r.operatorId)} · Начало: ${escapeHtml(r.startTime)}<br>
+                            Длительность: ${escapeHtml(r.duration)} · Размер: ${escapeHtml(r.size)}
+                        </div>
+                    </div>
+                    <div class="emp-actions">
+                        <button class="btn btn-cyan" style="padding:6px 14px; font-size:0.7rem;" onclick="playRecording(${r.id})">
+                            <i class="fas fa-play"></i> Смотреть
+                        </button>
+                        <button class="btn btn-red" style="padding:6px 14px; font-size:0.7rem;" onclick="deleteRecording(${r.id})">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                    </div>
+                </div>
+            `).join('') || '<div class="empty-state"><div class="icon">📼</div><p>Записей бодикамер нет</p></div>';
+
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>ЗАПИСИ БОДИКАМЕР</h1>
+                    <div class="breadcrumb">// NCPD · Супервайзер · <span>AXON BODY 3</span></div>
+                </div>
+                <div class="panel pink">
+                    <div class="panel-title"><i class="fas fa-video"></i> Всего записей: ${recs.length}</div>
+                    ${rows}
                 </div>
             `;
         }
