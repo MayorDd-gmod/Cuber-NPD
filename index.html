@@ -223,7 +223,6 @@
         .app { display: none; }
         .app.active { display: block; }
 
-        /* Топ-панель */
         .top-bar {
             position: sticky;
             top: 0;
@@ -335,23 +334,23 @@
         }
         .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
 
-        /* Layout */
         .main-layout {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 280px 1fr;
             min-height: calc(100vh - 60px);
         }
 
-        /* Сайдбар */
         .sidebar {
             background: var(--bg-panel);
             border-right: 1px solid var(--border);
-            padding: 16px 0;
             position: sticky;
             top: 60px;
             height: calc(100vh - 60px);
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
+        .sidebar-content { flex: 1; padding: 16px 0 0; }
         .sidebar-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 0.7rem;
@@ -383,6 +382,107 @@
             box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
         }
         .sidebar-item i { width: 18px; text-align: center; font-size: 0.9rem; }
+
+        /* Оповещения */
+        .announce-box {
+            border-top: 1px solid var(--border);
+            padding: 14px 16px 16px;
+            background: rgba(0, 0, 0, 0.2);
+        }
+        .announce-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .announce-title i { color: var(--neon-yellow); }
+        #announceFormBox textarea {
+            width: 100%;
+            padding: 8px 10px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            color: var(--text);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            resize: vertical;
+            transition: 0.2s;
+        }
+        #announceFormBox textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+        }
+        .announce-send {
+            width: 100%;
+            margin-top: 6px;
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px solid var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 6px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.65rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+        .announce-send:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 15px var(--neon-cyan);
+        }
+        #announceList {
+            max-height: 220px;
+            overflow-y: auto;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+            margin-top: 8px;
+        }
+        #announceList::-webkit-scrollbar { width: 4px; }
+        #announceList::-webkit-scrollbar-track { background: transparent; }
+        #announceList::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+        #announceList::-webkit-scrollbar-thumb:hover { background: var(--neon-cyan); }
+
+        .announce-item {
+            background: rgba(0, 240, 255, 0.05);
+            border-left: 2px solid var(--neon-cyan);
+            padding: 6px 8px;
+            margin-bottom: 6px;
+            border-radius: 3px;
+        }
+        .announce-item .announce-meta {
+            font-size: 0.6rem;
+            color: var(--text-dim);
+            margin-bottom: 2px;
+            opacity: 0.8;
+        }
+        .announce-item .announce-author {
+            color: var(--neon-pink);
+            font-weight: 700;
+        }
+        .announce-item .announce-text {
+            color: var(--text);
+            font-size: 0.7rem;
+            line-height: 1.4;
+            word-break: break-word;
+        }
+        .announce-empty {
+            padding: 8px 0;
+            text-align: center;
+            opacity: 0.5;
+            font-size: 0.7rem;
+        }
 
         /* Контент */
         .content { padding: 24px 28px; overflow-x: hidden; }
@@ -441,7 +541,6 @@
         .panel.pink .panel-title { color: var(--neon-pink); }
         .panel.purple .panel-title { color: var(--neon-purple); }
 
-        /* Таблицы */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -484,7 +583,6 @@
         .badge-admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
         .badge-orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
 
-        /* Сотрудники */
         .employee-row {
             display: flex;
             align-items: center;
@@ -545,7 +643,6 @@
         }
         .emp-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-        /* Роли */
         .role-row {
             display: flex;
             align-items: center;
@@ -580,7 +677,6 @@
         }
         .role-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-        /* Формы и элементы */
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -602,7 +698,6 @@
         .alert-info { background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); border-color: var(--neon-cyan); }
         .hidden { display: none !important; }
 
-        /* Модальные окна */
         .modal-overlay {
             position: fixed;
             inset: 0;
@@ -636,7 +731,6 @@
             text-transform: uppercase;
         }
 
-        /* Паника */
         .panic-overlay {
             position: fixed;
             inset: 0;
@@ -677,7 +771,6 @@
             margin-bottom: 24px;
         }
 
-        /* Тосты */
         .toast-container {
             position: fixed;
             top: 80px;
@@ -887,28 +980,48 @@
 
     <div class="main-layout">
         <aside class="sidebar">
-            <div class="sidebar-title">// Терминал</div>
-            <div class="sidebar-item active" data-section="dashboard" onclick="switchSection('dashboard')">
-                <i class="fas fa-tachometer-alt"></i> Главная
-            </div>
-            <div class="sidebar-item" data-section="wanted" onclick="switchSection('wanted')">
-                <i class="fas fa-search"></i> База розыска
-            </div>
-            <div class="sidebar-item" data-section="weapons" onclick="switchSection('weapons')">
-                <i class="fas fa-gun"></i> Реестр оружия
+            <div class="sidebar-content">
+                <div class="sidebar-title">// Терминал</div>
+                <div class="sidebar-item active" data-section="dashboard" onclick="switchSection('dashboard')">
+                    <i class="fas fa-tachometer-alt"></i> Главная
+                </div>
+                <div class="sidebar-item" data-section="wanted" onclick="switchSection('wanted')">
+                    <i class="fas fa-search"></i> База розыска
+                </div>
+                <div class="sidebar-item" data-section="weapons" onclick="switchSection('weapons')">
+                    <i class="fas fa-gun"></i> Реестр оружия
+                </div>
+
+                <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
+                <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
+                    <i class="fas fa-file-alt"></i> Отчёты сотрудников
+                </div>
+                <div class="sidebar-item supervisor-only hidden" data-section="employees" onclick="switchSection('employees')">
+                    <i class="fas fa-users"></i> База данных сотрудников
+                </div>
+
+                <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
+                <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')">
+                    <i class="fas fa-user-shield"></i> Управление ролями
+                </div>
             </div>
 
-            <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
-            <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
-                <i class="fas fa-file-alt"></i> Отчёты сотрудников
-            </div>
-            <div class="sidebar-item supervisor-only hidden" data-section="employees" onclick="switchSection('employees')">
-                <i class="fas fa-users"></i> База данных сотрудников
-            </div>
+            <!-- ОПОВЕЩЕНИЯ -->
+            <div class="announce-box">
+                <div class="announce-title">
+                    <i class="fas fa-bullhorn"></i> Оповещения
+                </div>
 
-            <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
-            <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')">
-                <i class="fas fa-user-shield"></i> Управление ролями
+                <div id="announceFormBox" class="hidden">
+                    <textarea id="announceText" rows="3" placeholder="Текст оповещения..."></textarea>
+                    <button class="announce-send" onclick="sendAnnounce()">
+                        <i class="fas fa-paper-plane"></i> Отправить
+                    </button>
+                </div>
+
+                <div id="announceList">
+                    <div class="announce-empty">Нет оповещений</div>
+                </div>
             </div>
         </aside>
 
@@ -1181,6 +1294,73 @@
         setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
     };
 
+    // ================== ОПОВЕЩЕНИЯ ==================
+    const AnnounceDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_announce')) || []; },
+        set(a) { localStorage.setItem('ncpd_announce', JSON.stringify(a)); }
+    };
+
+    window.sendAnnounce = function() {
+        const isAdmin = currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
+        if (!isAdmin) {
+            showToast('Отказано', 'Только администраторы могут отправлять оповещения', 'danger');
+            return;
+        }
+
+        const text = document.getElementById('announceText').value.trim();
+        if (!text) {
+            showToast('Ошибка', 'Введите текст оповещения', 'warning');
+            return;
+        }
+
+        const list = AnnounceDB.get();
+        list.push({
+            id: Date.now(),
+            author: currentUser.username,
+            text: text,
+            date: new Date().toLocaleString('ru-RU')
+        });
+        AnnounceDB.set(list);
+
+        document.getElementById('announceText').value = '';
+        renderAnnounce();
+        showToast('Оповещение отправлено', 'Все сотрудники увидят его', 'success');
+    };
+
+    function escapeHtml(text) {
+        const d = document.createElement('div');
+        d.textContent = text;
+        return d.innerHTML;
+    }
+
+    function renderAnnounce() {
+        const list = AnnounceDB.get();
+        const container = document.getElementById('announceList');
+
+        if (list.length === 0) {
+            container.innerHTML = '<div class="announce-empty">Нет оповещений</div>';
+            return;
+        }
+
+        container.innerHTML = list.slice().reverse().map(a => `
+            <div class="announce-item">
+                <div class="announce-meta">
+                    <span class="announce-author">${escapeHtml(a.author)}</span> · ${escapeHtml(a.date)}
+                </div>
+                <div class="announce-text">${escapeHtml(a.text)}</div>
+            </div>
+        `).join('');
+    }
+
+    function updateAnnounceUI() {
+        const isAdmin = currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
+        document.getElementById('announceFormBox').classList.toggle('hidden', !isAdmin);
+        renderAnnounce();
+    }
+
+    // Автообновление оповещений каждые 5 секунд
+    setInterval(renderAnnounce, 5000);
+
     // ================== АВТОРИЗАЦИЯ ==================
     const authScreen = document.getElementById('authScreen');
     const app = document.getElementById('app');
@@ -1263,6 +1443,7 @@
         app.classList.add('active');
         document.getElementById('opName').textContent = currentUser.username;
         updatePermissionsUI();
+        updateAnnounceUI();
         switchSection('dashboard');
     }
 
@@ -1637,9 +1818,9 @@
                 <div class="panel">
                     <div class="panel-title"><i class="fas fa-terminal"></i> Информация об операторе</div>
                     <div style="font-family:'Share Tech Mono',monospace; font-size:0.8rem; line-height:2; color:var(--text-dim);">
-                        <div>Оператор: <span style="color:var(--neon-cyan);">${currentUser.username}</span></div>
-                        <div>ID: <span style="color:var(--neon-cyan);">${currentUser.id}</span></div>
-                        <div>Звание: <span style="color:var(--neon-cyan);">${currentUser.rank}</span></div>
+                        <div>Оператор: <span style="color:var(--neon-cyan);">${escapeHtml(currentUser.username)}</span></div>
+                        <div>ID: <span style="color:var(--neon-cyan);">${escapeHtml(currentUser.id)}</span></div>
+                        <div>Звание: <span style="color:var(--neon-cyan);">${escapeHtml(currentUser.rank)}</span></div>
                         <div>Выговоров: <span style="color:${currentUser.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">${currentUser.warnings || 0}</span></div>
                     </div>
                 </div>
@@ -1650,11 +1831,11 @@
             let rows = wantedList.map(w => `
                 <tr>
                     <td style="color:var(--neon-cyan);">${w.id}</td>
-                    <td>${w.name}</td>
+                    <td>${escapeHtml(w.name)}</td>
                     <td><span class="badge ${w.status === 'Особо опасен' ? 'badge-danger' : w.status === 'Опасен' ? 'badge-warn' : 'badge-info'}">${w.status}</span></td>
-                    <td>${w.crime}</td>
+                    <td>${escapeHtml(w.crime)}</td>
                     <td style="color:var(--neon-yellow); font-weight:700;">${w.reward}</td>
-                    <td>${w.location}</td>
+                    <td>${escapeHtml(w.location)}</td>
                 </tr>
             `).join('');
             content.innerHTML = `
@@ -1677,10 +1858,10 @@
             let rows = weaponsList.map(w => `
                 <tr>
                     <td style="color:var(--neon-cyan);">${w.id}</td>
-                    <td>${w.name}</td>
-                    <td>${w.type}</td>
-                    <td>${w.ammo}</td>
-                    <td><span class="badge badge-safe">${w.status}</span></td>
+                    <td>${escapeHtml(w.name)}</td>
+                    <td>${escapeHtml(w.type)}</td>
+                    <td>${escapeHtml(w.ammo)}</td>
+                    <td><span class="badge badge-safe">${escapeHtml(w.status)}</span></td>
                     <td>
                         <div class="table-actions">
                             <button class="table-btn delete" onclick="deleteWeapon('${w.id}')">
@@ -1693,11 +1874,11 @@
 
             let logRows = DB.getWeaponLog().slice().reverse().slice(0, 10).map(l => `
                 <tr>
-                    <td style="color:var(--neon-cyan);">${l.operatorId}</td>
-                    <td>${l.operator}</td>
-                    <td>${l.weapon}</td>
-                    <td style="color:var(--text-dim);">${l.reason}</td>
-                    <td style="color:var(--text-dim); font-size:0.7rem;">${l.date}</td>
+                    <td style="color:var(--neon-cyan);">${escapeHtml(l.operatorId)}</td>
+                    <td>${escapeHtml(l.operator)}</td>
+                    <td>${escapeHtml(l.weapon)}</td>
+                    <td style="color:var(--text-dim);">${escapeHtml(l.reason)}</td>
+                    <td style="color:var(--text-dim); font-size:0.7rem;">${escapeHtml(l.date)}</td>
                 </tr>
             `).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--text-dim); padding:20px;">Журнал пуст</td></tr>';
 
@@ -1734,11 +1915,11 @@
             const reports = DB.getReports();
             let rows = reports.slice().reverse().map(r => `
                 <tr>
-                    <td style="color:var(--neon-pink);">${r.operatorId || '—'}</td>
-                    <td>${r.name}</td>
-                    <td>${r.type}</td>
-                    <td style="color:var(--text-dim);">${r.content}</td>
-                    <td style="color:var(--text-dim); font-size:0.7rem;">${r.date}</td>
+                    <td style="color:var(--neon-pink);">${escapeHtml(r.operatorId || '—')}</td>
+                    <td>${escapeHtml(r.name)}</td>
+                    <td>${escapeHtml(r.type)}</td>
+                    <td style="color:var(--text-dim);">${escapeHtml(r.content)}</td>
+                    <td style="color:var(--text-dim); font-size:0.7rem;">${escapeHtml(r.date)}</td>
                 </tr>
             `).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--text-dim); padding:20px;">Отчётов нет</td></tr>';
 
@@ -1771,13 +1952,13 @@
                 <div class="employee-row">
                     ${u.avatar
                         ? `<div class="emp-avatar-img" style="background-image:url(${u.avatar});"></div>`
-                        : `<div class="emp-avatar">${u.username.charAt(0).toUpperCase()}</div>`
+                        : `<div class="emp-avatar">${escapeHtml(u.username.charAt(0).toUpperCase())}</div>`
                     }
                     <div class="emp-info">
-                        <div class="emp-name">${u.username} ${isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
-                        <div class="emp-meta">${u.rank || 'Офицер'} · Регистрация: ${u.registered || '—'}</div>
+                        <div class="emp-name">${escapeHtml(u.username)} ${isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
+                        <div class="emp-meta">${escapeHtml(u.rank || 'Офицер')} · Регистрация: ${escapeHtml(u.registered || '—')}</div>
                     </div>
-                    <div class="emp-id">${u.id}</div>
+                    <div class="emp-id">${escapeHtml(u.id)}</div>
                     <div style="font-family:'Share Tech Mono'; font-size:0.8rem; color:${u.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">
                         ⚠ ${u.warnings || 0}
                     </div>
@@ -1823,7 +2004,7 @@
                 <div class="role-row">
                     <div class="role-color-dot" style="background:var(${r.color}); color:var(${r.color});"></div>
                     <div class="role-info">
-                        <div class="role-name">${r.name}</div>
+                        <div class="role-name">${escapeHtml(r.name)}</div>
                         <div class="role-perms">Права: ${permList.length ? permList.join(', ') : '—'}</div>
                     </div>
                     <div class="role-actions">
