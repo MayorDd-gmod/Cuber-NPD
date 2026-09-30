@@ -22,7 +22,6 @@
             --bg-dark: #05070a;
             --bg-panel: #0a0e14;
             --bg-panel-2: #0f141c;
-            --bg-panel-3: #141a24;
             --border: #1a2332;
             --text: #c8d8e8;
             --text-dim: #607080;
@@ -42,13 +41,11 @@
         body::after {
             content: '';
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background: repeating-linear-gradient(
                 0deg,
-                rgba(0, 0, 0, 0) 0px,
-                rgba(0, 0, 0, 0) 2px,
-                rgba(0, 240, 255, 0.015) 2px,
-                rgba(0, 240, 255, 0.015) 3px
+                transparent 0px, transparent 2px,
+                rgba(0, 240, 255, 0.015) 2px, rgba(0, 240, 255, 0.015) 3px
             );
             pointer-events: none;
             z-index: 9999;
@@ -57,7 +54,7 @@
         body::before {
             content: '';
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
+            inset: 0;
             background-image:
                 linear-gradient(rgba(0, 240, 255, 0.02) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 240, 255, 0.02) 1px, transparent 1px);
@@ -68,7 +65,7 @@
 
         ::selection { background: var(--neon-cyan); color: #000; }
 
-        /* ================== ЭКРАН АВТОРИЗАЦИИ ================== */
+        /* ================== АВТОРИЗАЦИЯ ================== */
         .auth-screen {
             position: fixed;
             inset: 0;
@@ -210,11 +207,7 @@
             text-decoration: none;
             border-radius: 3px;
         }
-        .btn:hover {
-            background: var(--neon-cyan);
-            color: #000;
-            box-shadow: 0 0 20px var(--neon-cyan);
-        }
+        .btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); }
         .btn-pink { color: var(--neon-pink); border-color: var(--neon-pink); }
         .btn-pink:hover { background: var(--neon-pink); color: #000; box-shadow: 0 0 20px var(--neon-pink); }
         .btn-red { color: var(--neon-red); border-color: var(--neon-red); }
@@ -223,13 +216,14 @@
         .btn-green:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 20px var(--neon-green); }
         .btn-orange { color: var(--neon-orange); border-color: var(--neon-orange); }
         .btn-orange:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
+        .btn-cyan { color: var(--neon-cyan); border-color: var(--neon-cyan); }
         .btn-full { width: 100%; }
 
-        /* ================== ОСНОВНОЙ ИНТЕРФЕЙС ================== */
+        /* ================== ПРИЛОЖЕНИЕ ================== */
         .app { display: none; }
         .app.active { display: block; }
 
-        /* ---------- Верхняя панель (Тарков-стиль) ---------- */
+        /* Топ-панель */
         .top-bar {
             position: sticky;
             top: 0;
@@ -243,7 +237,6 @@
             gap: 16px;
             flex-wrap: wrap;
         }
-
         .top-brand {
             font-family: 'Orbitron', sans-serif;
             font-size: 1.1rem;
@@ -253,14 +246,8 @@
             text-shadow: 0 0 10px var(--neon-cyan);
         }
         .top-brand span { color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink); }
+        .top-divider { width: 1px; height: 32px; background: var(--border); }
 
-        .top-divider {
-            width: 1px;
-            height: 32px;
-            background: var(--border);
-        }
-
-        /* Табло статуса */
         .tarkov-display {
             display: flex;
             align-items: center;
@@ -293,13 +280,7 @@
         .tarkov-display .display-item .d-value.red { color: var(--neon-red); text-shadow: 0 0 8px var(--neon-red); }
         .tarkov-display .display-item .d-value.yellow { color: var(--neon-yellow); text-shadow: 0 0 8px var(--neon-yellow); }
 
-        /* Кнопки действий на верхней панели */
-        .top-actions {
-            display: flex;
-            gap: 8px;
-            margin-left: auto;
-            flex-wrap: wrap;
-        }
+        .top-actions { display: flex; gap: 8px; margin-left: auto; flex-wrap: wrap; }
         .action-btn {
             display: flex;
             align-items: center;
@@ -336,7 +317,6 @@
             0%, 100% { box-shadow: 0 0 0 rgba(255, 34, 51, 0); }
             50% { box-shadow: 0 0 20px rgba(255, 34, 51, 0.6); }
         }
-
         .action-btn.shift {
             background: rgba(0, 255, 136, 0.1);
             border-color: var(--neon-green);
@@ -348,7 +328,6 @@
             box-shadow: 0 0 20px var(--neon-green);
         }
         .action-btn.shift:hover { background: var(--neon-green); color: #000; }
-
         .action-btn.weapon {
             background: rgba(255, 136, 0, 0.1);
             border-color: var(--neon-orange);
@@ -356,14 +335,14 @@
         }
         .action-btn.weapon:hover { background: var(--neon-orange); color: #000; box-shadow: 0 0 20px var(--neon-orange); }
 
-        /* ---------- Основной контент ---------- */
+        /* Layout */
         .main-layout {
             display: grid;
             grid-template-columns: 260px 1fr;
             min-height: calc(100vh - 60px);
         }
 
-        /* ---------- Боковая панель ---------- */
+        /* Сайдбар */
         .sidebar {
             background: var(--bg-panel);
             border-right: 1px solid var(--border);
@@ -396,10 +375,7 @@
             border-left: 3px solid transparent;
             transition: 0.2s;
         }
-        .sidebar-item:hover {
-            background: rgba(0, 240, 255, 0.05);
-            color: var(--neon-cyan);
-        }
+        .sidebar-item:hover { background: rgba(0, 240, 255, 0.05); color: var(--neon-cyan); }
         .sidebar-item.active {
             background: rgba(0, 240, 255, 0.1);
             color: var(--neon-cyan);
@@ -407,23 +383,9 @@
             box-shadow: inset 0 0 20px rgba(0, 240, 255, 0.05);
         }
         .sidebar-item i { width: 18px; text-align: center; font-size: 0.9rem; }
-        .sidebar-item .badge-count {
-            margin-left: auto;
-            background: var(--neon-red);
-            color: #fff;
-            font-size: 0.65rem;
-            padding: 1px 7px;
-            border-radius: 10px;
-            font-family: 'Share Tech Mono', monospace;
-            font-weight: 700;
-        }
 
-        /* ---------- Контент ---------- */
-        .content {
-            padding: 24px 28px;
-            overflow-x: hidden;
-        }
-
+        /* Контент */
+        .content { padding: 24px 28px; overflow-x: hidden; }
         .content-header {
             margin-bottom: 24px;
             border-bottom: 1px solid var(--border);
@@ -463,6 +425,7 @@
             box-shadow: 0 0 8px var(--neon-cyan);
         }
         .panel.pink::before { background: var(--neon-pink); box-shadow: 0 0 8px var(--neon-pink); }
+        .panel.purple::before { background: var(--neon-purple); box-shadow: 0 0 8px var(--neon-purple); }
         .panel-title {
             font-family: 'Orbitron', sans-serif;
             font-size: 1rem;
@@ -476,8 +439,9 @@
             gap: 10px;
         }
         .panel.pink .panel-title { color: var(--neon-pink); }
+        .panel.purple .panel-title { color: var(--neon-purple); }
 
-        /* ---------- Таблицы ---------- */
+        /* Таблицы */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -520,9 +484,7 @@
         .badge-admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
         .badge-orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
 
-        .warn-badge { color: var(--neon-yellow); font-weight: 700; }
-
-        /* ---------- Список сотрудников ---------- */
+        /* Сотрудники */
         .employee-row {
             display: flex;
             align-items: center;
@@ -550,6 +512,15 @@
             color: #000;
             flex-shrink: 0;
         }
+        .emp-avatar-img {
+            width: 44px;
+            height: 44px;
+            border-radius: 4px;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid var(--border);
+            flex-shrink: 0;
+        }
         .emp-info { flex: 1; min-width: 160px; }
         .emp-info .emp-name {
             font-family: 'Orbitron', sans-serif;
@@ -574,7 +545,42 @@
         }
         .emp-actions { display: flex; gap: 6px; flex-wrap: wrap; }
 
-        /* ---------- Форма отчёта ---------- */
+        /* Роли */
+        .role-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            background: var(--bg-panel-2);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+        .role-row:hover { border-color: var(--neon-purple); }
+        .role-color-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            box-shadow: 0 0 10px currentColor;
+        }
+        .role-info { flex: 1; min-width: 150px; }
+        .role-info .role-name {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            color: #fff;
+        }
+        .role-info .role-perms {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--text-dim);
+        }
+        .role-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        /* Формы и элементы */
         .empty-state {
             text-align: center;
             padding: 50px 20px;
@@ -596,7 +602,41 @@
         .alert-info { background: rgba(0, 240, 255, 0.1); color: var(--neon-cyan); border-color: var(--neon-cyan); }
         .hidden { display: none !important; }
 
-        /* ---------- Алерт паники (оверлей) ---------- */
+        /* Модальные окна */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(4px);
+            z-index: 9997;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .modal {
+            background: var(--bg-panel);
+            border: 2px solid var(--neon-orange);
+            border-radius: 6px;
+            padding: 28px 32px;
+            max-width: 480px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(255, 136, 0, 0.4);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        .modal h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--neon-orange);
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+            text-transform: uppercase;
+        }
+
+        /* Паника */
         .panic-overlay {
             position: fixed;
             inset: 0;
@@ -637,47 +677,103 @@
             margin-bottom: 24px;
         }
 
-        /* ---------- Форма оружия (модалка) ---------- */
-        .modal-overlay {
+        /* Тосты */
+        .toast-container {
             position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(4px);
-            z-index: 9997;
+            top: 80px;
+            right: 20px;
+            z-index: 10001;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+        .toast {
+            background: var(--bg-panel);
+            border: 1px solid var(--neon-cyan);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 4px;
+            padding: 14px 20px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.3);
+            min-width: 280px;
+            max-width: 400px;
+            pointer-events: auto;
+            animation: toastIn 0.3s ease, toastOut 0.3s ease 3.7s forwards;
             display: flex;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            gap: 12px;
         }
-        .modal {
-            background: var(--bg-panel);
-            border: 2px solid var(--neon-orange);
-            border-radius: 6px;
-            padding: 28px 32px;
-            max-width: 460px;
-            width: 100%;
-            box-shadow: 0 0 40px rgba(255, 136, 0, 0.4);
-        }
-        .modal h3 {
+        .toast.success { border-color: var(--neon-green); border-left-color: var(--neon-green); box-shadow: 0 0 25px rgba(0, 255, 136, 0.3); }
+        .toast.danger { border-color: var(--neon-red); border-left-color: var(--neon-red); box-shadow: 0 0 25px rgba(255, 34, 51, 0.3); }
+        .toast.warning { border-color: var(--neon-yellow); border-left-color: var(--neon-yellow); box-shadow: 0 0 25px rgba(247, 255, 0, 0.3); }
+        .toast.info { border-color: var(--neon-cyan); border-left-color: var(--neon-cyan); }
+        .toast .toast-icon { font-size: 1.2rem; flex-shrink: 0; }
+        .toast.success .toast-icon { color: var(--neon-green); }
+        .toast.danger .toast-icon { color: var(--neon-red); }
+        .toast.warning .toast-icon { color: var(--neon-yellow); }
+        .toast.info .toast-icon { color: var(--neon-cyan); }
+        .toast .toast-content { flex: 1; }
+        .toast .toast-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: var(--neon-orange);
-            letter-spacing: 2px;
-            margin-bottom: 18px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            margin-bottom: 2px;
         }
+        .toast.success .toast-title { color: var(--neon-green); }
+        .toast.danger .toast-title { color: var(--neon-red); }
+        .toast.warning .toast-title { color: var(--neon-yellow); }
+        .toast.info .toast-title { color: var(--neon-cyan); }
+        .toast .toast-msg { font-size: 0.75rem; color: var(--text-dim); line-height: 1.4; }
 
-        /* ---------- Адаптив ---------- */
+        @keyframes toastIn { from { opacity: 0; transform: translateX(100px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes toastOut { from { opacity: 1; transform: translateX(0); } to { opacity: 0; transform: translateX(100px); } }
+
+        .table-actions { display: flex; gap: 6px; justify-content: flex-end; }
+        .table-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            padding: 4px 10px;
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: 0.2s;
+        }
+        .table-btn:hover { border-color: var(--neon-red); color: var(--neon-red); }
+        .table-btn.delete:hover { background: var(--neon-red); color: #000; box-shadow: 0 0 15px var(--neon-red); }
+
+        .add-btn {
+            background: rgba(0, 240, 255, 0.08);
+            border: 1px dashed var(--neon-cyan);
+            color: var(--neon-cyan);
+            padding: 12px 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: 0.25s;
+            width: 100%;
+            margin-top: 10px;
+        }
+        .add-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 25px var(--neon-cyan); border-style: solid; }
+        .add-btn.purple { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(179, 0, 255, 0.08); }
+        .add-btn.purple:hover { background: var(--neon-purple); color: #000; box-shadow: 0 0 25px var(--neon-purple); }
+
         @media (max-width: 900px) {
             .main-layout { grid-template-columns: 1fr; }
-            .sidebar {
-                position: relative;
-                height: auto;
-                top: 0;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
+            .sidebar { position: relative; height: auto; top: 0; border-right: none; border-bottom: 1px solid var(--border); }
             .sidebar-item { display: inline-flex; padding: 10px 14px; }
             .sidebar-title { display: none; }
             .top-bar { padding: 8px 12px; gap: 10px; }
@@ -696,12 +792,11 @@
 </head>
 <body>
 
-<!-- ================== ЭКРАН АВТОРИЗАЦИИ ================== -->
+<!-- ================== АВТОРИЗАЦИЯ ================== -->
 <div class="auth-screen" id="authScreen">
     <div class="auth-box">
         <div class="auth-logo">NCPD<span>·</span>TERM</div>
         <div class="auth-sub">// Night City Police Department //</div>
-
         <div class="auth-tabs">
             <button id="tabLogin" class="active">Вход</button>
             <button id="tabRegister">Регистрация</button>
@@ -745,10 +840,8 @@
     </div>
 </div>
 
-<!-- ================== ОСНОВНОЕ ПРИЛОЖЕНИЕ ================== -->
+<!-- ================== ОСНОВНОЕ ================== -->
 <div class="app" id="app">
-
-    <!-- Топ-панель (Тарков-стиль) -->
     <div class="top-bar">
         <div class="top-brand">NCPD<span>·</span>TERM</div>
         <div class="top-divider"></div>
@@ -764,7 +857,7 @@
             </div>
             <div class="display-item">
                 <span class="d-label">SHIFT</span>
-                <span class="d-value" id="shiftStatus">OFF</span>
+                <span class="d-value red" id="shiftStatus">OFF</span>
             </div>
             <div class="display-item">
                 <span class="d-label">SHIFT TIME</span>
@@ -792,10 +885,7 @@
         </div>
     </div>
 
-    <!-- Основной layout -->
     <div class="main-layout">
-
-        <!-- Боковая панель -->
         <aside class="sidebar">
             <div class="sidebar-title">// Терминал</div>
             <div class="sidebar-item active" data-section="dashboard" onclick="switchSection('dashboard')">
@@ -808,21 +898,21 @@
                 <i class="fas fa-gun"></i> Реестр оружия
             </div>
 
-            <div class="sidebar-title" id="supervisorSection" style="margin-top:12px;">// Супервайзер</div>
-            <div class="sidebar-item supervisor-only" data-section="reports" onclick="switchSection('reports')">
+            <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
+            <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')">
                 <i class="fas fa-file-alt"></i> Отчёты сотрудников
-                <span class="badge-count" id="reportsCount">0</span>
             </div>
-            <div class="sidebar-item supervisor-only" data-section="employees" onclick="switchSection('employees')">
+            <div class="sidebar-item supervisor-only hidden" data-section="employees" onclick="switchSection('employees')">
                 <i class="fas fa-users"></i> База данных сотрудников
+            </div>
+
+            <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
+            <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')">
+                <i class="fas fa-user-shield"></i> Управление ролями
             </div>
         </aside>
 
-        <!-- Контент -->
-        <div class="content" id="content">
-            <!-- Секции переключаются JS -->
-        </div>
-
+        <div class="content" id="content"></div>
     </div>
 </div>
 
@@ -854,6 +944,141 @@
         <div id="weaponMsg" class="hidden" style="margin-top:12px;"></div>
     </div>
 </div>
+
+<!-- Модалка добавления оружия -->
+<div class="modal-overlay hidden" id="addWeaponModal">
+    <div class="modal">
+        <h3><i class="fas fa-plus"></i> Добавить оружие</h3>
+        <form id="addWeaponForm">
+            <div class="form-group">
+                <label for="addWName">Название</label>
+                <input type="text" id="addWName" placeholder="Напр. Taкэда CK-1" required />
+            </div>
+            <div class="form-group">
+                <label for="addWType">Тип</label>
+                <select id="addWType">
+                    <option value="Пистолет">Пистолет</option>
+                    <option value="SMG">SMG</option>
+                    <option value="Дробовик">Дробовик</option>
+                    <option value="Штурмовая винтовка">Штурмовая винтовка</option>
+                    <option value="Снайперская винтовка">Снайперская винтовка</option>
+                    <option value="Электрошокер">Электрошокер</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="addWAmmo">Калибр</label>
+                <input type="text" id="addWAmmo" placeholder="Напр. 9mm" />
+            </div>
+            <div class="form-group">
+                <label for="addWStatus">Статус</label>
+                <select id="addWStatus">
+                    <option value="В арсенале">В арсенале</option>
+                    <option value="У оператора">У оператора</option>
+                    <option value="На ремонте">На ремонте</option>
+                    <option value="Списано">Списано</option>
+                </select>
+            </div>
+            <div style="display:flex;gap:10px;">
+                <button type="submit" class="btn btn-green" style="flex:1;">Добавить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeAddWeaponModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модалка роли -->
+<div class="modal-overlay hidden" id="roleModal">
+    <div class="modal" style="border-color: var(--neon-purple); box-shadow: 0 0 40px rgba(179, 0, 255, 0.4);">
+        <h3 style="color: var(--neon-purple);" id="roleModalTitle">
+            <i class="fas fa-user-shield"></i> Создать роль
+        </h3>
+        <form id="roleForm">
+            <input type="hidden" id="roleEditId" />
+            <div class="form-group">
+                <label for="roleName">Название роли</label>
+                <input type="text" id="roleName" placeholder="Напр. Куратор" required />
+            </div>
+            <div class="form-group">
+                <label for="roleColor">Цвет</label>
+                <select id="roleColor">
+                    <option value="--neon-cyan">Циан (стандарт)</option>
+                    <option value="--neon-pink">Розовый (админ)</option>
+                    <option value="--neon-yellow">Жёлтый (супервайзер)</option>
+                    <option value="--neon-orange">Оранжевый (офицер)</option>
+                    <option value="--neon-green">Зелёный (стажёр)</option>
+                    <option value="--neon-purple">Фиолетовый (управление)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Права доступа</label>
+                <div style="display:flex; flex-direction:column; gap:6px; font-family:'Share Tech Mono',monospace; font-size:0.8rem;">
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);">
+                        <input type="checkbox" id="permSupervisor" style="width:auto;" /> Видеть отчёты сотрудников
+                    </label>
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);">
+                        <input type="checkbox" id="permManageEmp" style="width:auto;" /> Управлять сотрудниками
+                    </label>
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);">
+                        <input type="checkbox" id="permManageRoles" style="width:auto;" /> Управлять ролями
+                    </label>
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);">
+                        <input type="checkbox" id="permDeleteAny" style="width:auto;" /> Удалять любых сотрудников
+                    </label>
+                </div>
+            </div>
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeRoleModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модалка редактирования сотрудника -->
+<div class="modal-overlay hidden" id="editUserModal">
+    <div class="modal" style="border-color: var(--neon-cyan);">
+        <h3><i class="fas fa-user-edit"></i> Редактировать сотрудника</h3>
+        <form id="editUserForm">
+            <input type="hidden" id="editUserId" />
+
+            <div class="form-group" style="text-align:center;">
+                <div id="editUserPreview" style="
+                    width:100px; height:100px;
+                    border-radius:6px;
+                    background:linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+                    display:flex; align-items:center; justify-content:center;
+                    font-family:'Orbitron',sans-serif; font-size:2.5rem; font-weight:900; color:#000;
+                    margin:0 auto 10px;
+                    background-size:cover; background-position:center;
+                    border:2px solid var(--neon-cyan);">?</div>
+            </div>
+
+            <div class="form-group">
+                <label for="editUsername">Никнейм</label>
+                <input type="text" id="editUsername" required />
+            </div>
+
+            <div class="form-group">
+                <label for="editAvatarFile">Аватарка (файл)</label>
+                <input type="file" id="editAvatarFile" accept="image/*" />
+                <small style="color:var(--text-dim); font-size:0.7rem;">Рекомендуется 100×100, JPG/PNG</small>
+            </div>
+
+            <div class="form-group">
+                <label for="editRole">Роль</label>
+                <select id="editRole"></select>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeEditUserModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Контейнер тостов -->
+<div class="toast-container" id="toastContainer"></div>
 
 <script>
 (function() {
@@ -893,7 +1118,6 @@
     initAdmin();
 
     let currentUser = DB.getCurrent();
-    let currentSection = 'dashboard';
 
     // ================== ДАННЫЕ ==================
     const wantedList = [
@@ -907,13 +1131,55 @@
         { id: 'NC-008', name: 'Киану Ривз', status: 'Особо опасен', crime: 'Терроризм', reward: '100,000 €$', location: 'Центр' }
     ];
 
-    const weaponsList = [
+    let weaponsList = JSON.parse(localStorage.getItem('ncpd_weapons')) || [
         { id: 'W-001', name: 'Taкэда CK-1', type: 'Пистолет', ammo: '9mm', status: 'В арсенале' },
         { id: 'W-002', name: 'Арasaka HJKE-11', type: 'SMG', ammo: '9mm', status: 'В арсенале' },
         { id: 'W-003', name: 'Морозный дробовик', type: 'Дробовик', ammo: '12g', status: 'В арсенале' },
         { id: 'W-004', name: 'Silenced Nova', type: 'Штурмовая винтовка', ammo: '5.56', status: 'В арсенале' },
         { id: 'W-005', name: 'Табельный TASER', type: 'Электрошокер', ammo: '—', status: 'У оператора' }
     ];
+    if (!localStorage.getItem('ncpd_weapons')) {
+        localStorage.setItem('ncpd_weapons', JSON.stringify(weaponsList));
+    }
+
+    let roles = JSON.parse(localStorage.getItem('ncpd_roles')) || [
+        { id: 'r1', name: 'Офицер', color: '--neon-orange', perms: {} },
+        { id: 'r2', name: 'Сержант', color: '--neon-cyan', perms: {} },
+        { id: 'r3', name: 'Лейтенант', color: '--neon-cyan', perms: { permSupervisor: true } },
+        { id: 'r4', name: 'Капитан', color: '--neon-yellow', perms: { permSupervisor: true, permManageEmp: true } },
+        { id: 'r5', name: 'Супервайзер', color: '--neon-yellow', perms: { permSupervisor: true, permManageEmp: true, permManageRoles: true } }
+    ];
+    if (!localStorage.getItem('ncpd_roles')) {
+        localStorage.setItem('ncpd_roles', JSON.stringify(roles));
+    }
+
+    function saveRoles() {
+        localStorage.setItem('ncpd_roles', JSON.stringify(roles));
+    }
+
+    // ================== УВЕДОМЛЕНИЯ ==================
+    window.showToast = function(title, message, type) {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = 'toast ' + (type || 'info');
+
+        const icons = {
+            success: 'fa-check-circle',
+            danger: 'fa-times-circle',
+            warning: 'fa-exclamation-triangle',
+            info: 'fa-info-circle'
+        };
+
+        toast.innerHTML = `
+            <div class="toast-icon"><i class="fas ${icons[type] || icons.info}"></i></div>
+            <div class="toast-content">
+                <div class="toast-title">${title}</div>
+                <div class="toast-msg">${message}</div>
+            </div>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
+    };
 
     // ================== АВТОРИЗАЦИЯ ==================
     const authScreen = document.getElementById('authScreen');
@@ -943,7 +1209,7 @@
         if (user) {
             currentUser = user;
             DB.setCurrent(user);
-            msg.textContent = '✓ ДОСТУП РАЗРЕШЁН. Загрузка терминала...';
+            msg.textContent = '✓ ДОСТУП РАЗРЕШЁН';
             msg.className = 'alert alert-success';
             setTimeout(() => openApp(), 700);
         } else {
@@ -978,7 +1244,7 @@
             password,
             rank,
             isAdmin: false,
-            isSupervisor: rank === 'Супервайзер',
+            isSupervisor: rank === 'Супервайзер' || rank === 'Капитан',
             warnings: 0,
             registered: new Date().toLocaleDateString('ru-RU')
         };
@@ -987,7 +1253,7 @@
         DB.setUsers(users);
         currentUser = newUser;
         DB.setCurrent(newUser);
-        msg.textContent = '✓ АККАУНТ СОЗДАН. Загрузка...';
+        msg.textContent = '✓ АККАУНТ СОЗДАН';
         msg.className = 'alert alert-success';
         setTimeout(() => openApp(), 700);
     });
@@ -996,8 +1262,7 @@
         authScreen.classList.add('hidden');
         app.classList.add('active');
         document.getElementById('opName').textContent = currentUser.username;
-        updateSupervisorUI();
-        updateReportsCount();
+        updatePermissionsUI();
         switchSection('dashboard');
     }
 
@@ -1015,19 +1280,25 @@
         shiftActive = false;
     };
 
-    function updateSupervisorUI() {
-        const isSupervisor = currentUser && (currentUser.isSupervisor || currentUser.isAdmin);
+    function updatePermissionsUI() {
+        const isAdmin = currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
+        const isSupervisor = currentUser && (currentUser.isSupervisor || isAdmin ||
+            ['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank));
+
         document.querySelectorAll('.supervisor-only').forEach(el => {
-            if (isSupervisor) el.classList.remove('hidden');
-            else el.classList.add('hidden');
+            el.classList.toggle('hidden', !isSupervisor);
         });
         document.getElementById('supervisorSection').style.display = isSupervisor ? 'block' : 'none';
+
+        document.querySelectorAll('.admin-only').forEach(el => {
+            el.classList.toggle('hidden', !isAdmin);
+        });
+        document.getElementById('adminSectionTitle').style.display = isAdmin ? 'block' : 'none';
     }
 
     // ================== ЧАСЫ МСК ==================
     function updateClock() {
         const now = new Date();
-        // МСК = UTC+3
         const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
         const h = String(msk.getHours()).padStart(2, '0');
         const m = String(msk.getMinutes()).padStart(2, '0');
@@ -1092,11 +1363,7 @@
             </div>
         `;
         document.body.appendChild(overlay);
-
-        // Авто-скрытие через 10 секунд
-        setTimeout(() => {
-            if (overlay.parentNode) overlay.remove();
-        }, 10000);
+        setTimeout(() => { if (overlay.parentNode) overlay.remove(); }, 10000);
     };
 
     // ================== ОРУЖИЕ ==================
@@ -1132,7 +1399,7 @@
         });
         DB.setWeaponLog(log);
 
-        msg.textContent = '✓ ЗАПИСЬ ДОБАВЛЕНА В ЖУРНАЛ ПРИМЕНЕНИЯ ОРУЖИЯ';
+        msg.textContent = '✓ ЗАПИСЬ ДОБАВЛЕНА';
         msg.className = 'alert alert-success';
 
         setTimeout(() => {
@@ -1141,7 +1408,198 @@
         }, 1500);
     });
 
-    // ================== НАВИГАЦИЯ ПО СЕКЦИЯМ ==================
+    window.openAddWeaponModal = function() {
+        document.getElementById('addWeaponModal').classList.remove('hidden');
+    };
+    window.closeAddWeaponModal = function() {
+        document.getElementById('addWeaponModal').classList.add('hidden');
+    };
+
+    document.getElementById('addWeaponForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('addWName').value.trim();
+        const type = document.getElementById('addWType').value;
+        const ammo = document.getElementById('addWAmmo').value.trim() || '—';
+        const status = document.getElementById('addWStatus').value;
+
+        if (!name) return;
+
+        const newId = 'W-' + String(weaponsList.length + 1).padStart(3, '0');
+        const newWeapon = { id: newId, name, type, ammo, status };
+        weaponsList.push(newWeapon);
+        localStorage.setItem('ncpd_weapons', JSON.stringify(weaponsList));
+
+        showToast('Добавлено', `${name} (${newId}) успешно добавлен`, 'success');
+        this.reset();
+        closeAddWeaponModal();
+        renderSection('weapons');
+    });
+
+    window.deleteWeapon = function(id) {
+        const weapon = weaponsList.find(w => w.id === id);
+        if (!weapon) return;
+        if (!confirm(`Удалить "${weapon.name}" из арсенала?`)) return;
+
+        weaponsList = weaponsList.filter(w => w.id !== id);
+        localStorage.setItem('ncpd_weapons', JSON.stringify(weaponsList));
+        showToast('Удалено', `${weapon.name} (${id}) удалён`, 'danger');
+        renderSection('weapons');
+    };
+
+    // ================== РОЛИ ==================
+    window.openRoleModal = function(editId) {
+        const modal = document.getElementById('roleModal');
+        const title = document.getElementById('roleModalTitle');
+        const form = document.getElementById('roleForm');
+        form.reset();
+        document.getElementById('roleEditId').value = '';
+
+        if (editId) {
+            const role = roles.find(r => r.id === editId);
+            if (!role) return;
+            document.getElementById('roleEditId').value = role.id;
+            document.getElementById('roleName').value = role.name;
+            document.getElementById('roleColor').value = role.color;
+            document.getElementById('permSupervisor').checked = !!role.perms.permSupervisor;
+            document.getElementById('permManageEmp').checked = !!role.perms.permManageEmp;
+            document.getElementById('permManageRoles').checked = !!role.perms.permManageRoles;
+            document.getElementById('permDeleteAny').checked = !!role.perms.permDeleteAny;
+            title.innerHTML = '<i class="fas fa-user-shield"></i> Редактировать роль';
+        } else {
+            title.innerHTML = '<i class="fas fa-user-shield"></i> Создать роль';
+        }
+        modal.classList.remove('hidden');
+    };
+
+    window.closeRoleModal = function() {
+        document.getElementById('roleModal').classList.add('hidden');
+    };
+
+    document.getElementById('roleForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const editId = document.getElementById('roleEditId').value;
+        const name = document.getElementById('roleName').value.trim();
+        const color = document.getElementById('roleColor').value;
+        const perms = {
+            permSupervisor: document.getElementById('permSupervisor').checked,
+            permManageEmp: document.getElementById('permManageEmp').checked,
+            permManageRoles: document.getElementById('permManageRoles').checked,
+            permDeleteAny: document.getElementById('permDeleteAny').checked
+        };
+
+        if (!name) return;
+
+        if (editId) {
+            const role = roles.find(r => r.id === editId);
+            if (role) {
+                role.name = name;
+                role.color = color;
+                role.perms = perms;
+                showToast('Роль обновлена', `${name} успешно изменена`, 'success');
+            }
+        } else {
+            roles.push({ id: 'r' + Date.now(), name, color, perms });
+            showToast('Роль создана', `${name} добавлена в систему`, 'success');
+        }
+        saveRoles();
+        closeRoleModal();
+        renderSection('roles');
+    });
+
+    window.deleteRole = function(id) {
+        const role = roles.find(r => r.id === id);
+        if (!role) return;
+        if (!confirm(`Удалить роль "${role.name}"?`)) return;
+        roles = roles.filter(r => r.id !== id);
+        saveRoles();
+        showToast('Роль удалена', `${role.name} удалена`, 'danger');
+        renderSection('roles');
+    };
+
+    // ================== РЕДАКТИРОВАНИЕ СОТРУДНИКА ==================
+    let editAvatarData = null;
+
+    window.openEditUserModal = function(id) {
+        const users = DB.getUsers();
+        const user = users.find(u => u.id === id);
+        if (!user) return;
+
+        editAvatarData = user.avatar || null;
+        document.getElementById('editUserId').value = id;
+        document.getElementById('editUsername').value = user.username;
+
+        const preview = document.getElementById('editUserPreview');
+        if (user.avatar) {
+            preview.style.backgroundImage = `url(${user.avatar})`;
+            preview.textContent = '';
+        } else {
+            preview.style.backgroundImage = 'none';
+            preview.textContent = user.username.charAt(0).toUpperCase();
+        }
+
+        const roleSelect = document.getElementById('editRole');
+        roleSelect.innerHTML = roles.map(r =>
+            `<option value="${r.name}" ${r.name === user.rank ? 'selected' : ''}>${r.name}</option>`
+        ).join('');
+
+        document.getElementById('editUserModal').classList.remove('hidden');
+    };
+
+    window.closeEditUserModal = function() {
+        document.getElementById('editUserModal').classList.add('hidden');
+        editAvatarData = null;
+    };
+
+    document.getElementById('editAvatarFile').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+            editAvatarData = ev.target.result;
+            const preview = document.getElementById('editUserPreview');
+            preview.style.backgroundImage = `url(${editAvatarData})`;
+            preview.textContent = '';
+        };
+        reader.readAsDataURL(file);
+    });
+
+    document.getElementById('editUserForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('editUserId').value;
+        const newName = document.getElementById('editUsername').value.trim();
+        const newRole = document.getElementById('editRole').value;
+
+        if (!newName) return;
+
+        const users = DB.getUsers();
+        const user = users.find(u => u.id === id);
+        if (!user) return;
+
+        if (users.some(u => u.username === newName && u.id !== id)) {
+            showToast('Ошибка', 'Такой никнейм уже занят', 'danger');
+            return;
+        }
+
+        user.username = newName;
+        user.rank = newRole;
+        if (editAvatarData) user.avatar = editAvatarData;
+
+        DB.setUsers(users);
+
+        if (currentUser && currentUser.id === id) {
+            currentUser = user;
+            DB.setCurrent(user);
+            document.getElementById('opName').textContent = currentUser.username;
+        }
+
+        showToast('Сотрудник обновлён', `${newName} · ${newRole}`, 'success');
+        closeEditUserModal();
+        renderSection('employees');
+    });
+
+    // ================== НАВИГАЦИЯ ==================
+    let currentSection = 'dashboard';
+
     window.switchSection = function(section) {
         currentSection = section;
         document.querySelectorAll('.sidebar-item').forEach(el => {
@@ -1177,7 +1635,7 @@
                     </div>
                 </div>
                 <div class="panel">
-                    <div class="panel-title"><i class="fas fa-terminal"></i> Системная информация</div>
+                    <div class="panel-title"><i class="fas fa-terminal"></i> Информация об операторе</div>
                     <div style="font-family:'Share Tech Mono',monospace; font-size:0.8rem; line-height:2; color:var(--text-dim);">
                         <div>Оператор: <span style="color:var(--neon-cyan);">${currentUser.username}</span></div>
                         <div>ID: <span style="color:var(--neon-cyan);">${currentUser.id}</span></div>
@@ -1207,9 +1665,7 @@
                 <div class="panel">
                     <div style="overflow-x:auto;">
                         <table class="data-table">
-                            <thead>
-                                <tr><th>ID</th><th>Имя</th><th>Статус</th><th>Преступление</th><th>Награда</th><th>Локация</th></tr>
-                            </thead>
+                            <thead><tr><th>ID</th><th>Имя</th><th>Статус</th><th>Преступление</th><th>Награда</th><th>Локация</th></tr></thead>
                             <tbody>${rows}</tbody>
                         </table>
                     </div>
@@ -1225,6 +1681,13 @@
                     <td>${w.type}</td>
                     <td>${w.ammo}</td>
                     <td><span class="badge badge-safe">${w.status}</span></td>
+                    <td>
+                        <div class="table-actions">
+                            <button class="table-btn delete" onclick="deleteWeapon('${w.id}')">
+                                <i class="fas fa-trash"></i> Удалить
+                            </button>
+                        </div>
+                    </td>
                 </tr>
             `).join('');
 
@@ -1244,13 +1707,16 @@
                     <div class="breadcrumb">// NCPD · <span>Вооружение</span></div>
                 </div>
                 <div class="panel">
-                    <div class="panel-title"><i class="fas fa-gun"></i> Доступное вооружение</div>
+                    <div class="panel-title"><i class="fas fa-gun"></i> Доступное вооружение (${weaponsList.length})</div>
                     <div style="overflow-x:auto;">
                         <table class="data-table">
-                            <thead><tr><th>ID</th><th>Название</th><th>Тип</th><th>Калибр</th><th>Статус</th></tr></thead>
+                            <thead><tr><th>ID</th><th>Название</th><th>Тип</th><th>Калибр</th><th>Статус</th><th style="text-align:right;">Действия</th></tr></thead>
                             <tbody>${rows}</tbody>
                         </table>
                     </div>
+                    <button class="add-btn" onclick="openAddWeaponModal()">
+                        <i class="fas fa-plus"></i> Добавить оружие
+                    </button>
                 </div>
                 <div class="panel pink">
                     <div class="panel-title"><i class="fas fa-history"></i> Журнал применения</div>
@@ -1299,11 +1765,16 @@
 
         else if (section === 'employees') {
             const users = DB.getUsers();
-            let rows = users.map(u => `
+            let rows = users.map(u => {
+                const isAdmin = u.isAdmin || u.username === 'Superadmin';
+                return `
                 <div class="employee-row">
-                    <div class="emp-avatar">${u.username.charAt(0).toUpperCase()}</div>
+                    ${u.avatar
+                        ? `<div class="emp-avatar-img" style="background-image:url(${u.avatar});"></div>`
+                        : `<div class="emp-avatar">${u.username.charAt(0).toUpperCase()}</div>`
+                    }
                     <div class="emp-info">
-                        <div class="emp-name">${u.username} ${u.isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
+                        <div class="emp-name">${u.username} ${isAdmin ? '<span class="badge badge-admin" style="margin-left:6px;">ADMIN</span>' : ''}</div>
                         <div class="emp-meta">${u.rank || 'Офицер'} · Регистрация: ${u.registered || '—'}</div>
                     </div>
                     <div class="emp-id">${u.id}</div>
@@ -1314,6 +1785,9 @@
                         <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="giveWarning('${u.id}')">
                             <i class="fas fa-exclamation"></i> Выговор
                         </button>
+                        <button class="btn btn-cyan" style="padding:5px 12px; font-size:0.65rem;" onclick="openEditUserModal('${u.id}')">
+                            <i class="fas fa-user-edit"></i> Изменить
+                        </button>
                         <button class="btn btn-green" style="padding:5px 12px; font-size:0.65rem;" onclick="changeId('${u.id}')">
                             <i class="fas fa-id-card"></i> ID
                         </button>
@@ -1322,7 +1796,8 @@
                         </button>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
 
             content.innerHTML = `
                 <div class="content-header">
@@ -1332,6 +1807,48 @@
                 <div class="panel pink">
                     <div class="panel-title"><i class="fas fa-users"></i> Всего: ${users.length}</div>
                     ${rows}
+                </div>
+            `;
+        }
+
+        else if (section === 'roles') {
+            let rows = roles.map(r => {
+                const permList = [];
+                if (r.perms.permSupervisor) permList.push('Отчёты');
+                if (r.perms.permManageEmp) permList.push('Сотрудники');
+                if (r.perms.permManageRoles) permList.push('Роли');
+                if (r.perms.permDeleteAny) permList.push('Удаление');
+
+                return `
+                <div class="role-row">
+                    <div class="role-color-dot" style="background:var(${r.color}); color:var(${r.color});"></div>
+                    <div class="role-info">
+                        <div class="role-name">${r.name}</div>
+                        <div class="role-perms">Права: ${permList.length ? permList.join(', ') : '—'}</div>
+                    </div>
+                    <div class="role-actions">
+                        <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="openRoleModal('${r.id}')">
+                            <i class="fas fa-pen"></i> Изменить
+                        </button>
+                        <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteRole('${r.id}')">
+                            <i class="fas fa-trash"></i> Удалить
+                        </button>
+                    </div>
+                </div>
+                `;
+            }).join('');
+
+            content.innerHTML = `
+                <div class="content-header">
+                    <h1>УПРАВЛЕНИЕ РОЛЯМИ</h1>
+                    <div class="breadcrumb">// NCPD · Админ · <span>Роли</span></div>
+                </div>
+                <div class="panel purple">
+                    <div class="panel-title"><i class="fas fa-user-shield"></i> Роли (${roles.length})</div>
+                    ${rows}
+                    <button class="add-btn purple" onclick="openRoleModal()">
+                        <i class="fas fa-plus"></i> Создать роль
+                    </button>
                 </div>
             `;
         }
@@ -1345,10 +1862,11 @@
         if (!user) return;
         user.warnings = (user.warnings || 0) + 1;
         DB.setUsers(users);
-        if (currentUser.id === id) {
+        if (currentUser && currentUser.id === id) {
             currentUser = user;
             DB.setCurrent(user);
         }
+        showToast('Выговор выдан', `${user.username}: ${user.warnings} предупреждений`, 'warning');
         renderSection('employees');
     };
 
@@ -1357,7 +1875,7 @@
         if (!newId || newId === id) return;
         const users = DB.getUsers();
         if (users.some(u => u.id === newId)) {
-            alert('Такой ID уже существует');
+            showToast('Ошибка', 'Такой ID уже существует', 'danger');
             return;
         }
         const user = users.find(u => u.id === id);
@@ -1370,31 +1888,30 @@
             DB.setCurrent(user);
             document.getElementById('opName').textContent = currentUser.username;
         }
+        showToast('ID изменён', `${user.username}: ${newId}`, 'info');
         renderSection('employees');
     };
 
     window.deleteUser = function(id) {
         if (id === currentUser.id) {
-            alert('Нельзя удалить себя');
+            showToast('Ошибка', 'Нельзя удалить себя', 'danger');
             return;
         }
         if (!confirm('Удалить сотрудника навсегда?')) return;
         let users = DB.getUsers();
+        const user = users.find(u => u.id === id);
         users = users.filter(u => u.id !== id);
         DB.setUsers(users);
+        showToast('Сотрудник удалён', user ? user.username : id, 'danger');
         renderSection('employees');
     };
 
     window.clearReports = function() {
         if (!confirm('Очистить все отчёты?')) return;
         DB.setReports([]);
-        updateReportsCount();
+        showToast('Отчёты очищены', 'Все отчёты удалены', 'warning');
         renderSection('reports');
     };
-
-    function updateReportsCount() {
-        document.getElementById('reportsCount').textContent = DB.getReports().length;
-    }
 
     // ================== СТАРТ ==================
     if (currentUser) {
