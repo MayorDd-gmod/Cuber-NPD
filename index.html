@@ -10,6 +10,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* КАСТОМНЫЙ СКРОЛЛБАР */
+        ::-webkit-scrollbar { width: 12px; height: 12px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); border-left: 1px solid var(--border); }
+        ::-webkit-scrollbar-thumb { background: var(--theme-accent); border-radius: 6px; border: 2px solid var(--bg-dark); box-shadow: 0 0 10px var(--theme-accent); transition: background 0.3s ease; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--theme-accent-2); box-shadow: 0 0 15px var(--theme-accent-2); }
+        ::-webkit-scrollbar-corner { background: var(--bg-dark); }
+        * { scrollbar-width: thin; scrollbar-color: var(--theme-accent) var(--bg-dark); }
+
         :root {
             --neon-cyan: #00f0ff; --neon-pink: #ff0055; --neon-yellow: #f7ff00;
             --neon-purple: #b300ff; --neon-green: #00ff88; --neon-red: #ff2233;
@@ -54,6 +62,8 @@
         .btn-green:hover { background: var(--neon-green); color: #000; }
         .btn-orange { color: var(--neon-orange); border-color: var(--neon-orange); }
         .btn-orange:hover { background: var(--neon-orange); color: #000; }
+        .btn-purple { color: var(--neon-purple); border-color: var(--neon-purple); }
+        .btn-purple:hover { background: var(--neon-purple); color: #000; }
         .btn-full { width: 100%; }
 
         .app { display: none; }
@@ -115,7 +125,7 @@
         .announce-item .announce-author { color: var(--theme-accent-2); font-weight: 700; }
         .announce-item .announce-text { color: var(--text); font-size: 0.7rem; }
         .announce-empty { padding: 8px 0; text-align: center; opacity: 0.5; font-size: 0.7rem; }
-
+        
         .content { padding: 24px 28px; overflow-x: hidden; }
         .content-header { margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
         .content-header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 15px var(--theme-accent); margin-bottom: 4px; }
@@ -127,10 +137,12 @@
         .panel.pink::before { background: var(--theme-accent-2); }
         .panel.purple::before { background: var(--neon-purple); }
         .panel.orange::before { background: var(--neon-orange); }
+        .panel.green::before { background: var(--neon-green); }
         .panel-title { font-family: 'Orbitron', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 2px; color: var(--theme-accent); text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
         .panel.pink .panel-title { color: var(--theme-accent-2); }
         .panel.purple .panel-title { color: var(--neon-purple); }
         .panel.orange .panel-title { color: var(--neon-orange); }
+        .panel.green .panel-title { color: var(--neon-green); }
 
         .data-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
         .data-table th { text-align: left; padding: 10px 12px; background: var(--bg-dark); color: var(--theme-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 0.7rem; border-bottom: 2px solid var(--theme-accent); font-weight: 700; }
@@ -177,6 +189,11 @@
         .alert-info { background: rgba(0, 240, 255, 0.1); color: var(--theme-accent); border-color: var(--theme-accent); }
         .hidden { display: none !important; }
 
+        /* ============ РОЗЫСК ============ */
+        .wanted-actions { display: flex; gap: 6px; justify-content: flex-end; flex-wrap: wrap; }
+        .wanted-modal-fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        @media (max-width: 600px) { .wanted-modal-fields { grid-template-columns: 1fr; } }
+
         .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(4px); z-index: 9997; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
         .modal { background: var(--bg-panel); border: 2px solid var(--neon-orange); border-radius: 6px; padding: 28px 32px; max-width: 480px; width: 100%; box-shadow: 0 0 40px rgba(255, 136, 0, 0.4); max-height: 90vh; overflow-y: auto; }
         .modal h3 { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--neon-orange); letter-spacing: 2px; margin-bottom: 18px; text-transform: uppercase; }
@@ -206,6 +223,7 @@
         .add-btn { background: rgba(0, 240, 255, 0.08); border: 1px dashed var(--theme-accent); color: var(--theme-accent); padding: 12px 20px; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; border-radius: 4px; width: 100%; margin-top: 10px; }
         .add-btn:hover { background: var(--theme-accent); color: #000; border-style: solid; }
         .add-btn.purple { border-color: var(--neon-purple); color: var(--neon-purple); background: rgba(179, 0, 255, 0.08); }
+        .add-btn.red { border-color: var(--neon-red); color: var(--neon-red); background: rgba(255, 34, 51, 0.08); }
 
         .chat-container { display: flex; flex-direction: column; background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; height: calc(100vh - 380px); min-height: 380px; }
         .chat-tabs { display: flex; background: var(--bg-dark); border-bottom: 1px solid var(--border); flex-shrink: 0; }
@@ -254,6 +272,42 @@
         .log-info .log-text { color: var(--text); font-size: 0.9rem; }
         .log-info .log-meta { color: var(--text-dim); font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; margin-top: 2px; }
         .log-actions { display: flex; gap: 6px; }
+
+        /* ROBOCOP — ПОЛНОЦЕННЫЙ РАЗДЕЛ */
+        .robocop-chat { background: var(--bg-panel); border: 1px solid var(--border); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; height: calc(100vh - 340px); min-height: 420px; }
+        .robocop-msg { display: flex; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); }
+        .robocop-msg:last-child { border-bottom: none; }
+        .robocop-msg.bot { background: rgba(255, 136, 0, 0.04); }
+        .robocop-msg.user { background: rgba(0, 240, 255, 0.03); flex-direction: row-reverse; }
+        .rc-avatar { width: 42px; height: 42px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 1rem; color: #000; flex-shrink: 0; background: linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)); }
+        .robocop-msg.bot .rc-avatar { background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow)); }
+        .rc-content { flex: 1; min-width: 0; }
+        .robocop-msg.user .rc-content { text-align: right; }
+        .rc-author { font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 700; color: var(--theme-accent); margin-bottom: 4px; }
+        .robocop-msg.bot .rc-author { color: var(--neon-orange); }
+        .rc-text { color: var(--text); font-size: 0.88rem; white-space: pre-wrap; word-wrap: break-word; }
+        .rc-time { font-size: 0.65rem; color: var(--text-dim); margin-top: 6px; }
+        .rc-input-area { display: flex; gap: 10px; padding: 14px; border-top: 1px solid var(--border); background: var(--bg-dark); }
+        .rc-input-area input { flex: 1; background: var(--bg-panel-2); border: 1px solid var(--border); color: var(--text); padding: 12px 16px; border-radius: 4px; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+        .rc-input-area input:focus { outline: none; border-color: var(--neon-orange); box-shadow: 0 0 12px var(--neon-orange); }
+        .rc-input-area button { background: var(--neon-orange); color: #000; border: none; padding: 12px 24px; border-radius: 4px; font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.75rem; cursor: pointer; }
+        .rc-input-area button:hover { box-shadow: 0 0 20px var(--neon-orange); }
+        .rc-quick { padding: 10px; display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--border); background: rgba(0, 0, 0, 0.2); }
+        .rc-quick button { font-size: 0.65rem; padding: 6px 12px; background: rgba(255, 136, 0, 0.1); border: 1px solid var(--neon-orange); color: var(--neon-orange); border-radius: 3px; cursor: pointer; font-family: 'Orbitron', sans-serif; font-weight: 700; text-transform: uppercase; }
+        .rc-quick button:hover { background: var(--neon-orange); color: #000; }
+        .rc-quick button.secret { background: rgba(179, 0, 255, 0.1); border-color: var(--neon-purple); color: var(--neon-purple); }
+        .rc-quick button.secret:hover { background: var(--neon-purple); color: #000; }
+
+        /* САЙТ — ВКЛ/ВЫКЛ */
+        .site-off-overlay { position: fixed; inset: 0; background: #000; z-index: 999999; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 30px; text-align: center; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .site-off-overlay h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: var(--neon-red); text-shadow: 0 0 30px var(--neon-red); letter-spacing: 8px; margin-bottom: 20px; }
+        .site-off-overlay p { font-family: 'Share Tech Mono', monospace; color: var(--text-dim); font-size: 1rem; margin-bottom: 10px; }
+        .site-off-overlay .offline-badge { font-family: 'Share Tech Mono', monospace; color: var(--neon-red); font-size: 0.8rem; letter-spacing: 4px; padding: 8px 20px; border: 2px solid var(--neon-red); border-radius: 4px; animation: blink 1.5s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .site-status-on { display: flex; align-items: center; gap: 12px; padding: 20px; background: rgba(0, 255, 136, 0.08); border: 1px solid var(--neon-green); border-radius: 6px; font-family: 'Share Tech Mono', monospace; color: var(--neon-green); margin-bottom: 16px; }
+        .site-status-off { display: flex; align-items: center; gap: 12px; padding: 20px; background: rgba(255, 34, 51, 0.08); border: 1px solid var(--neon-red); border-radius: 6px; font-family: 'Share Tech Mono', monospace; color: var(--neon-red); margin-bottom: 16px; }
+        .site-status-on i, .site-status-off i { font-size: 1.5rem; }
 
         .float-widget { position: fixed; bottom: 20px; right: 20px; z-index: 9990; background: var(--bg-panel); border: 2px solid var(--neon-orange); border-radius: 6px; box-shadow: 0 0 30px rgba(255, 136, 0, 0.3); display: flex; flex-direction: column; max-height: 500px; width: 340px; overflow: hidden; transition: 0.25s; }
         .float-widget.collapsed { max-height: 42px; }
@@ -319,6 +373,15 @@
 
 <body data-theme="cyan">
 
+<!-- ОВЕРЛЕЙ ВЫКЛЮЧЕННОГО САЙТА -->
+<div id="siteOffOverlay" class="hidden">
+    <div class="site-off-overlay">
+        <h1>SITE OFFLINE</h1>
+        <p>Терминал NCPD временно отключён администрацией</p>
+        <div class="offline-badge">● OFFLINE ●</div>
+    </div>
+</div>
+
 <!-- АВТОРИЗАЦИЯ -->
 <div class="auth-screen" id="authScreen">
     <div class="auth-box">
@@ -358,7 +421,7 @@
 <!-- ОСНОВНОЕ -->
 <div class="app" id="app">
     <div class="top-bar" id="topBar">
-        <div class="top-brand">NCPD<span>·</span>TERM</div>
+        <div class="top-brand" id="topBrand">NCPD<span>·</span>TERM</div>
         <div class="top-divider"></div>
         <div class="tarkov-display">
             <div class="display-item"><span class="d-label">MSK TIME</span><span class="d-value" id="clock">--:--:--</span></div>
@@ -401,13 +464,22 @@
                     <i class="fas fa-bell"></i> Функционал
                     <span class="badge-count func hidden" id="funcBadgeSidebar">0</span>
                 </div>
+
                 <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
                 <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')"><i class="fas fa-file-alt"></i> Отчёты сотрудников</div>
+
+                <!-- ИИ-БОТ в сайдбаре (перед сотрудниками) -->
+                <div class="sidebar-item supervisor-only hidden" data-section="robocop" onclick="switchSection('robocop')">
+                    <i class="fas fa-robot" style="color:var(--neon-orange);"></i> RoboCop AI
+                </div>
+
                 <div class="sidebar-item supervisor-only hidden" data-section="employees" onclick="switchSection('employees')"><i class="fas fa-users"></i> База данных сотрудников</div>
+
                 <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
                 <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')"><i class="fas fa-user-shield"></i> Управление ролями</div>
                 <div class="sidebar-item admin-only hidden" data-section="adminchat" onclick="switchSection('adminchat')"><i class="fas fa-user-secret"></i> Админ-чат</div>
                 <div class="sidebar-item admin-only hidden" data-section="adminlogs" onclick="switchSection('adminlogs')"><i class="fas fa-clipboard-list"></i> Админ-логи</div>
+                <div class="sidebar-item admin-only hidden" data-section="site" onclick="switchSection('site')"><i class="fas fa-globe"></i> Сайт</div>
                 <div class="sidebar-item" data-section="settings" onclick="switchSection('settings')"><i class="fas fa-palette"></i> Настройки дизайна</div>
             </div>
             <div class="announce-box">
@@ -423,7 +495,7 @@
     </div>
 </div>
 
-<!-- ROBOCOP -->
+<!-- ROBOCOP ПЛАВАЮЩИЙ ВИДЖЕТ -->
 <div class="float-widget" id="robocopWidget">
     <div class="fw-header" onclick="toggleWidget('robocopWidget')">
         <i class="fas fa-robot"></i> RoboCop
@@ -509,6 +581,37 @@
             <div style="display:flex;gap:10px;">
                 <button type="submit" class="btn btn-green" style="flex:1;">Добавить</button>
                 <button type="button" class="btn" style="flex:1;" onclick="closeAddWeaponModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- МОДАЛКА РОЗЫСКА -->
+<div class="modal-overlay hidden" id="wantedModal">
+    <div class="modal" style="border-color: var(--neon-red);">
+        <h3 style="color: var(--neon-red);" id="wantedModalTitle"><i class="fas fa-search"></i> Добавить в розыск</h3>
+        <form id="wantedForm">
+            <input type="hidden" id="wantedEditId" />
+            <div class="wanted-modal-fields">
+                <div class="form-group"><label for="wantedId">ID</label><input type="text" id="wantedId" placeholder="NC-009" required /></div>
+                <div class="form-group"><label for="wantedName">Имя</label><input type="text" id="wantedName" placeholder="Имя подозреваемого" required /></div>
+            </div>
+            <div class="wanted-modal-fields">
+                <div class="form-group"><label for="wantedStatus">Статус</label>
+                    <select id="wantedStatus">
+                        <option value="Розыск">Розыск</option>
+                        <option value="Опасен">Опасен</option>
+                        <option value="Особо опасен">Особо опасен</option>
+                        <option value="Наблюдение">Наблюдение</option>
+                    </select>
+                </div>
+                <div class="form-group"><label for="wantedReward">Награда</label><input type="text" id="wantedReward" placeholder="25,000 €$" /></div>
+            </div>
+            <div class="form-group"><label for="wantedCrime">Преступление</label><input type="text" id="wantedCrime" placeholder="Убийство, ограбление..." required /></div>
+            <div class="form-group"><label for="wantedLocation">Локация</label><input type="text" id="wantedLocation" placeholder="Уотсон" /></div>
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-red" style="flex:1;">Сохранить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeWantedModal()">Отмена</button>
             </div>
         </form>
     </div>
@@ -616,6 +719,22 @@
     </div>
 </div>
 
+<!-- МОДАЛКА ДОБАВЛЕНИЯ АККАУНТА (только админ) -->
+<div class="modal-overlay hidden" id="adminAddUserModal">
+    <div class="modal" style="border-color: var(--neon-purple);">
+        <h3 style="color: var(--neon-purple);"><i class="fas fa-user-plus"></i> Добавить аккаунт</h3>
+        <form id="adminAddUserForm">
+            <div class="form-group"><label for="newUserName">Логин</label><input type="text" id="newUserName" required /></div>
+            <div class="form-group"><label for="newUserPass">Пароль</label><input type="text" id="newUserPass" required /></div>
+            <div class="form-group"><label for="newUserRole">Роль</label><select id="newUserRole"></select></div>
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-purple" style="flex:1;">Создать</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeAdminAddUserModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <div class="toast-container" id="toastContainer"></div>
 
 <script>
@@ -651,25 +770,12 @@
         set(l) { localStorage.setItem('ncpd_funclog', JSON.stringify(l)); },
         add(text) {
             const list = this.get();
-            list.push({
-                id: Date.now(),
-                text,
-                date: new Date().toLocaleString('ru-RU'),
-                read: false
-            });
+            list.push({ id: Date.now(), text, date: new Date().toLocaleString('ru-RU'), read: false });
             this.set(list);
             updateFuncBadge();
         },
-        markRead() {
-            const list = this.get();
-            list.forEach(l => l.read = true);
-            this.set(list);
-            updateFuncBadge();
-        },
-        clear() {
-            this.set([]);
-            updateFuncBadge();
-        }
+        markRead() { const list = this.get(); list.forEach(l => l.read = true); this.set(list); updateFuncBadge(); },
+        clear() { this.set([]); updateFuncBadge(); }
     };
 
     function initAdmin() {
@@ -687,7 +793,8 @@
 
     let currentUser = DB.getCurrent();
 
-    const wantedList = [
+    const WANTED_KEY = 'ncpd_wanted';
+    const wantedDefault = [
         { id: 'NC-001', name: 'Джеки Уэллс', status: 'Особо опасен', crime: 'Убийство, ограбление', reward: '50,000 €$', location: 'Уотсон' },
         { id: 'NC-002', name: 'Сандевистан', status: 'Опасен', crime: 'Кибертерроризм', reward: '35,000 €$', location: 'Санто-Доминго' },
         { id: 'NC-003', name: 'Ви (V)', status: 'Розыск', crime: 'Незаконные импланты', reward: '15,000 €$', location: 'Найт-Сити' },
@@ -697,6 +804,9 @@
         { id: 'NC-007', name: 'Ривер Уорд', status: 'Розыск', crime: 'Коррупция', reward: '10,000 €$', location: 'Хейвуд' },
         { id: 'NC-008', name: 'Киану Ривз', status: 'Особо опасен', crime: 'Терроризм', reward: '100,000 €$', location: 'Центр' }
     ];
+    let wantedList = JSON.parse(localStorage.getItem(WANTED_KEY)) || wantedDefault;
+    function saveWanted() { localStorage.setItem(WANTED_KEY, JSON.stringify(wantedList)); }
+    if (!localStorage.getItem(WANTED_KEY)) saveWanted();
 
     let weaponsList = JSON.parse(localStorage.getItem('ncpd_weapons')) || [
         { id: 'W-001', name: 'Taкэда CK-1', type: 'Пистолет', ammo: '9mm', status: 'В арсенале' },
@@ -705,9 +815,7 @@
         { id: 'W-004', name: 'Silenced Nova', type: 'Штурмовая винтовка', ammo: '5.56', status: 'В арсенале' },
         { id: 'W-005', name: 'Табельный TASER', type: 'Электрошокер', ammo: '—', status: 'У оператора' }
     ];
-    if (!localStorage.getItem('ncpd_weapons')) {
-        localStorage.setItem('ncpd_weapons', JSON.stringify(weaponsList));
-    }
+    if (!localStorage.getItem('ncpd_weapons')) localStorage.setItem('ncpd_weapons', JSON.stringify(weaponsList));
 
     let roles = JSON.parse(localStorage.getItem('ncpd_roles')) || [
         { id: 'r1', name: 'Офицер', color: '--neon-orange', perms: {} },
@@ -716,9 +824,7 @@
         { id: 'r4', name: 'Капитан', color: '--neon-yellow', perms: { permSupervisor: true, permManageEmp: true, permAnnounce: true } },
         { id: 'r5', name: 'Супервайзер', color: '--neon-yellow', perms: { permSupervisor: true, permManageEmp: true, permManageRoles: true, permAnnounce: true } }
     ];
-    if (!localStorage.getItem('ncpd_roles')) {
-        localStorage.setItem('ncpd_roles', JSON.stringify(roles));
-    }
+    if (!localStorage.getItem('ncpd_roles')) localStorage.setItem('ncpd_roles', JSON.stringify(roles));
 
     function saveRoles() { localStorage.setItem('ncpd_roles', JSON.stringify(roles)); }
 
@@ -762,6 +868,10 @@
                ['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank);
     }
 
+    function isAdminUser() {
+        return currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
+    }
+    
     function applyTheme(theme) {
         document.body.setAttribute('data-theme', theme || 'cyan');
         document.querySelectorAll('.theme-item').forEach(el => {
@@ -774,12 +884,7 @@
         if (currentUser) {
             const users = DB.getUsers();
             const user = users.find(u => u.id === currentUser.id);
-            if (user) {
-                user.theme = theme;
-                DB.setUsers(users);
-                currentUser = user;
-                DB.setCurrent(user);
-            }
+            if (user) { user.theme = theme; DB.setUsers(users); currentUser = user; DB.setCurrent(user); }
         }
         showToast('Тема изменена', 'Настройка сохранена на аккаунте', 'success');
     };
@@ -797,17 +902,12 @@
     };
 
     window.sendAnnounce = function() {
-        if (!canAnnounce(currentUser)) {
-            showToast('Отказано', 'Только супервайзеры могут отправлять оповещения', 'danger');
-            return;
-        }
+        if (!canAnnounce(currentUser)) { showToast('Отказано', 'Только супервайзеры могут отправлять оповещения', 'danger'); return; }
         const text = document.getElementById('announceText').value.trim();
         if (!text) { showToast('Ошибка', 'Введите текст оповещения', 'warning'); return; }
-
         const list = AnnounceDB.get();
         list.push({ id: Date.now(), author: currentUser.username, text, date: new Date().toLocaleString('ru-RU') });
         AnnounceDB.set(list);
-
         const chatList = AnnounceChatDB.get();
         chatList.push({
             id: Date.now() + 1, author: currentUser.username, authorId: currentUser.id,
@@ -816,9 +916,7 @@
             isAnnounce: true
         });
         AnnounceChatDB.set(chatList);
-
-        FuncLogDB.add(`📢 Объявление от ${currentUser.username}: "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}"`);
-
+        FuncLogDB.add(`📢 Объявление от ${currentUser.username}: "${text.slice(0, 60)}"`);
         document.getElementById('announceText').value = '';
         renderAnnounce();
         if (currentSection === 'chat') renderChatSection();
@@ -828,6 +926,7 @@
     function renderAnnounce() {
         const list = AnnounceDB.get();
         const container = document.getElementById('announceList');
+        if (!container) return;
         if (list.length === 0) { container.innerHTML = '<div class="announce-empty">Нет оповещений</div>'; return; }
         container.innerHTML = list.slice().reverse().map(a => `
             <div class="announce-item">
@@ -838,7 +937,8 @@
     }
 
     function updateAnnounceUI() {
-        document.getElementById('announceFormBox').classList.toggle('hidden', !canAnnounce(currentUser));
+        const box = document.getElementById('announceFormBox');
+        if (box) box.classList.toggle('hidden', !canAnnounce(currentUser));
         renderAnnounce();
     }
     setInterval(renderAnnounce, 5000);
@@ -853,15 +953,13 @@
         const announceMsgs = AnnounceChatDB.get();
         const msgs = chatTab === 'general' ? generalMsgs : announceMsgs;
         const unread = chatTab === 'general' ? Math.max(0, generalMsgs.length - chatLastRead) : Math.max(0, announceMsgs.length - announceLastRead);
-
         const isAdminUser2 = isAdminOrSupervisor();
 
         let messagesHtml = msgs.length === 0
             ? `<div style="text-align:center; padding:40px 20px; color:var(--text-dim); font-family:'Share Tech Mono'; font-size:0.85rem;"><i class="fas fa-${chatTab === 'general' ? 'comments' : 'bullhorn'}" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>${chatTab === 'general' ? 'Пока нет сообщений.' : 'Пока нет объявлений.'}</div>`
             : msgs.map(m => {
                 const isMine = currentUser && m.authorId === currentUser.id;
-                const canEdit = isAdminUser2;
-                const adminBtns = canEdit ? `
+                const adminBtns = isAdminUser2 ? `
                     <div class="msg-admin-actions">
                         <button class="edit" onclick="openEditMsgModal(${m.id}, '${chatTab}')" title="Редактировать"><i class="fas fa-pen"></i></button>
                         <button class="del" onclick="deleteMsg(${m.id}, '${chatTab}')" title="Удалить"><i class="fas fa-trash"></i></button>
@@ -922,7 +1020,6 @@
 
         const cm = document.getElementById('chatMessages');
         if (cm) cm.scrollTop = cm.scrollHeight;
-
         if (chatTab === 'general') chatLastRead = generalMsgs.length;
         else announceLastRead = announceMsgs.length;
         updateChatBadge();
@@ -966,22 +1063,18 @@
         if (!input) return;
         const text = input.value.trim();
         if (!text) return;
-
         const msgs = AnnounceChatDB.get();
         msgs.push({
             id: Date.now(), author: currentUser.username, authorId: currentUser.id,
             rank: currentUser.rank, avatar: currentUser.avatar || null, text,
-            date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }),
-            isAnnounce: true
+            date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), isAnnounce: true
         });
         AnnounceChatDB.set(msgs);
-
         const announceList = AnnounceDB.get();
         announceList.push({ id: Date.now() + 1, author: currentUser.username, text, date: new Date().toLocaleString('ru-RU') });
         AnnounceDB.set(announceList);
         renderAnnounce();
-        FuncLogDB.add(`📢 Объявление от ${currentUser.username}: "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}"`);
-
+        FuncLogDB.add(`📢 Объявление от ${currentUser.username}: "${text.slice(0, 60)}"`);
         input.value = '';
         announceLastRead = msgs.length;
         renderChatSection();
@@ -991,16 +1084,8 @@
     window.deleteMsg = function(id, type) {
         if (!isAdminOrSupervisor()) { showToast('Отказано', 'Нет прав', 'danger'); return; }
         if (!confirm('Удалить сообщение?')) return;
-
-        if (type === 'general') {
-            let msgs = ChatDB.get();
-            msgs = msgs.filter(m => m.id !== id);
-            ChatDB.set(msgs);
-        } else {
-            let msgs = AnnounceChatDB.get();
-            msgs = msgs.filter(m => m.id !== id);
-            AnnounceChatDB.set(msgs);
-        }
+        if (type === 'general') { let msgs = ChatDB.get(); msgs = msgs.filter(m => m.id !== id); ChatDB.set(msgs); }
+        else { let msgs = AnnounceChatDB.get(); msgs = msgs.filter(m => m.id !== id); AnnounceChatDB.set(msgs); }
         FuncLogDB.add(`🗑️ ${currentUser.username} удалил сообщение`);
         renderChatSection();
         showToast('Удалено', 'Сообщение удалено', 'danger');
@@ -1025,18 +1110,8 @@
         const type = document.getElementById('editMsgType').value;
         const text = document.getElementById('editMsgText').value.trim();
         if (!text) return;
-
-        if (type === 'general') {
-            const msgs = ChatDB.get();
-            const msg = msgs.find(m => m.id === id);
-            if (msg) { msg.text = text; msg.edited = true; }
-            ChatDB.set(msgs);
-        } else {
-            const msgs = AnnounceChatDB.get();
-            const msg = msgs.find(m => m.id === id);
-            if (msg) { msg.text = text; msg.edited = true; }
-            AnnounceChatDB.set(msgs);
-        }
+        if (type === 'general') { const msgs = ChatDB.get(); const msg = msgs.find(m => m.id === id); if (msg) { msg.text = text; msg.edited = true; } ChatDB.set(msgs); }
+        else { const msgs = AnnounceChatDB.get(); const msg = msgs.find(m => m.id === id); if (msg) { msg.text = text; msg.edited = true; } AnnounceChatDB.set(msgs); }
         FuncLogDB.add(`✏️ ${currentUser.username} отредактировал сообщение`);
         closeEditMsgModal();
         renderChatSection();
@@ -1044,32 +1119,19 @@
     });
 
     function updateChatBadge() {
-        const generalCount = ChatDB.get().length;
-        const announceCount = AnnounceChatDB.get().length;
-        const unreadGeneral = Math.max(0, generalCount - chatLastRead);
-        const unreadAnnounce = Math.max(0, announceCount - announceLastRead);
-        const totalUnread = unreadGeneral + unreadAnnounce;
+        const totalUnread = Math.max(0, ChatDB.get().length - chatLastRead) + Math.max(0, AnnounceChatDB.get().length - announceLastRead);
         const badge = document.getElementById('chatBadgeSidebar');
         if (!badge) return;
-        if (totalUnread > 0) {
-            badge.textContent = totalUnread;
-            badge.classList.remove('hidden');
-        } else {
-            badge.classList.add('hidden');
-        }
+        if (totalUnread > 0) { badge.textContent = totalUnread; badge.classList.remove('hidden'); }
+        else badge.classList.add('hidden');
     }
 
     function updateFuncBadge() {
-        const list = FuncLogDB.get();
-        const unread = list.filter(l => !l.read).length;
+        const unread = FuncLogDB.get().filter(l => !l.read).length;
         const badge = document.getElementById('funcBadgeSidebar');
         if (!badge) return;
-        if (unread > 0) {
-            badge.textContent = unread;
-            badge.classList.remove('hidden');
-        } else {
-            badge.classList.add('hidden');
-        }
+        if (unread > 0) { badge.textContent = unread; badge.classList.remove('hidden'); }
+        else badge.classList.add('hidden');
     }
 
     setInterval(() => {
@@ -1077,12 +1139,11 @@
             const currentMsgs = chatTab === 'general' ? ChatDB.get() : AnnounceChatDB.get();
             const currentCount = document.querySelectorAll('#chatMessages .chat-msg').length;
             if (currentMsgs.length !== currentCount) renderChatSection();
-        } else {
-            updateChatBadge();
-        }
+        } else updateChatBadge();
         updateFuncBadge();
     }, 3000);
 
+    // ============ ROBOCOP KB ============
     const ROBOCOP_KB = {
         'розыск': () => { const list = wantedList.slice(0, 3).map(w => `${w.name} (${w.id}) — ${w.status}`).join('\n'); return `🔍 Активные ордера:\n\n${list}\n\nВсего: ${wantedList.length}`; },
         'правила': () => `📜 Правила NCPD:\n\n1. Уважение\n2. Протоколы\n3. Конфиденциальность\n4. Оружие только при угрозе\n5. Докладывать о нарушениях`,
@@ -1094,8 +1155,85 @@
         'доступ': () => `🔒 ID: ${currentUser ? currentUser.id : '—'}\nЗвание: ${currentUser ? currentUser.rank : '—'}`
     };
 
+    // ============ СЕКРЕТНЫЕ КОМАНДЫ (ТОЛЬКО АДМИН) ============
+    function handleSecretAICommand(text) {
+        if (!isAdminUser()) return null;
+        const parts = text.trim().split(/\s+/);
+        const cmd = parts[0].toLowerCase();
+
+        // /delete_user <ник>
+        if (cmd === '/delete_user') {
+            const name = parts[1];
+            if (!name) return '⚠ Синтаксис: /delete_user <ник>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ Пользователь "${name}" не найден`;
+            if (target.id === currentUser.id) return '❌ Нельзя удалить себя';
+            DB.setUsers(users.filter(u => u.username !== name));
+            AdminLogsDB.add(`🗑️ ${currentUser.username} удалил аккаунт: ${name}`);
+            FuncLogDB.add(`🗑️ Удалён аккаунт: ${name}`);
+            return `✅ Аккаунт "${name}" удалён`;
+        }
+
+        // /add_user <ник> <пароль>
+        if (cmd === '/add_user') {
+            const name = parts[1];
+            const pass = parts[2];
+            if (!name || !pass) return '⚠ Синтаксис: /add_user <ник> <пароль>';
+            const users = DB.getUsers();
+            if (users.some(u => u.username === name)) return `❌ Логин "${name}" уже занят`;
+            const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
+            users.push({
+                id: newId, username: name, password: pass, rank: 'Офицер',
+                isAdmin: false, isSupervisor: false, warnings: 0,
+                theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU')
+            });
+            DB.setUsers(users);
+            AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
+            FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
+            return `✅ Аккаунт "${name}" создан\n🆔 ID: ${newId}\n🎖 Роль: Офицер`;
+        }
+
+        // /set_role <ник> <роль>
+        if (cmd === '/set_role') {
+            const name = parts[1];
+            const roleName = parts.slice(2).join(' ');
+            if (!name || !roleName) return '⚠ Синтаксис: /set_role <ник> <роль>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ Пользователь "${name}" не найден`;
+            const role = roles.find(r => r.name === roleName);
+            if (!role) return `❌ Роль "${roleName}" не найдена\n📋 Доступные: ${roles.map(r => r.name).join(', ')}`;
+            target.rank = role.name;
+            DB.setUsers(users);
+            AdminLogsDB.add(`🎖️ ${currentUser.username} выдал роль "${role.name}" → ${target.username}`);
+            FuncLogDB.add(`🎖️ Роль "${role.name}" выдана ${target.username}`);
+            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); }
+            return `✅ Роль "${role.name}" выдана: ${name}`;
+        }
+
+        // /remove_role <ник>
+        if (cmd === '/remove_role') {
+            const name = parts[1];
+            if (!name) return '⚠ Синтаксис: /remove_role <ник>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ Пользователь "${name}" не найден`;
+            target.rank = 'Офицер';
+            target.isSupervisor = false;
+            DB.setUsers(users);
+            AdminLogsDB.add(`🔻 ${currentUser.username} снял роль с ${target.username} → Офицер`);
+            FuncLogDB.add(`🔻 Роль снята с ${target.username}`);
+            return `✅ Роль снята: ${name} → Офицер`;
+        }
+
+        return null;
+    }
+
     function robocopReply(question) {
         const q = question.toLowerCase().trim();
+        const secret = handleSecretAICommand(q);
+        if (secret !== null) return secret;
         for (const key in ROBOCOP_KB) if (q.includes(key)) return ROBOCOP_KB[key]();
         if (q.includes('ордер') || q.includes('розыск')) return ROBOCOP_KB['розыск']();
         if (q.includes('правил')) return ROBOCOP_KB['правила']();
@@ -1108,14 +1246,95 @@
         return `Запрос: «${question}»\n\nЯ не нашёл ответ. Попробуйте:\n• розыск\n• правила\n• статистика\n• помощь`;
     }
 
+    // ============ ROBOCOP РАЗДЕЛ (полноэкранный) ============
+    function renderRobocopSection() {
+        const content = document.getElementById('content');
+        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
+        if (history.length === 0) {
+            history.push({ author: 'RoboCop', text: 'Здравствуйте. Я RoboCop — ИИ-помощник NCPD.\nВведите "помощь" для списка команд.', date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), isBot: true });
+            localStorage.setItem('ncpd_robocop', JSON.stringify(history));
+        }
+        const isAdm = isAdminUser();
+        let msgsHtml = history.map(m => `
+            <div class="robocop-msg ${m.isBot ? 'bot' : 'user'}">
+                <div class="rc-avatar">${m.isBot ? '<i class="fas fa-robot" style="font-size:1rem;"></i>' : getInitials(m.author)}</div>
+                <div class="rc-content">
+                    <div class="rc-author">${escapeHtml(m.author)}</div>
+                    <div class="rc-text">${escapeHtml(m.text)}</div>
+                    <div class="rc-time">${escapeHtml(m.date)}</div>
+                </div>
+            </div>
+        `).join('');
+
+        content.innerHTML = `
+            <div class="content-header">
+                <h1>ROBOCOP · AI</h1>
+                <div class="breadcrumb">// NCPD · <span>ИИ-помощник</span>${isAdm ? ' · <span style="color:var(--neon-purple);">РЕЖИМ АДМИНА</span>' : ''}</div>
+            </div>
+            <div class="panel orange">
+                <div class="panel-title"><i class="fas fa-robot"></i> RoboCop AI ${isAdm ? '· Admin Mode' : ''}</div>
+                <div class="robocop-chat">
+                    <div class="rc-quick">
+                        <button onclick="askRobocopSection('розыск')">🔍 Розыск</button>
+                        <button onclick="askRobocopSection('правила')">📜 Правила</button>
+                        <button onclick="askRobocopSection('статистика')">📊 Статистика</button>
+                        <button onclick="askRobocopSection('помощь')">❓ Помощь</button>
+                        ${isAdm ? `
+                            <button class="secret" onclick="askRobocopSection('/add_user')">➕ add_user</button>
+                            <button class="secret" onclick="askRobocopSection('/delete_user')">🗑 delete_user</button>
+                            <button class="secret" onclick="askRobocopSection('/set_role')">🎖 set_role</button>
+                            <button class="secret" onclick="askRobocopSection('/remove_role')">🔻 remove_role</button>
+                        ` : ''}
+                    </div>
+                    <div class="chat-messages" id="robocopSectionMessages" style="background:rgba(0,0,0,0.3);">${msgsHtml}</div>
+                    <div class="rc-input-area">
+                        <input type="text" id="robocopSectionInput" placeholder="${isAdm ? 'Команда или вопрос (например /add_user ник пароль)...' : 'Спросите RoboCop...'}" onkeydown="if(event.key==='Enter') sendRobocopSection()" />
+                        <button onclick="sendRobocopSection()"><i class="fas fa-paper-plane"></i> Отправить</button>
+                    </div>
+                </div>
+                ${isAdm ? `
+                    <div style="margin-top:16px; padding:14px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text-dim);">
+                        <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🔒 СЕКРЕТНЫЕ КОМАНДЫ (только админ):</div>
+                        <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code> — создать аккаунт</div>
+                        <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code> — удалить аккаунт</div>
+                        <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code> — выдать роль</div>
+                        <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code> — снять роль</div>
+                    </div>
+                ` : ''}
+            </div>
+        `;
+        const cm = document.getElementById('robocopSectionMessages');
+        if (cm) cm.scrollTop = cm.scrollHeight;
+    }
+
+    window.askRobocopSection = function(question) {
+        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
+        const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+        history.push({ author: currentUser ? currentUser.username : 'Офицер', text: question, date: time, isBot: false });
+        history.push({ author: 'RoboCop', text: robocopReply(question), date: time, isBot: true });
+        localStorage.setItem('ncpd_robocop', JSON.stringify(history.slice(-80)));
+        renderRobocopSection();
+    };
+
+    window.sendRobocopSection = function() {
+        const input = document.getElementById('robocopSectionInput');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+        input.value = '';
+        askRobocopSection(text);
+    };
+
+    // ============ ROBOCOP ВИДЖЕТ ============
     function renderRobocop() {
         const container = document.getElementById('robocopMessages');
+        if (!container) return;
         const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
         if (history.length === 0) {
             history.push({ author: 'RoboCop', text: 'Здравствуйте. Я RoboCop — ИИ-помощник NCPD. Введите "помощь".', date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), isBot: true });
             localStorage.setItem('ncpd_robocop', JSON.stringify(history));
         }
-        container.innerHTML = history.map(m => `
+        container.innerHTML = history.slice(-30).map(m => `
             <div class="fw-msg ${m.isBot ? 'robocop-msg' : ''}">
                 <div class="msg-avatar">${m.isBot ? '<i class="fas fa-robot" style="font-size:0.8rem;"></i>' : getInitials(m.author)}</div>
                 <div class="msg-content">
@@ -1133,8 +1352,9 @@
         const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
         history.push({ author: currentUser ? currentUser.username : 'Офицер', text: question, date: time, isBot: false });
         history.push({ author: 'RoboCop', text: robocopReply(question), date: time, isBot: true });
-        localStorage.setItem('ncpd_robocop', JSON.stringify(history.slice(-50)));
+        localStorage.setItem('ncpd_robocop', JSON.stringify(history.slice(-80)));
         renderRobocop();
+        if (currentSection === 'robocop') renderRobocopSection();
     };
 
     window.sendRobocopMsg = function() {
@@ -1151,7 +1371,8 @@
         const toggle = w.querySelector('.fw-toggle');
         toggle.textContent = w.classList.contains('collapsed') ? '▲' : '▼';
     };
-
+    
+    // ============ ПРОФИЛЬ ============
     let myAvatarData = null;
 
     window.openMyProfileModal = function() {
@@ -1205,6 +1426,7 @@
         document.getElementById('topRank').textContent = currentUser.rank || 'Офицер';
     }
 
+    // ============ АВТОРИЗАЦИЯ ============
     const authScreen = document.getElementById('authScreen');
     const app = document.getElementById('app');
 
@@ -1295,16 +1517,13 @@
         document.getElementById('supervisorSection').style.display = isSupervisor ? 'block' : 'none';
 
         document.querySelectorAll('.admin-only').forEach(el => {
-            if (el.dataset.section === 'roles') {
-                el.classList.toggle('hidden', !canManageRoles);
-            } else {
-                el.classList.toggle('hidden', !isAdmin);
-            }
+            if (el.dataset.section === 'roles') el.classList.toggle('hidden', !canManageRoles);
+            else el.classList.toggle('hidden', !isAdmin);
         });
-
         document.getElementById('adminSectionTitle').style.display = canManageRoles ? 'block' : 'none';
     }
-    
+
+    // ============ СВОРАЧИВАНИЕ ============
     let topBarCollapsed = false;
     window.toggleTopBar = function() {
         topBarCollapsed = !topBarCollapsed;
@@ -1314,6 +1533,7 @@
         else { topBar.classList.remove('collapsed'); icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
     };
 
+    // ============ ЧАСЫ ============
     function updateClock() {
         const now = new Date();
         const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
@@ -1322,6 +1542,7 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
+    // ============ СМЕНА ============
     let shiftActive = false, shiftStart = null, shiftInterval = null;
     window.toggleShift = function() {
         const btn = document.getElementById('shiftBtn');
@@ -1346,6 +1567,7 @@
         }
     };
 
+    // ============ ПАНИКА ============
     window.triggerPanic = function() {
         const overlay = document.createElement('div');
         overlay.className = 'panic-overlay';
@@ -1355,6 +1577,7 @@
         FuncLogDB.add(`🚨 ${currentUser.username} поднял тревогу ПАНИКА`);
     };
 
+    // ============ ОРУЖИЕ ============
     window.openWeaponModal = function() { document.getElementById('weaponModal').classList.remove('hidden'); };
     window.closeWeaponModal = function() { document.getElementById('weaponModal').classList.add('hidden'); document.getElementById('weaponMsg').classList.add('hidden'); };
 
@@ -1401,6 +1624,76 @@
         showToast('Удалено', `${weapon.name}`, 'danger');
         renderSection('weapons');
     };
+
+    // ============ РОЗЫСК ============
+    window.openWantedModal = function(editId) {
+        const modal = document.getElementById('wantedModal');
+        const title = document.getElementById('wantedModalTitle');
+        document.getElementById('wantedForm').reset();
+        document.getElementById('wantedEditId').value = '';
+        if (editId) {
+            const w = wantedList.find(x => x.id === editId);
+            if (!w) return;
+            document.getElementById('wantedEditId').value = w.id;
+            document.getElementById('wantedId').value = w.id;
+            document.getElementById('wantedName').value = w.name;
+            document.getElementById('wantedStatus').value = w.status;
+            document.getElementById('wantedReward').value = w.reward;
+            document.getElementById('wantedCrime').value = w.crime;
+            document.getElementById('wantedLocation').value = w.location;
+            title.innerHTML = '<i class="fas fa-pen"></i> Редактировать запись';
+        } else title.innerHTML = '<i class="fas fa-search"></i> Добавить в розыск';
+        modal.classList.remove('hidden');
+    };
+
+    window.closeWantedModal = function() { document.getElementById('wantedModal').classList.add('hidden'); };
+
+    document.getElementById('wantedForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const editId = document.getElementById('wantedEditId').value;
+        const id = document.getElementById('wantedId').value.trim();
+        const name = document.getElementById('wantedName').value.trim();
+        const status = document.getElementById('wantedStatus').value;
+        const reward = document.getElementById('wantedReward').value.trim() || '—';
+        const crime = document.getElementById('wantedCrime').value.trim();
+        const location = document.getElementById('wantedLocation').value.trim() || 'Неизвестно';
+        if (!id || !name || !crime) { showToast('Ошибка', 'Заполните обязательные поля', 'warning'); return; }
+        if (editId) {
+            const w = wantedList.find(x => x.id === editId);
+            if (w) { w.name = name; w.status = status; w.reward = reward; w.crime = crime; w.location = location; }
+            FuncLogDB.add(`✏️ ${currentUser.username} изменил запись розыска: ${name}`);
+            showToast('Обновлено', `${name}`, 'success');
+        } else {
+            if (wantedList.some(w => w.id === id)) { showToast('Ошибка', 'ID уже существует', 'danger'); return; }
+            wantedList.push({ id, name, status, reward, crime, location });
+            FuncLogDB.add(`🚨 ${currentUser.username} добавил в розыск: ${name} (${id})`);
+            showToast('Добавлено в розыск', `${name} (${id})`, 'danger');
+        }
+        saveWanted(); closeWantedModal(); renderSection('wanted');
+    };
+
+    window.removeFromWanted = function(id) {
+        const w = wantedList.find(x => x.id === id);
+        if (!w) return;
+        if (!confirm(`Убрать "${w.name}" из розыска?`)) return;
+        wantedList = wantedList.filter(x => x.id !== id);
+        saveWanted();
+        FuncLogDB.add(`✅ ${currentUser.username} убрал из розыска: ${w.name}`);
+        showToast('Убран из розыска', w.name, 'success');
+        renderSection('wanted');
+    };
+
+    // ============ РОЛИ ============
+    function getRoleLevel(roleName) {
+        const order = ['Офицер', 'Сержант', 'Лейтенант', 'Капитан', 'Супервайзер'];
+        const idx = order.indexOf(roleName);
+        return idx === -1 ? 0 : idx;
+    }
+    function canAssignRole(targetRoleName) {
+        if (isAdminUser()) return true;
+        if (!currentUser) return false;
+        return getRoleLevel(targetRoleName) <= getRoleLevel(currentUser.rank);
+    }
 
     window.openRoleModal = function(editId) {
         const modal = document.getElementById('roleModal');
@@ -1462,6 +1755,7 @@
         renderSection('roles');
     };
 
+    // ============ СОТРУДНИКИ ============
     let editAvatarData = null;
 
     window.openEditUserModal = function(id) {
@@ -1500,7 +1794,7 @@
         const newName = document.getElementById('editUsername').value.trim();
         const newRole = document.getElementById('editRole').value;
         if (!newName) return;
-        if (!canAssignRole(newRole)) { showToast('Отказано', 'Недостаточно прав для этой роли', 'danger'); return; }
+        if (!canAssignRole(newRole)) { showToast('Отказано', 'Недостаточно прав', 'danger'); return; }
         const users = DB.getUsers();
         const user = users.find(u => u.id === id);
         if (!user) return;
@@ -1521,7 +1815,6 @@
         if (!user) return;
         user.warnings = (user.warnings || 0) + 1;
         DB.setUsers(users);
-        if (currentUser && currentUser.id === id) { currentUser = user; DB.setCurrent(user); }
         FuncLogDB.add(`⚠️ ${currentUser.username} выдал выговор: ${user.username} (${user.warnings})`);
         showToast('Выговор выдан', `${user.username}: ${user.warnings}`, 'warning');
         renderSection('employees');
@@ -1562,8 +1855,415 @@
         renderSection('reports');
     };
 
-    let currentSection = 'dashboard';
+    // ============ АДМИН: ДОБАВЛЕНИЕ АККАУНТА ============
+    window.openAdminAddUserModal = function() {
+        if (!isAdminUser()) { showToast('Отказано', 'Только админ', 'danger'); return; }
+        document.getElementById('adminAddUserForm').reset();
+        document.getElementById('newUserRole').innerHTML = roles.map(r => `<option value="${r.name}">${r.name}</option>`).join('');
+        document.getElementById('adminAddUserModal').classList.remove('hidden');
+    };
+    window.closeAdminAddUserModal = function() { document.getElementById('adminAddUserModal').classList.add('hidden'); };
 
+    document.getElementById('adminAddUserForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        if (!isAdminUser()) return;
+        const name = document.getElementById('newUserName').value.trim();
+        const pass = document.getElementById('newUserPass').value.trim();
+        const role = document.getElementById('newUserRole').value;
+        if (!name || !pass) return;
+        const users = DB.getUsers();
+        if (users.some(u => u.username === name)) { showToast('Ошибка', 'Логин занят', 'danger'); return; }
+        const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
+        users.push({
+            id: newId, username: name, password: pass, rank: role,
+            isAdmin: false, isSupervisor: false, warnings: 0,
+            theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU')
+        });
+        DB.setUsers(users);
+        AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
+        FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
+        showToast('Создано', `${name} (${newId})`, 'success');
+        closeAdminAddUserModal();
+        renderSection('employees');
+    });
+    
+    // ============ ADMIN CHAT / LOGS / WEBSITE ============
+    const AdminChatDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_admin_chat')) || []; },
+        set(m) { localStorage.setItem('ncpd_admin_chat', JSON.stringify(m)); }
+    };
+
+    const AdminLogsDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_admin_logs')) || []; },
+        set(l) { localStorage.setItem('ncpd_admin_logs', JSON.stringify(l)); },
+        add(text) {
+            const list = this.get();
+            list.push({ id: Date.now(), text, author: currentUser ? currentUser.username : 'system', date: new Date().toLocaleString('ru-RU') });
+            this.set(list.slice(-200));
+        }
+    };
+
+    function renderAdminChat() {
+        if (!isAdminUser()) {
+            document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div><p style="color:var(--neon-red);">Доступ только для администраторов.</p></div>';
+            return;
+        }
+        const content = document.getElementById('content');
+        const msgs = AdminChatDB.get();
+        let messagesHtml = msgs.length === 0
+            ? `<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Share Tech Mono';"><i class="fas fa-user-secret" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Админ-чат пуст. Используйте /setrol или /website</div>`
+            : msgs.map(m => `
+                <div class="chat-msg">
+                    <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
+                    <div class="cm-content">
+                        <div class="cm-author" style="color:var(--neon-purple);">${escapeHtml(m.author)} <span class="cm-rank">· ADMIN</span></div>
+                        <div class="cm-text">${escapeHtml(m.text)}</div>
+                        <div class="cm-time">${escapeHtml(m.date)}</div>
+                    </div>
+                </div>
+            `).join('');
+
+        content.innerHTML = `
+            <div class="content-header"><h1>АДМИН-ЧАТ</h1><div class="breadcrumb">// NCPD · Админ · <span>Скрытый канал</span></div></div>
+            <div class="panel purple">
+                <div class="panel-title"><i class="fas fa-user-secret"></i> Закрытый канал администрации</div>
+                <p style="font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim); margin-bottom:10px;">
+                    Команды: <code style="color:var(--neon-purple);">/setrol &lt;ник&gt; &lt;роль&gt;</code> · <code style="color:var(--neon-purple);">/website &lt;команда&gt;</code>
+                </p>
+                <div class="chat-container" style="height:400px;">
+                    <div class="chat-messages" id="adminChatMessages">${messagesHtml}</div>
+                    <div class="chat-input-area">
+                        <input type="text" id="adminChatInput" placeholder="Сообщение, /setrol ник роль, /website title текст..." onkeydown="if(event.key==='Enter') sendAdminChatMsg()" />
+                        <button onclick="sendAdminChatMsg()" style="background:var(--neon-purple); color:#fff;"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+        `;
+        const cm = document.getElementById('adminChatMessages');
+        if (cm) cm.scrollTop = cm.scrollHeight;
+    }
+
+    window.sendAdminChatMsg = function() {
+        if (!isAdminUser()) { showToast('Отказано', 'Только админы', 'danger'); return; }
+        const input = document.getElementById('adminChatInput');
+        if (!input) return;
+        const text = input.value.trim();
+        if (!text) return;
+
+        if (text.startsWith('/website')) {
+            const args = text.replace('/website', '').trim();
+            handleWebsiteCommand(args);
+            input.value = '';
+            return;
+        }
+
+        if (text.startsWith('/setrol')) {
+            const parts = text.split(/\s+/);
+            if (parts.length < 3) { showToast('Синтаксис', '/setrol <ник> <роль>', 'warning'); return; }
+            const targetName = parts[1];
+            const roleName = parts.slice(2).join(' ');
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === targetName);
+            if (!target) { showToast('Ошибка', `Сотрудник "${targetName}" не найден`, 'danger'); return; }
+            const role = roles.find(r => r.name === roleName);
+            if (!role) { showToast('Ошибка', `Роль "${roleName}" не найдена`, 'danger'); return; }
+            target.rank = role.name;
+            DB.setUsers(users);
+            AdminLogsDB.add(`🎖️ ${currentUser.username} выдал роль "${role.name}" сотруднику ${target.username}`);
+            FuncLogDB.add(`🎖️ Роль "${role.name}" выдана ${target.username}`);
+            const msgs = AdminChatDB.get();
+            msgs.push({ id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null,
+                text: `🎖️ Выдал роль "${role.name}" → ${target.username}`,
+                date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
+            AdminChatDB.set(msgs);
+            input.value = '';
+            renderAdminChat();
+            showToast('Роль выдана', `${target.username} → ${role.name}`, 'success');
+            return;
+        }
+
+        const msgs = AdminChatDB.get();
+        msgs.push({ id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null, text,
+            date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
+        AdminChatDB.set(msgs);
+        AdminLogsDB.add(`💬 ${currentUser.username}: ${text.slice(0, 60)}`);
+        input.value = '';
+        renderAdminChat();
+    };
+
+    // /website — команды
+    window.handleWebsiteCommand = function(args) {
+        if (!isAdminUser()) { showToast('Отказано', 'Только админ', 'danger'); return; }
+        const parts = args.trim().split(/\s+/);
+        const cmd = (parts[0] || 'help').toLowerCase();
+        const value = parts.slice(1).join(' ');
+
+        if (cmd === 'title') {
+            if (!value) { showToast('Синтаксис', '/website title <текст>', 'warning'); return; }
+            document.title = value;
+            localStorage.setItem('ncpd_site_title', value);
+            AdminLogsDB.add(`🌐 ${currentUser.username} изменил заголовок: "${value}"`);
+            showToast('Заголовок изменён', value, 'success');
+        }
+        else if (cmd === 'brand') {
+            if (!value) { showToast('Синтаксис', '/website brand <текст>', 'warning'); return; }
+            document.querySelectorAll('.top-brand').forEach(el => el.innerHTML = escapeHtml(value).replace('·', '<span>·</span>'));
+            localStorage.setItem('ncpd_site_brand', value);
+            AdminLogsDB.add(`🌐 ${currentUser.username} изменил логотип: "${value}"`);
+            showToast('Логотип изменён', value, 'success');
+        }
+        else if (cmd === 'color') {
+            const colors = { 'cyan': '#00f0ff', 'purple': '#b300ff', 'green': '#00ff88', 'red': '#ff6b7a',
+                'orange': '#ff8800', 'pink': '#ff0055', 'yellow': '#f7ff00', 'white': '#ffffff' };
+            const hex = colors[value.toLowerCase()] || (value.startsWith('#') ? value : null);
+            if (!hex) { showToast('Ошибка', 'cyan/purple/green/red/orange/pink/yellow/white/#hex', 'warning'); return; }
+            document.documentElement.style.setProperty('--theme-accent', hex);
+            localStorage.setItem('ncpd_custom_accent', hex);
+            AdminLogsDB.add(`🌐 ${currentUser.username} изменил акцент: ${hex}`);
+            showToast('Цвет изменён', hex, 'success');
+        }
+        else if (cmd === 'reset') {
+            localStorage.removeItem('ncpd_site_title');
+            localStorage.removeItem('ncpd_site_brand');
+            localStorage.removeItem('ncpd_custom_accent');
+            document.title = 'NCPD · Terminal';
+            document.documentElement.style.removeProperty('--theme-accent');
+            AdminLogsDB.add(`🌐 ${currentUser.username} сбросил настройки сайта`);
+            showToast('Сброшено', 'Настройки возвращены к дефолту', 'info');
+            setTimeout(() => location.reload(), 1000);
+        }
+        else {
+            const msgs = AdminChatDB.get();
+            msgs.push({ id: Date.now(), author: 'SYSTEM', avatar: null,
+                text: `📖 Команды /website:\n• title <текст>\n• brand <текст>\n• color <цвет>\n• reset`,
+                date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
+            AdminChatDB.set(msgs);
+            renderAdminChat();
+        }
+    };
+
+    // ============ САЙТ (ВКЛ/ВЫКЛ) ============
+    function applySiteState() {
+        const off = localStorage.getItem('ncpd_site_off') === '1';
+        const overlay = document.getElementById('siteOffOverlay');
+        if (!overlay) return;
+        if (off && !isAdminUser()) overlay.classList.remove('hidden');
+        else overlay.classList.add('hidden');
+    }
+
+    window.toggleSiteState = function() {
+        if (!isAdminUser()) { showToast('Отказано', 'Только админ', 'danger'); return; }
+        const off = localStorage.getItem('ncpd_site_off') === '1';
+        const newState = off ? '0' : '1';
+        localStorage.setItem('ncpd_site_off', newState);
+        AdminLogsDB.add(`🌐 ${currentUser.username} ${newState === '1' ? 'ОТКЛЮЧИЛ' : 'ВКЛЮЧИЛ'} сайт`);
+        showToast(newState === '1' ? 'Сайт ОТКЛЮЧЁН' : 'Сайт ВКЛЮЧЁН', newState === '1' ? 'Все пользователи видят заглушку' : 'Доступ восстановлен', newState === '1' ? 'danger' : 'success');
+        applySiteState();
+        if (currentSection === 'site') renderSiteSection();
+    };
+
+    function renderSiteSection() {
+        if (!isAdminUser()) { document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
+        const content = document.getElementById('content');
+        const off = localStorage.getItem('ncpd_site_off') === '1';
+        const title = localStorage.getItem('ncpd_site_title') || 'NCPD · Terminal';
+        const brand = localStorage.getItem('ncpd_site_brand') || 'NCPD·TERM';
+        const accent = localStorage.getItem('ncpd_custom_accent') || '— (тема)';
+
+        content.innerHTML = `
+            <div class="content-header"><h1>САЙТ</h1><div class="breadcrumb">// NCPD · Админ · <span>Управление сайтом</span></div></div>
+
+            <div class="panel ${off ? 'pink' : 'green'}">
+                <div class="panel-title"><i class="fas fa-power-off"></i> Состояние сайта</div>
+                <div class="${off ? 'site-status-off' : 'site-status-on'}">
+                    <i class="fas ${off ? 'fa-circle-xmark' : 'fa-circle-check'}"></i>
+                    <div>
+                        <div style="font-family:'Orbitron'; font-weight:700; letter-spacing:2px;">${off ? 'ОТКЛЮЧЁН' : 'РАБОТАЕТ'}</div>
+                        <div style="font-size:0.75rem; opacity:0.8;">${off ? 'Все пользователи (кроме админа) видят заглушку' : 'Сайт доступен всем сотрудникам'}</div>
+                    </div>
+                </div>
+                <button class="btn ${off ? 'btn-green' : 'btn-red'}" style="width:100%; margin-top:10px;" onclick="toggleSiteState()">
+                    <i class="fas ${off ? 'fa-power-off' : 'fa-ban'}"></i> ${off ? 'Включить сайт' : 'Выключить сайт'}
+                </button>
+            </div>
+
+            <div class="panel purple">
+                <div class="panel-title"><i class="fas fa-palette"></i> Текущие настройки</div>
+                <div style="font-family:'Share Tech Mono'; font-size:0.85rem; line-height:2;">
+                    <div>Заголовок: <span style="color:var(--theme-accent);">${escapeHtml(title)}</span></div>
+                    <div>Логотип: <span style="color:var(--theme-accent);">${escapeHtml(brand)}</span></div>
+                    <div>Акцент: <span style="color:var(--theme-accent);">${escapeHtml(accent)}</span></div>
+                </div>
+                <div style="margin-top:16px; padding:12px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim);">
+                    <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🛠 Команды в админ-чате:</div>
+                    <div>• <code style="color:var(--neon-purple);">/website title &lt;текст&gt;</code> — заголовок</div>
+                    <div>• <code style="color:var(--neon-purple);">/website brand &lt;текст&gt;</code> — логотип</div>
+                    <div>• <code style="color:var(--neon-purple);">/website color &lt;цвет&gt;</code> — акцент</div>
+                    <div>• <code style="color:var(--neon-purple);">/website reset</code> — сбросить</div>
+                </div>
+            </div>
+
+            <div class="panel orange">
+                <div class="panel-title"><i class="fas fa-users-cog"></i> Быстрые действия</div>
+                <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                    <button class="btn btn-purple" onclick="openAdminAddUserModal()"><i class="fas fa-user-plus"></i> Добавить аккаунт</button>
+                    <button class="btn btn-orange" onclick="switchSection('employees')"><i class="fas fa-users"></i> Сотрудники</button>
+                    <button class="btn btn-red" onclick="switchSection('adminlogs')"><i class="fas fa-clipboard-list"></i> Логи</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // ============ АДМИН-ЛОГИ ============
+    function renderAdminLogs() {
+        if (!isAdminUser()) { document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
+        const content = document.getElementById('content');
+        const list = AdminLogsDB.get();
+        let rows = list.slice().reverse().map(l => `
+            <div class="log-item" style="border-left-color:var(--neon-purple);">
+                <div class="log-icon" style="background:linear-gradient(135deg, var(--neon-purple), var(--neon-pink));"><i class="fas fa-shield-alt"></i></div>
+                <div class="log-info">
+                    <div class="log-text">${escapeHtml(l.text)}</div>
+                    <div class="log-meta">${escapeHtml(l.author)} · ${escapeHtml(l.date)}</div>
+                </div>
+            </div>
+        `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Логов пока нет</div>';
+
+        content.innerHTML = `
+            <div class="content-header"><h1>АДМИН-ЛОГИ</h1><div class="breadcrumb">// NCPD · Админ · <span>Журнал действий</span></div></div>
+            <div class="panel purple">
+                <div class="panel-title"><i class="fas fa-clipboard-list"></i> Всего записей: ${list.length}</div>
+                <div style="display:flex; gap:10px; margin-bottom:16px;">
+                    <button class="btn btn-red" onclick="clearAdminLogs()"><i class="fas fa-trash"></i> Очистить логи</button>
+                </div>
+                ${rows}
+            </div>
+        `;
+    }
+
+    window.clearAdminLogs = function() {
+        if (!isAdminUser()) return;
+        if (!confirm('Очистить все админ-логи?')) return;
+        AdminLogsDB.set([]);
+        showToast('Очищено', 'Админ-логи удалены', 'warning');
+        renderAdminLogs();
+    };
+
+    // ============ ФУНКЦИОНАЛ ============
+    function renderFunctionality() {
+        const content = document.getElementById('content');
+        const list = FuncLogDB.get();
+        let rows = list.slice().reverse().map(l => `
+            <div class="log-item ${l.read ? 'read' : ''}">
+                <div class="log-icon"><i class="fas fa-bell"></i></div>
+                <div class="log-info">
+                    <div class="log-text">${escapeHtml(l.text)}</div>
+                    <div class="log-meta">${escapeHtml(l.date)}</div>
+                </div>
+                <div class="log-actions">
+                    ${!l.read ? `<button class="btn btn-green" style="padding:4px 12px; font-size:0.65rem;" onclick="markLogRead(${l.id})"><i class="fas fa-check"></i> Прочитано</button>` : ''}
+                    <button class="btn btn-red" style="padding:4px 12px; font-size:0.65rem;" onclick="deleteLog(${l.id})"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+        `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Нет системных оповещений</div>';
+
+        content.innerHTML = `
+            <div class="content-header"><h1>ФУНКЦИОНАЛ</h1><div class="breadcrumb">// NCPD · <span>Системные оповещения</span></div></div>
+            <div class="panel orange">
+                <div class="panel-title"><i class="fas fa-bell"></i> Системные логи (${list.length})</div>
+                <div style="display:flex; gap:10px; margin-bottom: 16px; flex-wrap: wrap;">
+                    <button class="btn btn-green" onclick="markAllRead()"><i class="fas fa-check-double"></i> Прочитано всё</button>
+                    <button class="btn btn-red" onclick="clearAllLogs()"><i class="fas fa-trash"></i> Очистить</button>
+                </div>
+                ${rows}
+            </div>
+        `;
+    }
+
+    window.markLogRead = function(id) { const list = FuncLogDB.get(); const item = list.find(l => l.id === id); if (item) item.read = true; FuncLogDB.set(list); updateFuncBadge(); renderFunctionality(); };
+    window.deleteLog = function(id) { let list = FuncLogDB.get(); list = list.filter(l => l.id !== id); FuncLogDB.set(list); updateFuncBadge(); renderFunctionality(); };
+    window.markAllRead = function() { FuncLogDB.markRead(); showToast('Отмечено', 'Все прочитаны', 'success'); renderFunctionality(); };
+    window.clearAllLogs = function() { if (!confirm('Очистить все?')) return; FuncLogDB.clear(); showToast('Очищено', 'Все логи удалены', 'warning'); renderFunctionality(); };
+
+    // ============ КОНТЕКСТНОЕ МЕНЮ ============
+    const ctxMenu = document.getElementById('ctxMenu');
+    let ctxTarget = null, ctxSection = null;
+    function findContextTarget(el) { while (el && el !== document.body) { if (el.dataset && el.dataset.ctxId) return el; el = el.parentElement; } return null; }
+
+    document.addEventListener('contextmenu', (e) => {
+        if (!currentUser) return;
+        e.preventDefault();
+        ctxTarget = e.target; ctxSection = currentSection;
+        const isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
+        const hasSelection = window.getSelection().toString().length > 0;
+        const parentRow = findContextTarget(e.target);
+        const items = ctxMenu.querySelectorAll('.ctx-item');
+        items.forEach(item => item.classList.remove('disabled'));
+        if (ctxSection === 'weapons' || ctxSection === 'roles' || ctxSection === 'wanted') items[0].classList.remove('disabled'); else items[0].classList.add('disabled');
+        if (!hasSelection && !isInput) items[2].classList.add('disabled');
+        if (!isInput) items[3].classList.add('disabled');
+        if (!parentRow) { items[1].classList.add('disabled'); items[4].classList.add('disabled'); }
+        ctxMenu.classList.remove('hidden');
+        let x = e.clientX, y = e.clientY;
+        if (x + 220 > window.innerWidth) x = window.innerWidth - 230;
+        if (y + 280 > window.innerHeight) y = window.innerHeight - 290;
+        ctxMenu.style.left = x + 'px'; ctxMenu.style.top = y + 'px';
+    });
+
+    document.addEventListener('click', (e) => { if (!ctxMenu.contains(e.target)) ctxMenu.classList.add('hidden'); });
+    document.addEventListener('scroll', () => ctxMenu.classList.add('hidden'), true);
+
+    window.ctxAction = function(action) {
+        ctxMenu.classList.add('hidden');
+        if (action === 'copy') {
+            const sel = window.getSelection().toString();
+            const isInput = ctxTarget && (ctxTarget.tagName === 'INPUT' || ctxTarget.tagName === 'TEXTAREA');
+            let text = sel;
+            if (!text && isInput) { const s = ctxTarget.selectionStart || 0; const e = ctxTarget.selectionEnd || 0; text = ctxTarget.value.substring(s, e); }
+            if (text) navigator.clipboard.writeText(text).then(() => showToast('Скопировано', text.slice(0, 40), 'success')).catch(() => showToast('Ошибка', '', 'danger'));
+            else showToast('Нечего копировать', '', 'warning');
+            return;
+        }
+        if (action === 'paste') {
+            const isInput = ctxTarget && (ctxTarget.tagName === 'INPUT' || ctxTarget.tagName === 'TEXTAREA');
+            if (!isInput) { showToast('Вставить нельзя', 'Кликните по полю', 'warning'); return; }
+            navigator.clipboard.readText().then(text => {
+                const s = ctxTarget.selectionStart || ctxTarget.value.length;
+                const e = ctxTarget.selectionEnd || ctxTarget.value.length;
+                ctxTarget.value = ctxTarget.value.substring(0, s) + text + ctxTarget.value.substring(e);
+                ctxTarget.focus(); ctxTarget.selectionStart = ctxTarget.selectionEnd = s + text.length;
+                showToast('Вставлено', text.slice(0, 40), 'success');
+            }).catch(() => showToast('Ошибка', 'Разрешите доступ', 'danger'));
+            return;
+        }
+        const row = findContextTarget(ctxTarget);
+        const ctxId = row ? row.dataset.ctxId : null;
+        const ctxType = row ? row.dataset.ctxType : null;
+        if (action === 'add') {
+            if (ctxSection === 'weapons') openAddWeaponModal();
+            else if (ctxSection === 'roles') openRoleModal();
+            else if (ctxSection === 'wanted') openWantedModal();
+            return;
+        }
+        if (action === 'edit') {
+            if (!ctxId) return;
+            if (ctxType === 'role') openRoleModal(ctxId);
+            else if (ctxType === 'wanted') openWantedModal(ctxId);
+            else if (ctxType === 'user') { if (isAdminOrSupervisor()) openEditUserModal(ctxId); else showToast('Отказано', 'Нет прав', 'danger'); }
+            return;
+        }
+        if (action === 'delete') {
+            if (!ctxId) return;
+            if (ctxType === 'weapon') deleteWeapon(ctxId);
+            else if (ctxType === 'role') deleteRole(ctxId);
+            else if (ctxType === 'wanted') removeFromWanted(ctxId);
+            else if (ctxType === 'user') { if (isAdminOrSupervisor()) deleteUser(ctxId); else showToast('Отказано', 'Нет прав', 'danger'); }
+            return;
+        }
+    };
+
+    // ============ НАВИГАЦИЯ И RENDER ============
+    let currentSection = 'dashboard';
     window.switchSection = function(section) {
         currentSection = section;
         document.querySelectorAll('.sidebar-item').forEach(el => {
@@ -1581,22 +2281,10 @@
                 <div class="panel">
                     <div class="panel-title"><i class="fas fa-info-circle"></i> Оперативная сводка</div>
                     <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:12px;">
-                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
-                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--theme-accent); font-weight:900;">${wantedList.length}</div>
-                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Ордеров</div>
-                        </div>
-                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
-                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-green); font-weight:900;">${DB.getUsers().length}</div>
-                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Сотрудников</div>
-                        </div>
-                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
-                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-orange); font-weight:900;">${DB.getWeaponLog().length}</div>
-                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Применений</div>
-                        </div>
-                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);">
-                            <div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--theme-accent-2); font-weight:900;">${ChatDB.get().length + AnnounceChatDB.get().length}</div>
-                            <div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Сообщений</div>
-                        </div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);"><div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--theme-accent); font-weight:900;">${wantedList.length}</div><div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Ордеров</div></div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);"><div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-green); font-weight:900;">${DB.getUsers().length}</div><div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Сотрудников</div></div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);"><div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--neon-orange); font-weight:900;">${DB.getWeaponLog().length}</div><div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Применений</div></div>
+                        <div style="background:var(--bg-panel-2); padding:16px; border-radius:4px; border:1px solid var(--border);"><div style="font-family:'Orbitron'; font-size:1.6rem; color:var(--theme-accent-2); font-weight:900;">${ChatDB.get().length + AnnounceChatDB.get().length}</div><div style="font-size:0.75rem; color:var(--text-dim); text-transform:uppercase;">Сообщений</div></div>
                     </div>
                 </div>
                 <div class="panel">
@@ -1612,8 +2300,29 @@
         }
 
         else if (section === 'wanted') {
-            let rows = wantedList.map(w => `<tr data-ctx-id="${w.id}" data-ctx-type="wanted"><td style="color:var(--theme-accent);">${w.id}</td><td>${escapeHtml(w.name)}</td><td><span class="badge ${w.status === 'Особо опасен' ? 'badge-danger' : w.status === 'Опасен' ? 'badge-warn' : 'badge-info'}">${w.status}</span></td><td>${escapeHtml(w.crime)}</td><td style="color:var(--neon-yellow); font-weight:700;">${w.reward}</td><td>${escapeHtml(w.location)}</td></tr>`).join('');
-            content.innerHTML = `<div class="content-header"><h1>БАЗА РОЗЫСКА</h1><div class="breadcrumb">// NCPD · <span>База розыска</span></div></div><div class="panel"><div style="overflow-x:auto;"><table class="data-table"><thead><tr><th>ID</th><th>Имя</th><th>Статус</th><th>Преступление</th><th>Награда</th><th>Локация</th></tr></thead><tbody>${rows}</tbody></table></div></div>`;
+            let rows = wantedList.map(w => `<tr data-ctx-id="${w.id}" data-ctx-type="wanted">
+                <td style="color:var(--theme-accent);">${w.id}</td>
+                <td>${escapeHtml(w.name)}</td>
+                <td><span class="badge ${w.status === 'Особо опасен' ? 'badge-danger' : w.status === 'Опасен' ? 'badge-warn' : 'badge-info'}">${w.status}</span></td>
+                <td>${escapeHtml(w.crime)}</td>
+                <td style="color:var(--neon-yellow); font-weight:700;">${w.reward}</td>
+                <td>${escapeHtml(w.location)}</td>
+                <td><div class="wanted-actions">
+                    <button class="table-btn" onclick="openWantedModal('${w.id}')" title="Редактировать"><i class="fas fa-pen"></i></button>
+                    <button class="table-btn delete" onclick="removeFromWanted('${w.id}')" title="Убрать из розыска"><i class="fas fa-times"></i> Убрать</button>
+                </div></td>
+            </tr>`).join('');
+            content.innerHTML = `
+                <div class="content-header"><h1>БАЗА РОЗЫСКА</h1><div class="breadcrumb">// NCPD · <span>База розыска</span></div></div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-search"></i> Активных ордеров: ${wantedList.length}</div>
+                    <div style="overflow-x:auto;"><table class="data-table">
+                        <thead><tr><th>ID</th><th>Имя</th><th>Статус</th><th>Преступление</th><th>Награда</th><th>Локация</th><th style="text-align:right;">Действия</th></tr></thead>
+                        <tbody>${rows}</tbody>
+                    </table></div>
+                    <button class="add-btn red" onclick="openWantedModal()"><i class="fas fa-plus"></i> Добавить в розыск</button>
+                </div>
+            `;
         }
 
         else if (section === 'weapons') {
@@ -1631,11 +2340,10 @@
         }
 
         else if (section === 'chat') renderChatSection();
-
+        else if (section === 'robocop') renderRobocopSection();
         else if (section === 'adminchat') renderAdminChat();
-
         else if (section === 'adminlogs') renderAdminLogs();
-
+        else if (section === 'site') renderSiteSection();
         else if (section === 'functionality') renderFunctionality();
 
         else if (section === 'reports') {
@@ -1655,13 +2363,13 @@
                     <div style="font-family:'Share Tech Mono'; font-size:0.8rem; color:${u.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">⚠ ${u.warnings || 0}</div>
                     <div class="emp-actions">
                         <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="giveWarning('${u.id}')"><i class="fas fa-exclamation"></i> Выговор</button>
-                        <button class="btn btn-cyan" style="padding:5px 12px; font-size:0.65rem;" onclick="openEditUserModal('${u.id}')"><i class="fas fa-user-edit"></i> Изменить</button>
+                        <button class="btn" style="padding:5px 12px; font-size:0.65rem;" onclick="openEditUserModal('${u.id}')"><i class="fas fa-user-edit"></i> Изменить</button>
                         <button class="btn btn-green" style="padding:5px 12px; font-size:0.65rem;" onclick="changeId('${u.id}')"><i class="fas fa-id-card"></i> ID</button>
                         <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteUser('${u.id}')"><i class="fas fa-trash"></i> Удалить</button>
                     </div>
                 </div>`;
             }).join('');
-            content.innerHTML = `<div class="content-header"><h1>БАЗА ДАННЫХ СОТРУДНИКОВ</h1><div class="breadcrumb">// NCPD · Супервайзер · <span>Сотрудники</span></div></div><div class="panel pink"><div class="panel-title"><i class="fas fa-users"></i> Всего: ${users.length}</div>${rows}</div>`;
+            content.innerHTML = `<div class="content-header"><h1>БАЗА ДАННЫХ СОТРУДНИКОВ</h1><div class="breadcrumb">// NCPD · Супервайзер · <span>Сотрудники</span></div></div><div class="panel pink"><div class="panel-title"><i class="fas fa-users"></i> Всего: ${users.length}</div>${rows}${isAdminUser() ? '<button class="add-btn purple" onclick="openAdminAddUserModal()"><i class="fas fa-user-plus"></i> Добавить аккаунт</button>' : ''}</div>`;
         }
 
         else if (section === 'roles') {
@@ -1700,311 +2408,10 @@
         }
     }
 
-    function renderFunctionality() {
-        const content = document.getElementById('content');
-        const list = FuncLogDB.get();
-        let rows = list.slice().reverse().map(l => `
-            <div class="log-item ${l.read ? 'read' : ''}">
-                <div class="log-icon"><i class="fas fa-bell"></i></div>
-                <div class="log-info">
-                    <div class="log-text">${escapeHtml(l.text)}</div>
-                    <div class="log-meta">${escapeHtml(l.date)}</div>
-                </div>
-                <div class="log-actions">
-                    ${!l.read ? `<button class="btn btn-green" style="padding:4px 12px; font-size:0.65rem;" onclick="markLogRead(${l.id})"><i class="fas fa-check"></i> Прочитано</button>` : ''}
-                    <button class="btn btn-red" style="padding:4px 12px; font-size:0.65rem;" onclick="deleteLog(${l.id})"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        `).join('') || '<div class="empty-state" style="text-align:center; padding:40px; color:var(--text-dim);"><i class="fas fa-bell" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Нет системных оповещений</div>';
-
-        content.innerHTML = `
-            <div class="content-header">
-                <h1>ФУНКЦИОНАЛ</h1>
-                <div class="breadcrumb">// NCPD · <span>Системные оповещения</span></div>
-            </div>
-            <div class="panel orange">
-                <div class="panel-title"><i class="fas fa-bell"></i> Системные логи (${list.length})</div>
-                <div style="display:flex; gap:10px; margin-bottom: 16px; flex-wrap: wrap;">
-                    <button class="btn btn-green" onclick="markAllRead()"><i class="fas fa-check-double"></i> Прочитано всё</button>
-                    <button class="btn btn-red" onclick="clearAllLogs()"><i class="fas fa-trash"></i> Очистить</button>
-                </div>
-                ${rows}
-            </div>
-        `;
-    }
-
-    window.markLogRead = function(id) {
-        const list = FuncLogDB.get();
-        const item = list.find(l => l.id === id);
-        if (item) item.read = true;
-        FuncLogDB.set(list);
-        updateFuncBadge();
-        renderFunctionality();
-    };
-
-    window.deleteLog = function(id) {
-        let list = FuncLogDB.get();
-        list = list.filter(l => l.id !== id);
-        FuncLogDB.set(list);
-        updateFuncBadge();
-        renderFunctionality();
-    };
-
-    window.markAllRead = function() {
-        FuncLogDB.markRead();
-        showToast('Отмечено', 'Все оповещения прочитаны', 'success');
-        renderFunctionality();
-    };
-
-    window.clearAllLogs = function() {
-        if (!confirm('Очистить все системные оповещения?')) return;
-        FuncLogDB.clear();
-        showToast('Очищено', 'Все логи удалены', 'warning');
-        renderFunctionality();
-    };
-
-    const ctxMenu = document.getElementById('ctxMenu');
-    let ctxTarget = null, ctxSection = null;
-    function findContextTarget(el) { while (el && el !== document.body) { if (el.dataset && el.dataset.ctxId) return el; el = el.parentElement; } return null; }
-
-    document.addEventListener('contextmenu', (e) => {
-        if (!currentUser) return;
-        e.preventDefault();
-        ctxTarget = e.target; ctxSection = currentSection;
-        const isInput = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA';
-        const hasSelection = window.getSelection().toString().length > 0;
-        const parentRow = findContextTarget(e.target);
-        const items = ctxMenu.querySelectorAll('.ctx-item');
-        items.forEach(item => item.classList.remove('disabled'));
-        if (ctxSection === 'weapons' || ctxSection === 'roles') items[0].classList.remove('disabled'); else items[0].classList.add('disabled');
-        if (!hasSelection && !isInput) items[2].classList.add('disabled');
-        if (!isInput) items[3].classList.add('disabled');
-        if (!parentRow) { items[1].classList.add('disabled'); items[4].classList.add('disabled'); }
-        ctxMenu.classList.remove('hidden');
-        let x = e.clientX, y = e.clientY;
-        if (x + 220 > window.innerWidth) x = window.innerWidth - 230;
-        if (y + 280 > window.innerHeight) y = window.innerHeight - 290;
-        ctxMenu.style.left = x + 'px'; ctxMenu.style.top = y + 'px';
-    });
-
-    document.addEventListener('click', (e) => { if (!ctxMenu.contains(e.target)) ctxMenu.classList.add('hidden'); });
-    document.addEventListener('scroll', () => ctxMenu.classList.add('hidden'), true);
-
-    window.ctxAction = function(action) {
-        ctxMenu.classList.add('hidden');
-        if (action === 'copy') {
-            const sel = window.getSelection().toString();
-            const isInput = ctxTarget && (ctxTarget.tagName === 'INPUT' || ctxTarget.tagName === 'TEXTAREA');
-            let text = sel;
-            if (!text && isInput) { const s = ctxTarget.selectionStart || 0; const e = ctxTarget.selectionEnd || 0; text = ctxTarget.value.substring(s, e); }
-            if (text) navigator.clipboard.writeText(text).then(() => showToast('Скопировано', text.slice(0, 40), 'success')).catch(() => showToast('Ошибка', '', 'danger'));
-            else showToast('Нечего копировать', '', 'warning');
-            return;
-        }
-        if (action === 'paste') {
-            const isInput = ctxTarget && (ctxTarget.tagName === 'INPUT' || ctxTarget.tagName === 'TEXTAREA');
-            if (!isInput) { showToast('Вставить нельзя', 'Кликните по полю ввода', 'warning'); return; }
-            navigator.clipboard.readText().then(text => {
-                const s = ctxTarget.selectionStart || ctxTarget.value.length;
-                const e = ctxTarget.selectionEnd || ctxTarget.value.length;
-                ctxTarget.value = ctxTarget.value.substring(0, s) + text + ctxTarget.value.substring(e);
-                ctxTarget.focus();
-                ctxTarget.selectionStart = ctxTarget.selectionEnd = s + text.length;
-                showToast('Вставлено', text.slice(0, 40), 'success');
-            }).catch(() => showToast('Ошибка', 'Разрешите доступ', 'danger'));
-            return;
-        }
-        const row = findContextTarget(ctxTarget);
-        const ctxId = row ? row.dataset.ctxId : null;
-        const ctxType = row ? row.dataset.ctxType : null;
-        if (action === 'add') {
-            if (ctxSection === 'weapons') openAddWeaponModal();
-            else if (ctxSection === 'roles') openRoleModal();
-            return;
-        }
-        if (action === 'edit') {
-            if (!ctxId) return;
-            if (ctxType === 'role') openRoleModal(ctxId);
-            else if (ctxType === 'user') { if (isAdminOrSupervisor()) openEditUserModal(ctxId); else showToast('Отказано', 'Нет прав', 'danger'); }
-            return;
-        }
-        if (action === 'delete') {
-            if (!ctxId) return;
-            if (ctxType === 'weapon') deleteWeapon(ctxId);
-            else if (ctxType === 'role') deleteRole(ctxId);
-            else if (ctxType === 'user') { if (isAdminOrSupervisor()) deleteUser(ctxId); else showToast('Отказано', 'Нет прав', 'danger'); }
-            return;
-        }
-    };
-    
-    // ============ СИСТЕМА УРОВНЕЙ РОЛЕЙ ============
-    function getRoleLevel(roleName) {
-        const order = ['Офицер', 'Сержант', 'Лейтенант', 'Капитан', 'Супервайзер'];
-        const idx = order.indexOf(roleName);
-        return idx === -1 ? 0 : idx;
-    }
-
-    function canAssignRole(targetRoleName) {
-        if (isAdminUser()) return true;
-        if (!currentUser) return false;
-        return getRoleLevel(targetRoleName) <= getRoleLevel(currentUser.rank);
-    }
-
-    // ============ АДМИН-ЧАТ ============
-    const AdminChatDB = {
-        get() { return JSON.parse(localStorage.getItem('ncpd_admin_chat')) || []; },
-        set(m) { localStorage.setItem('ncpd_admin_chat', JSON.stringify(m)); }
-    };
-
-    const AdminLogsDB = {
-        get() { return JSON.parse(localStorage.getItem('ncpd_admin_logs')) || []; },
-        set(l) { localStorage.setItem('ncpd_admin_logs', JSON.stringify(l)); },
-        add(text) {
-            const list = this.get();
-            list.push({
-                id: Date.now(),
-                text,
-                author: currentUser ? currentUser.username : 'system',
-                date: new Date().toLocaleString('ru-RU')
-            });
-            this.set(list.slice(-200));
-        }
-    };
-
-    function isAdminUser() {
-        return currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
-    }
-
-    function renderAdminChat() {
-        if (!isAdminUser()) {
-            document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div><p style="color:var(--neon-red);">Доступ только для администраторов.</p></div>';
-            return;
-        }
-        const content = document.getElementById('content');
-        const msgs = AdminChatDB.get();
-
-        let messagesHtml = msgs.length === 0
-            ? `<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Share Tech Mono';"><i class="fas fa-user-secret" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Админ-чат пуст. Введите /setrol &lt;ник&gt; &lt;роль&gt;</div>`
-            : msgs.map(m => `
-                <div class="chat-msg">
-                    <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
-                    <div class="cm-content">
-                        <div class="cm-author" style="color:var(--neon-purple);">${escapeHtml(m.author)} <span class="cm-rank">· ADMIN</span></div>
-                        <div class="cm-text">${escapeHtml(m.text)}</div>
-                        <div class="cm-time">${escapeHtml(m.date)}</div>
-                    </div>
-                </div>
-            `).join('');
-
-        content.innerHTML = `
-            <div class="content-header"><h1>АДМИН-ЧАТ</h1><div class="breadcrumb">// NCPD · Админ · <span>Скрытый канал</span></div></div>
-            <div class="panel purple">
-                <div class="panel-title"><i class="fas fa-user-secret"></i> Закрытый канал администрации</div>
-                <p style="font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim); margin-bottom:10px;">
-                    Команды: <code style="color:var(--neon-purple);">/setrol &lt;ник&gt; &lt;роль&gt;</code> — выдать роль
-                </p>
-                <div class="chat-container" style="height:400px;">
-                    <div class="chat-messages" id="adminChatMessages">${messagesHtml}</div>
-                    <div class="chat-input-area">
-                        <input type="text" id="adminChatInput" placeholder="Сообщение или /setrol ник роль..." onkeydown="if(event.key==='Enter') sendAdminChatMsg()" />
-                        <button onclick="sendAdminChatMsg()" style="background:var(--neon-purple); color:#fff;"><i class="fas fa-paper-plane"></i></button>
-                    </div>
-                </div>
-            </div>
-        `;
-        const cm = document.getElementById('adminChatMessages');
-        if (cm) cm.scrollTop = cm.scrollHeight;
-    }
-
-    window.sendAdminChatMsg = function() {
-        if (!isAdminUser()) { showToast('Отказано', 'Только админы', 'danger'); return; }
-        const input = document.getElementById('adminChatInput');
-        if (!input) return;
-        const text = input.value.trim();
-        if (!text) return;
-
-        if (text.startsWith('/setrol')) {
-            const parts = text.split(/\s+/);
-            if (parts.length < 3) { showToast('Синтаксис', '/setrol <ник> <роль>', 'warning'); return; }
-            const targetName = parts[1];
-            const roleName = parts.slice(2).join(' ');
-            const users = DB.getUsers();
-            const target = users.find(u => u.username === targetName);
-            if (!target) { showToast('Ошибка', `Сотрудник "${targetName}" не найден`, 'danger'); return; }
-            const role = roles.find(r => r.name === roleName);
-            if (!role) { showToast('Ошибка', `Роль "${roleName}" не найдена`, 'danger'); return; }
-            target.rank = role.name;
-            DB.setUsers(users);
-
-            AdminLogsDB.add(`🎖️ ${currentUser.username} выдал роль "${role.name}" сотруднику ${target.username}`);
-            FuncLogDB.add(`🎖️ Роль "${role.name}" выдана ${target.username}`);
-
-            const msgs = AdminChatDB.get();
-            msgs.push({
-                id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null,
-                text: `🎖️ Выдал роль "${role.name}" → ${target.username}`,
-                date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-            });
-            AdminChatDB.set(msgs);
-
-            input.value = '';
-            renderAdminChat();
-            showToast('Роль выдана', `${target.username} → ${role.name}`, 'success');
-            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); updatePermissionsUI(); }
-            return;
-        }
-
-        const msgs = AdminChatDB.get();
-        msgs.push({
-            id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null,
-            text, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' })
-        });
-        AdminChatDB.set(msgs);
-        AdminLogsDB.add(`💬 ${currentUser.username}: ${text.slice(0, 60)}`);
-        input.value = '';
-        renderAdminChat();
-    };
-
-    // ============ АДМИН-ЛОГИ ============
-    function renderAdminLogs() {
-        if (!isAdminUser()) {
-            document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>';
-            return;
-        }
-        const content = document.getElementById('content');
-        const list = AdminLogsDB.get();
-
-        let rows = list.slice().reverse().map(l => `
-            <div class="log-item" style="border-left-color:var(--neon-purple);">
-                <div class="log-icon" style="background:linear-gradient(135deg, var(--neon-purple), var(--neon-pink));"><i class="fas fa-shield-alt"></i></div>
-                <div class="log-info">
-                    <div class="log-text">${escapeHtml(l.text)}</div>
-                    <div class="log-meta">${escapeHtml(l.author)} · ${escapeHtml(l.date)}</div>
-                </div>
-            </div>
-        `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Логов пока нет</div>';
-
-        content.innerHTML = `
-            <div class="content-header"><h1>АДМИН-ЛОГИ</h1><div class="breadcrumb">// NCPD · Админ · <span>Журнал действий</span></div></div>
-            <div class="panel purple">
-                <div class="panel-title"><i class="fas fa-clipboard-list"></i> Всего записей: ${list.length}</div>
-                <div style="display:flex; gap:10px; margin-bottom:16px;">
-                    <button class="btn btn-red" onclick="clearAdminLogs()"><i class="fas fa-trash"></i> Очистить логи</button>
-                </div>
-                ${rows}
-            </div>
-        `;
-    }
-
-    window.clearAdminLogs = function() {
-        if (!isAdminUser()) return;
-        if (!confirm('Очистить все админ-логи?')) return;
-        AdminLogsDB.set([]);
-        showToast('Очищено', 'Админ-логи удалены', 'warning');
-        renderAdminLogs();
-    };
-
     // ============ СТАРТ ============
+    applySiteState();
+    setInterval(applySiteState, 2000);
+
     if (currentUser) openApp();
     else authScreen.classList.remove('hidden');
 
