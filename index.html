@@ -156,12 +156,10 @@
         .operator-tile .op-value.green { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         .operator-tile .op-value.red { color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red); }
 
-        /* ============ ТЕГИ ============ */
         .user-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 3px; font-family: 'Orbitron', sans-serif; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid; }
         .user-tag.admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple); }
         .user-tag.management { background: rgba(0, 240, 255, 0.15); color: var(--theme-accent); border-color: var(--theme-accent); }
         .user-tag.staff { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border-color: var(--neon-green); }
-        .user-tag.warning { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border-color: var(--neon-orange); }
         .user-tag.cyan { background: rgba(0, 240, 255, 0.15); color: var(--neon-cyan); border-color: var(--neon-cyan); }
         .user-tag.pink { background: rgba(255, 0, 85, 0.15); color: var(--neon-pink); border-color: var(--neon-pink); }
         .user-tag.yellow { background: rgba(247, 255, 0, 0.15); color: var(--neon-yellow); border-color: var(--neon-yellow); }
@@ -169,11 +167,9 @@
         .user-tag.purple { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple); }
         .user-tag.orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border-color: var(--neon-orange); }
         .user-tag.green { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border-color: var(--neon-green); }
-        .user-tags-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
 
         .tag-row { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--bg-panel-2); border: 1px solid var(--border); border-radius: 5px; margin-bottom: 8px; flex-wrap: wrap; }
         .tag-row:hover { border-color: var(--neon-purple); }
-        .tag-preview { padding: 4px 12px; border-radius: 3px; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; border: 1px solid; }
         .tag-info { flex: 1; min-width: 150px; }
         .tag-info .tag-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.9rem; color: #fff; }
         .tag-info .tag-desc { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); }
@@ -182,7 +178,6 @@
         .tag-checkbox-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); border-radius: 3px; cursor: pointer; transition: 0.2s; }
         .tag-checkbox-row:hover { border-color: var(--theme-accent); }
         .tag-checkbox-row input { width: auto !important; cursor: pointer; }
-        .tag-checkbox-row label { cursor: pointer; color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; margin: 0; text-transform: none; letter-spacing: 0; }
 
         .data-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
         .data-table th { text-align: left; padding: 10px 12px; background: var(--bg-dark); color: var(--theme-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 0.7rem; border-bottom: 2px solid var(--theme-accent); font-weight: 700; }
@@ -195,7 +190,7 @@
         .badge-safe { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border: 1px solid var(--neon-green); }
         .badge-info { background: rgba(0, 240, 255, 0.15); color: var(--theme-accent); border: 1px solid var(--theme-accent); }
         .badge-admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border: 1px solid var(--neon-purple); }
-        .badge-orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
+        .badge-director { background: rgba(255, 136, 0, 0.25); color: var(--neon-orange); border: 1px solid var(--neon-orange); }
 
         .employee-row { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: var(--bg-panel-2); border: 1px solid var(--border); border-radius: 5px; margin-bottom: 8px; flex-wrap: wrap; }
         .employee-row:hover { border-color: var(--theme-accent); }
@@ -296,7 +291,6 @@
 
         .mark-read-btn { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: rgba(0, 240, 255, 0.08); border: 1px solid var(--theme-accent); color: var(--theme-accent); font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.7rem; letter-spacing: 1.5px; text-transform: uppercase; cursor: pointer; border-radius: 4px; }
         .mark-read-btn:hover { background: var(--theme-accent); color: #000; }
-        .mark-read-btn .check-icon { font-size: 1.1rem; }
         .chat-header-bar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
         .chat-info { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: var(--text-dim); }
         .chat-info .unread-count { color: var(--theme-accent-2); font-weight: 700; }
@@ -491,8 +485,7 @@
                 <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
                 <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')"><i class="fas fa-user-shield"></i> Управление ролями</div>
                 <div class="sidebar-item admin-only hidden" data-section="tags" onclick="switchSection('tags')"><i class="fas fa-tags"></i> Теги</div>
-                <div class="sidebar-item admin-only hidden" data-section="adminchat" onclick="switchSection('adminchat')"><i class="fas fa-user-secret"></i> Админ-чат</div>
-                <div class="sidebar-item admin-only hidden" data-section="adminlogs" onclick="switchSection('adminlogs')"><i class="fas fa-clipboard-list"></i> Админ-логи</div>
+                <div class="sidebar-item admin-only hidden" data-section="adminlogs" onclick="switchSection('adminlogs')"><i class="fas fa-terminal"></i> Админ-панель</div>
                 <div class="sidebar-item admin-only hidden" data-section="site" onclick="switchSection('site')"><i class="fas fa-globe"></i> Сайт</div>
                 <div class="sidebar-item" data-section="settings" onclick="switchSection('settings')"><i class="fas fa-palette"></i> Настройки дизайна</div>
             </div>
@@ -631,7 +624,7 @@
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permManageRoles" style="width:auto;" /> Управлять ролями</label>
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permDeleteAny" style="width:auto;" /> Удалять любых сотрудников</label>
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permAnnounce" style="width:auto;" /> Писать объявления</label>
-                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--neon-purple); font-weight:700;"><input type="checkbox" id="permAdmin" style="width:auto;" /> 👑 Администратор (полный доступ)</label>
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--neon-purple); font-weight:700;"><input type="checkbox" id="permAdmin" style="width:auto;" /> 👑 Администратор</label>
                 </div>
             </div>
             <div style="display:flex; gap:10px;">
@@ -758,7 +751,7 @@
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
-    
+
 <script>
 (function() {
     'use strict';
@@ -800,11 +793,6 @@
         set(a) { localStorage.setItem('ncpd_announce', JSON.stringify(a)); }
     };
 
-    const AdminChatDB = {
-        get() { return JSON.parse(localStorage.getItem('ncpd_admin_chat')) || []; },
-        set(m) { localStorage.setItem('ncpd_admin_chat', JSON.stringify(m)); }
-    };
-
     const AdminLogsDB = {
         get() { return JSON.parse(localStorage.getItem('ncpd_admin_logs')) || []; },
         set(l) { localStorage.setItem('ncpd_admin_logs', JSON.stringify(l)); },
@@ -833,7 +821,7 @@
         if (!users.some(u => u.username === 'Superadmin')) {
             users.push({
                 id: 'NCPD-0001', username: 'Superadmin', password: '12348ef',
-                rank: 'СУПЕР-АДМИН', isAdmin: true, isSupervisor: true,
+                rank: 'СУПЕР-АДМИН', isAdmin: true, isSupervisor: true, isDirector: true,
                 tags: ['t1'], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU')
             });
             DB.setUsers(users);
@@ -901,28 +889,21 @@
 
     function getInitials(name) { return name ? name.charAt(0).toUpperCase() : '?'; }
 
-    function getTagById(id) {
-        return TagsDB.get().find(t => t.id === id);
-    }
-
-    function getUserTags(user) {
-        if (!user || !user.tags) return [];
-        return user.tags.map(id => getTagById(id)).filter(t => t);
-    }
-
-    function renderTagsHtml(tagIds, extraClass) {
+    function getTagById(id) { return TagsDB.get().find(t => t.id === id); }
+    function getUserTags(user) { if (!user || !user.tags) return []; return user.tags.map(id => getTagById(id)).filter(t => t); }
+    function renderTagsHtml(tagIds) {
         if (!tagIds || tagIds.length === 0) return '';
         const allTags = TagsDB.get();
         return tagIds.map(id => {
             const tag = allTags.find(t => t.id === id);
             if (!tag) return '';
-            return `<span class="user-tag ${tag.color} ${extraClass || ''}">${escapeHtml(tag.name)}</span>`;
+            return `<span class="user-tag ${tag.color}">${escapeHtml(tag.name)}</span>`;
         }).join('');
     }
 
     function canAnnounce(user) {
         if (!user) return false;
-        if (user.isAdmin || user.username === 'Superadmin') return true;
+        if (user.isAdmin || user.username === 'Superadmin' || user.isDirector) return true;
         if (user.isSupervisor) return true;
         if (['Супервайзер', 'Капитан', 'Лейтенант'].includes(user.rank)) return true;
         const userRole = roles.find(r => r.name === user.rank);
@@ -932,7 +913,7 @@
 
     function isAdminOrSupervisor() {
         if (!currentUser) return false;
-        if (currentUser.isAdmin || currentUser.username === 'Superadmin') return true;
+        if (currentUser.isAdmin || currentUser.username === 'Superadmin' || currentUser.isDirector) return true;
         if (currentUser.isSupervisor) return true;
         if (['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank)) return true;
         const userRole = roles.find(r => r.name === currentUser.rank);
@@ -942,17 +923,22 @@
 
     function isAdminUser() {
         if (!currentUser) return false;
-        if (currentUser.isAdmin || currentUser.username === 'Superadmin') return true;
+        if (currentUser.isAdmin || currentUser.username === 'Superadmin' || currentUser.isDirector) return true;
         const userRole = roles.find(r => r.name === currentUser.rank);
         if (userRole && userRole.perms && userRole.perms.permAdmin) return true;
         return false;
     }
 
+    function isTechAdmin() {
+        if (!currentUser) return false;
+        if (currentUser.username === 'Superadmin') return true;
+        if (currentUser.isDirector) return true;
+        return false;
+    }
+
     function applyTheme(theme) {
         document.body.setAttribute('data-theme', theme || 'cyan');
-        document.querySelectorAll('.theme-item').forEach(el => {
-            el.classList.toggle('active', el.dataset.themeName === theme);
-        });
+        document.querySelectorAll('.theme-item').forEach(el => el.classList.toggle('active', el.dataset.themeName === theme));
     }
 
     window.setTheme = function(theme) {
@@ -971,6 +957,47 @@
         document.getElementById('settingsModal').classList.remove('hidden');
     };
     window.closeSettingsModal = function() { document.getElementById('settingsModal').classList.add('hidden'); };
+
+    function updateClock() {
+        const now = new Date();
+        const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
+        document.getElementById('clock').textContent = `${String(msk.getHours()).padStart(2, '0')}:${String(msk.getMinutes()).padStart(2, '0')}:${String(msk.getSeconds()).padStart(2, '0')}`;
+        document.getElementById('dateDisplay').textContent = `${String(msk.getDate()).padStart(2, '0')}.${String(msk.getMonth() + 1).padStart(2, '0')}.${msk.getFullYear()}`;
+        const lc = document.getElementById('localClock');
+        if (lc) lc.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+    }
+
+    let shiftActive = false, shiftStart = null, shiftInterval = null;
+    window.toggleShift = function() {
+        const btn = document.getElementById('shiftBtn');
+        const status = document.getElementById('shiftStatus');
+        const timer = document.getElementById('shiftTimer');
+        if (!shiftActive) {
+            shiftActive = true; shiftStart = Date.now();
+            btn.classList.add('on');
+            btn.innerHTML = '<i class="fas fa-user-clock"></i> Завершить смену';
+            status.textContent = 'ON'; status.classList.remove('red'); status.classList.add('green');
+            shiftInterval = setInterval(() => {
+                const elapsed = Date.now() - shiftStart;
+                timer.textContent = `${String(Math.floor(elapsed / 3600000)).padStart(2, '0')}:${String(Math.floor((elapsed % 3600000) / 60000)).padStart(2, '0')}:${String(Math.floor((elapsed % 60000) / 1000)).padStart(2, '0')}`;
+            }, 1000);
+        } else {
+            shiftActive = false;
+            btn.classList.remove('on');
+            btn.innerHTML = '<i class="fas fa-user-clock"></i> Заступить на смену';
+            status.textContent = 'OFF'; status.classList.remove('green'); status.classList.add('red');
+            timer.textContent = '00:00:00';
+            if (shiftInterval) { clearInterval(shiftInterval); shiftInterval = null; }
+        }
+    };
+
+    window.toggleTopBar = function() {
+        const topBar = document.getElementById('topBar');
+        const icon = document.getElementById('collapseIcon');
+        topBar.classList.toggle('collapsed');
+        if (topBar.classList.contains('collapsed')) { icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
+        else { icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
+    };
     
     window.sendAnnounce = function() {
         if (!canAnnounce(currentUser)) { showToast('Отказано', 'Нет прав', 'danger'); return; }
@@ -1203,6 +1230,22 @@
         if (!isAdminUser()) return null;
         const parts = text.trim().split(/\s+/);
         const cmd = parts[0].toLowerCase();
+        if (cmd === '/director') {
+            if (!isTechAdmin()) return '❌ Команда /director доступна только ТЕХ-АДМИНИСТРАТОРАМ (Superadmin)';
+            const name = parts[1];
+            if (!name) return '⚠ Синтаксис: /director <ник>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ Пользователь "${name}" не найден`;
+            target.isDirector = true;
+            target.isAdmin = true;
+            target.isSupervisor = true;
+            DB.setUsers(users);
+            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); updatePermissionsUI(); }
+            AdminLogsDB.add(`👑 ${currentUser.username} выдал ФУЛЛ-ДОСТУП: ${target.username}`);
+            FuncLogDB.add(`👑 Director выдан ${target.username}`);
+            return `✅ 👑 ФУЛЛ-ДОСТУП выдан: ${name}`;
+        }
         if (cmd === '/delete_user') {
             const name = parts[1];
             if (!name) return '⚠ Синтаксис: /delete_user <ник>';
@@ -1222,7 +1265,7 @@
             const users = DB.getUsers();
             if (users.some(u => u.username === name)) return `❌ Логин "${name}" уже занят`;
             const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
-            users.push({ id: newId, username: name, password: pass, rank: 'Офицер', isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
+            users.push({ id: newId, username: name, password: pass, rank: 'Офицер', isAdmin: false, isSupervisor: false, isDirector: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
             DB.setUsers(users);
             AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
             FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
@@ -1361,6 +1404,7 @@
                             <button class="secret" onclick="askRobocopSection('/add_tag')">🏷 add_tag</button>
                             <button class="secret" onclick="askRobocopSection('/give_tag')">🎗 give_tag</button>
                             <button class="secret" onclick="askRobocopSection('/remove_tag')">🔻 remove_tag</button>
+                            <button class="secret" onclick="askRobocopSection('/director')">👑 director</button>
                         ` : ''}
                     </div>
                     <div class="chat-messages" id="robocopSectionMessages" style="background:rgba(0,0,0,0.3);">${msgsHtml}</div>
@@ -1372,16 +1416,18 @@
                 ${isAdm ? `
                     <div style="margin-top:16px; padding:14px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text-dim);">
                         <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🔒 СЕКРЕТНЫЕ КОМАНДЫ (только админ):</div>
-                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">👤 Аккаунты:</div>
-                        <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code> — создать</div>
-                        <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code> — удалить</div>
-                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">🎖 Роли:</div>
-                        <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code> — выдать</div>
-                        <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code> — снять</div>
-                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">🏷 Теги:</div>
-                        <div>• <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code> — создать тег</div>
-                        <div>• <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code> — выдать</div>
-                        <div>• <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code> — снять</div>
+                        <div style="color:var(--neon-cyan); font-weight:700;">👤 Аккаунты:</div>
+                        <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code></div>
+                        <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code></div>
+                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:6px;">🎖 Роли:</div>
+                        <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code></div>
+                        <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code></div>
+                        <div style="color:#ff8800; font-weight:700; margin-top:6px;">👑 ТЕХ-АДМИН:</div>
+                        <div>• <code style="color:#ff8800;">/director &lt;ник&gt;</code> — ФУЛЛ-ДОСТУП</div>
+                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:6px;">🏷 Теги:</div>
+                        <div>• <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code></div>
+                        <div>• <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                        <div>• <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code></div>
                     </div>
                 ` : ''}
             </div>
@@ -1491,16 +1537,22 @@
         const user = DB.getUsers().find(u => u.username === username && u.password === password);
         if (user) {
             currentUser = user;
-            const isAdminUserCheck = isAdminUser();
+            DB.setCurrent(user);
+            // Проверяем, тех-админ ли это
+            let isAdm = false;
+            if (user.isAdmin || user.username === 'Superadmin' || user.isDirector) isAdm = true;
+            else {
+                const userRole = roles.find(r => r.name === user.rank);
+                if (userRole && userRole.perms && userRole.perms.permAdmin) isAdm = true;
+            }
             const siteOff = localStorage.getItem('ncpd_site_off') === '1';
-            if (siteOff && !isAdminUserCheck) {
+            if (siteOff && !isAdm) {
                 msg.textContent = '✗ СИСТЕМА НА КАРАНТИНЕ';
                 msg.className = 'alert alert-danger';
                 currentUser = null; DB.setCurrent(null);
                 setTimeout(() => { checkSiteAccess(); }, 800);
                 return;
             }
-            DB.setCurrent(user);
             msg.textContent = '✓ ДОСТУП РАЗРЕШЁН';
             msg.className = 'alert alert-success';
             setTimeout(() => openApp(), 700);
@@ -1519,7 +1571,7 @@
         if (password.length < 4) { msg.textContent = '✗ Минимум 4 символа'; msg.className = 'alert alert-danger'; return; }
         if (DB.getUsers().some(u => u.username === username)) { msg.textContent = '✗ Логин занят'; msg.className = 'alert alert-danger'; return; }
         const usersCount = DB.getUsers().length;
-        const newUser = { id: 'NCPD-' + String(1000 + usersCount).padStart(4, '0'), username, password, rank: 'Офицер', isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') };
+        const newUser = { id: 'NCPD-' + String(1000 + usersCount).padStart(4, '0'), username, password, rank: 'Офицер', isAdmin: false, isSupervisor: false, isDirector: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') };
         const users = DB.getUsers();
         users.push(newUser); DB.setUsers(users);
         currentUser = newUser; DB.setCurrent(newUser);
@@ -1561,49 +1613,6 @@
         });
         document.getElementById('adminSectionTitle').style.display = canManageRoles ? 'block' : 'none';
     }
-
-    let topBarCollapsed = false;
-    window.toggleTopBar = function() {
-        topBarCollapsed = !topBarCollapsed;
-        const topBar = document.getElementById('topBar');
-        const icon = document.getElementById('collapseIcon');
-        if (topBarCollapsed) { topBar.classList.add('collapsed'); icon.classList.remove('fa-chevron-up'); icon.classList.add('fa-chevron-down'); }
-        else { topBar.classList.remove('collapsed'); icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
-    };
-
-    function updateClock() {
-        const now = new Date();
-        const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
-        document.getElementById('clock').textContent = `${String(msk.getHours()).padStart(2, '0')}:${String(msk.getMinutes()).padStart(2, '0')}:${String(msk.getSeconds()).padStart(2, '0')}`;
-        document.getElementById('dateDisplay').textContent = `${String(msk.getDate()).padStart(2, '0')}.${String(msk.getMonth() + 1).padStart(2, '0')}.${msk.getFullYear()}`;
-        const lc = document.getElementById('localClock');
-        if (lc) lc.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
-    }
-    setInterval(updateClock, 1000); updateClock();
-
-    let shiftActive = false, shiftStart = null, shiftInterval = null;
-    window.toggleShift = function() {
-        const btn = document.getElementById('shiftBtn');
-        const status = document.getElementById('shiftStatus');
-        const timer = document.getElementById('shiftTimer');
-        if (!shiftActive) {
-            shiftActive = true; shiftStart = Date.now();
-            btn.classList.add('on');
-            btn.innerHTML = '<i class="fas fa-user-clock"></i> Завершить смену';
-            status.textContent = 'ON'; status.classList.remove('red'); status.classList.add('green');
-            shiftInterval = setInterval(() => {
-                const elapsed = Date.now() - shiftStart;
-                timer.textContent = `${String(Math.floor(elapsed / 3600000)).padStart(2, '0')}:${String(Math.floor((elapsed % 3600000) / 60000)).padStart(2, '0')}:${String(Math.floor((elapsed % 60000) / 1000)).padStart(2, '0')}`;
-            }, 1000);
-        } else {
-            shiftActive = false;
-            btn.classList.remove('on');
-            btn.innerHTML = '<i class="fas fa-user-clock"></i> Заступить на смену';
-            status.textContent = 'OFF'; status.classList.remove('green'); status.classList.add('red');
-            timer.textContent = '00:00:00';
-            if (shiftInterval) { clearInterval(shiftInterval); shiftInterval = null; }
-        }
-    };
 
     window.triggerPanic = function() {
         const overlay = document.createElement('div');
@@ -1840,9 +1849,7 @@
         if (!confirm(`Удалить тег "${tag.name}"? Он будет снят у всех сотрудников.`)) return;
         TagsDB.set(tags.filter(t => t.id !== id));
         const users = DB.getUsers();
-        users.forEach(u => {
-            if (u.tags && u.tags.includes(id)) u.tags = u.tags.filter(tid => tid !== id);
-        });
+        users.forEach(u => { if (u.tags && u.tags.includes(id)) u.tags = u.tags.filter(tid => tid !== id); });
         DB.setUsers(users);
         if (currentUser) { currentUser = DB.getUsers().find(u => u.id === currentUser.id) || currentUser; updateTopProfile(); }
         FuncLogDB.add(`🗑️ Удалён тег: ${tag.name}`);
@@ -1902,7 +1909,6 @@
         if (users.some(u => u.username === newName && u.id !== id)) { showToast('Ошибка', 'Ник занят', 'danger'); return; }
         user.username = newName; user.rank = newRole;
         if (editAvatarData) user.avatar = editAvatarData;
-        // Собираем теги
         const checkedTags = [];
         document.querySelectorAll('#editUserTags input[type="checkbox"]:checked').forEach(cb => checkedTags.push(cb.value));
         user.tags = checkedTags;
@@ -1978,7 +1984,7 @@
         const users = DB.getUsers();
         if (users.some(u => u.username === name)) { showToast('Ошибка', 'Логин занят', 'danger'); return; }
         const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
-        users.push({ id: newId, username: name, password: pass, rank: role, isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
+        users.push({ id: newId, username: name, password: pass, rank: role, isAdmin: false, isSupervisor: false, isDirector: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
         DB.setUsers(users);
         AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
         FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
@@ -1987,54 +1993,80 @@
         renderSection('employees');
     });
     
-    function renderAdminChat() {
+    // ============ АДМИН-ПАНЕЛЬ (команды + логи) ============
+    function renderAdminLogs() {
         if (!isAdminUser()) { document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
         const content = document.getElementById('content');
-        const msgs = AdminChatDB.get();
-        let messagesHtml = msgs.length === 0
-            ? `<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Share Tech Mono';"><i class="fas fa-user-secret" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Админ-чат пуст. Используйте /setrol, /website или команды тегов</div>`
-            : msgs.map(m => `
-                <div class="chat-msg">
-                    <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
-                    <div class="cm-content">
-                        <div class="cm-author" style="color:var(--neon-purple);">${escapeHtml(m.author)} <span class="cm-rank">· ADMIN</span></div>
-                        <div class="cm-text">${escapeHtml(m.text)}</div>
-                        <div class="cm-time">${escapeHtml(m.date)}</div>
-                    </div>
-                </div>
-            `).join('');
-        content.innerHTML = `
-            <div class="content-header"><h1>АДМИН-ЧАТ</h1><div class="breadcrumb">// NCPD · Админ · <span>Скрытый канал</span></div></div>
-            <div class="panel purple">
-                <div class="panel-title"><i class="fas fa-user-secret"></i> Закрытый канал</div>
-                <p style="font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim); margin-bottom:10px;">
-                    Команды: <code style="color:var(--neon-purple);">/setrol &lt;ник&gt; &lt;роль&gt;</code> · <code style="color:var(--neon-purple);">/website &lt;команда&gt;</code> · <code style="color:var(--neon-purple);">/add_tag</code> · <code style="color:var(--neon-purple);">/give_tag</code> · <code style="color:var(--neon-purple);">/remove_tag</code>
-                </p>
-                <div class="chat-container" style="height:400px;">
-                    <div class="chat-messages" id="adminChatMessages">${messagesHtml}</div>
-                    <div class="chat-input-area">
-                        <input type="text" id="adminChatInput" placeholder="Сообщение или команда..." onkeydown="if(event.key==='Enter') sendAdminChatMsg()" />
-                        <button onclick="sendAdminChatMsg()" style="background:var(--neon-purple); color:#fff;"><i class="fas fa-paper-plane"></i></button>
-                    </div>
+        const list = AdminLogsDB.get();
+
+        let rows = list.slice().reverse().map(l => `
+            <div class="log-item" style="border-left-color:var(--neon-purple);">
+                <div class="log-icon" style="background:linear-gradient(135deg, var(--neon-purple), var(--neon-pink));"><i class="fas fa-shield-alt"></i></div>
+                <div class="log-info">
+                    <div class="log-text">${escapeHtml(l.text)}</div>
+                    <div class="log-meta">${escapeHtml(l.author)} · ${escapeHtml(l.date)}</div>
                 </div>
             </div>
+        `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Логов пока нет</div>';
+
+        content.innerHTML = `
+            <div class="content-header"><h1>АДМИН-ПАНЕЛЬ</h1><div class="breadcrumb">// NCPD · Админ · <span>Команды и логи</span></div></div>
+            <div class="panel purple">
+                <div class="panel-title"><i class="fas fa-terminal"></i> Консоль команд</div>
+                <p style="font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim); margin-bottom:10px;">
+                    Пишите команды прямо здесь. Всё автоматически логируется.
+                </p>
+                <div style="display:flex; gap:10px;">
+                    <input type="text" id="adminLogsInput" placeholder="/setrol ник роль · /website title текст · /add_tag VIP · /director ник" onkeydown="if(event.key==='Enter') sendAdminLogsCmd()" style="flex:1; background:var(--bg-dark); border:1px solid var(--border); color:var(--text); padding:12px 16px; border-radius:4px; font-family:'Share Tech Mono',monospace; font-size:0.85rem;" />
+                    <button onclick="sendAdminLogsCmd()" style="background:var(--neon-purple); color:#fff; border:none; padding:12px 24px; border-radius:4px; font-family:'Orbitron',sans-serif; font-weight:700; font-size:0.75rem; cursor:pointer;"><i class="fas fa-paper-plane"></i> Выполнить</button>
+                </div>
+                <div style="margin-top:14px; padding:12px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text-dim);">
+                    <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">📖 ДОСТУПНЫЕ КОМАНДЫ:</div>
+                    <div style="color:var(--neon-cyan); font-weight:700;">👤 Аккаунты:</div>
+                    <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code></div>
+                    <div style="color:var(--neon-cyan); font-weight:700; margin-top:6px;">🎖 Роли:</div>
+                    <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code></div>
+                    <div style="color:#ff8800; font-weight:700; margin-top:6px;">👑 ТЕХ-АДМИН:</div>
+                    <div>• <code style="color:#ff8800;">/director &lt;ник&gt;</code> — ФУЛЛ-ДОСТУП</div>
+                    <div style="color:var(--neon-cyan); font-weight:700; margin-top:6px;">🏷 Теги:</div>
+                    <div>• <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                    <div style="color:var(--neon-cyan); font-weight:700; margin-top:6px;">🌐 Сайт:</div>
+                    <div>• <code style="color:var(--neon-purple);">/website title &lt;текст&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/website brand &lt;текст&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/website color &lt;цвет&gt;</code></div>
+                    <div>• <code style="color:var(--neon-purple);">/website reset</code></div>
+                </div>
+            </div>
+            <div class="panel purple">
+                <div class="panel-title"><i class="fas fa-clipboard-list"></i> Всего записей: ${list.length}</div>
+                <div style="display:flex; gap:10px; margin-bottom:16px;">
+                    <button class="btn btn-red" onclick="clearAdminLogs()"><i class="fas fa-trash"></i> Очистить</button>
+                </div>
+                ${rows}
+            </div>
         `;
-        const cm = document.getElementById('adminChatMessages');
-        if (cm) cm.scrollTop = cm.scrollHeight;
     }
 
-    window.sendAdminChatMsg = function() {
-        if (!isAdminUser()) return;
-        const input = document.getElementById('adminChatInput');
+    window.sendAdminLogsCmd = function() {
+        if (!isAdminUser()) { showToast('Отказано', '', 'danger'); return; }
+        const input = document.getElementById('adminLogsInput');
         if (!input) return;
         const text = input.value.trim();
         if (!text) return;
+
+        // /website
         if (text.startsWith('/website')) {
             const args = text.replace('/website', '').trim();
             handleWebsiteCommand(args);
             input.value = '';
+            renderAdminLogs();
             return;
         }
+        // /setrol
         if (text.startsWith('/setrol')) {
             const parts = text.split(/\s+/);
             if (parts.length < 3) { showToast('Синтаксис', '/setrol <ник> <роль>', 'warning'); return; }
@@ -2049,33 +2081,47 @@
             DB.setUsers(users);
             AdminLogsDB.add(`🎖️ ${currentUser.username} выдал роль "${role.name}" → ${target.username}`);
             FuncLogDB.add(`🎖️ Роль "${role.name}" выдана ${target.username}`);
-            const msgs = AdminChatDB.get();
-            msgs.push({ id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null, text: `🎖️ Выдал роль "${role.name}" → ${target.username}`, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
-            AdminChatDB.set(msgs);
-            input.value = '';
-            renderAdminChat();
             showToast('Роль выдана', `${target.username} → ${role.name}`, 'success');
+            input.value = '';
+            renderAdminLogs();
             return;
         }
-        if (text.startsWith('/add_tag') || text.startsWith('/give_tag') || text.startsWith('/remove_tag')) {
+        // /director — тех-админ
+        if (text.startsWith('/director')) {
             const reply = handleSecretAICommand(text);
             if (reply) {
-                const msgs = AdminChatDB.get();
-                msgs.push({ id: Date.now(), author: 'SYSTEM', avatar: null, text: reply, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
-                AdminChatDB.set(msgs);
+                AdminLogsDB.add(`⚡ ${reply.replace(/\n/g, ' · ')}`);
+                showToast('Команда', reply.split('\n')[0], 'info');
                 input.value = '';
-                renderAdminChat();
+                renderAdminLogs();
             }
             return;
         }
-        const msgs = AdminChatDB.get();
-        msgs.push({ id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null, text, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
-        AdminChatDB.set(msgs);
-        AdminLogsDB.add(`💬 ${currentUser.username}: ${text.slice(0, 60)}`);
-        input.value = '';
-        renderAdminChat();
+        // Все секретные команды через handleSecretAICommand
+        if (text.startsWith('/add_user') || text.startsWith('/delete_user') ||
+            text.startsWith('/add_tag') || text.startsWith('/give_tag') || text.startsWith('/remove_tag') ||
+            text.startsWith('/remove_role')) {
+            const reply = handleSecretAICommand(text);
+            if (reply) {
+                AdminLogsDB.add(`⚡ ${reply.replace(/\n/g, ' · ')}`);
+                showToast('Команда', reply.split('\n')[0], 'info');
+                input.value = '';
+                renderAdminLogs();
+            }
+            return;
+        }
+        showToast('Неизвестная команда', 'Начните с /', 'warning');
     };
 
+    window.clearAdminLogs = function() {
+        if (!isAdminUser()) return;
+        if (!confirm('Очистить все админ-логи?')) return;
+        AdminLogsDB.set([]);
+        showToast('Очищено', '', 'warning');
+        renderAdminLogs();
+    };
+
+    // ============ WEBSITE ============
     window.handleWebsiteCommand = function(args) {
         if (!isAdminUser()) { showToast('Отказано', '', 'danger'); return; }
         const parts = args.trim().split(/\s+/);
@@ -2110,29 +2156,38 @@
             AdminLogsDB.add(`🌐 ${currentUser.username} сбросил настройки`);
             showToast('Сброшено', 'Вернулись к дефолту', 'info');
             setTimeout(() => location.reload(), 1000);
-        } else {
-            const msgs = AdminChatDB.get();
-            msgs.push({ id: Date.now(), author: 'SYSTEM', avatar: null, text: `📖 /website:\n• title <текст>\n• brand <текст>\n• color <цвет>\n• reset`, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
-            AdminChatDB.set(msgs);
-            renderAdminChat();
         }
     };
 
+    // ============ САЙТ (вкл/выкл) ============
     function checkSiteAccess() {
         const off = localStorage.getItem('ncpd_site_off') === '1';
         const overlay = document.getElementById('siteOffOverlay');
         const authScreenLocal = document.getElementById('authScreen');
         const appLocal = document.getElementById('app');
         if (!overlay) return;
-        if (off && !isAdminUser()) {
+
+        // Проверяем админа НАПРЯМУЮ через DB.getCurrent()
+        let isAdm = false;
+        const cur = DB.getCurrent();
+        if (cur) {
+            if (cur.isAdmin || cur.username === 'Superadmin' || cur.isDirector) isAdm = true;
+            else {
+                const userRole = roles.find(r => r.name === cur.rank);
+                if (userRole && userRole.perms && userRole.perms.permAdmin) isAdm = true;
+            }
+        }
+
+        if (off && !isAdm) {
             overlay.classList.remove('hidden');
             overlay.style.display = 'flex';
+            overlay.style.zIndex = '999999';
             if (authScreenLocal) authScreenLocal.classList.add('hidden');
             if (appLocal) appLocal.classList.remove('active');
         } else {
             overlay.classList.add('hidden');
             overlay.style.display = 'none';
-            if (!currentUser && authScreenLocal) {
+            if (!cur && authScreenLocal) {
                 authScreenLocal.classList.remove('hidden');
                 if (appLocal) appLocal.classList.remove('active');
             }
@@ -2141,12 +2196,12 @@
     window.applySiteState = checkSiteAccess;
 
     window.toggleSiteState = function() {
-        if (!isAdminUser()) { showToast('Отказано', '', 'danger'); return; }
+        if (!isAdminUser()) { showToast('Отказано', 'Только админ', 'danger'); return; }
         const off = localStorage.getItem('ncpd_site_off') === '1';
         const newState = off ? '0' : '1';
         localStorage.setItem('ncpd_site_off', newState);
         AdminLogsDB.add(`🌐 ${currentUser.username} ${newState === '1' ? 'ОТКЛЮЧИЛ' : 'ВКЛЮЧИЛ'} сайт`);
-        showToast(newState === '1' ? 'Сайт ОТКЛЮЧЁН' : 'Сайт ВКЛЮЧЁН', '', newState === '1' ? 'danger' : 'success');
+        showToast(newState === '1' ? 'Сайт ОТКЛЮЧЁН' : 'Сайт ВКЛЮЧЁН', 'Все не-админы увидят заглушку', newState === '1' ? 'danger' : 'success');
         checkSiteAccess();
         if (currentSection === 'site') renderSiteSection();
     };
@@ -2181,7 +2236,7 @@
                     <div>Акцент: <span style="color:var(--theme-accent);">${escapeHtml(accent)}</span></div>
                 </div>
                 <div style="margin-top:16px; padding:12px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim);">
-                    <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🛠 Команды в админ-чате:</div>
+                    <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🛠 Команды (в админ-панели):</div>
                     <div>• <code style="color:var(--neon-purple);">/website title &lt;текст&gt;</code></div>
                     <div>• <code style="color:var(--neon-purple);">/website brand &lt;текст&gt;</code></div>
                     <div>• <code style="color:var(--neon-purple);">/website color &lt;цвет&gt;</code></div>
@@ -2193,41 +2248,13 @@
                 <div style="display:flex; gap:10px; flex-wrap:wrap;">
                     <button class="btn btn-purple" onclick="openAdminAddUserModal()"><i class="fas fa-user-plus"></i> Добавить аккаунт</button>
                     <button class="btn btn-orange" onclick="switchSection('employees')"><i class="fas fa-users"></i> Сотрудники</button>
-                    <button class="btn btn-red" onclick="switchSection('adminlogs')"><i class="fas fa-clipboard-list"></i> Логи</button>
+                    <button class="btn btn-red" onclick="switchSection('adminlogs')"><i class="fas fa-terminal"></i> Админ-панель</button>
                 </div>
             </div>
         `;
     }
 
-    function renderAdminLogs() {
-        if (!isAdminUser()) { document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
-        const content = document.getElementById('content');
-        const list = AdminLogsDB.get();
-        let rows = list.slice().reverse().map(l => `
-            <div class="log-item" style="border-left-color:var(--neon-purple);">
-                <div class="log-icon" style="background:linear-gradient(135deg, var(--neon-purple), var(--neon-pink));"><i class="fas fa-shield-alt"></i></div>
-                <div class="log-info"><div class="log-text">${escapeHtml(l.text)}</div><div class="log-meta">${escapeHtml(l.author)} · ${escapeHtml(l.date)}</div></div>
-            </div>
-        `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Логов пока нет</div>';
-        content.innerHTML = `
-            <div class="content-header"><h1>АДМИН-ЛОГИ</h1><div class="breadcrumb">// NCPD · Админ · <span>Журнал действий</span></div></div>
-            <div class="panel purple">
-                <div class="panel-title"><i class="fas fa-clipboard-list"></i> Всего: ${list.length}</div>
-                <div style="display:flex; gap:10px; margin-bottom:16px;">
-                    <button class="btn btn-red" onclick="clearAdminLogs()"><i class="fas fa-trash"></i> Очистить</button>
-                </div>
-                ${rows}
-            </div>
-        `;
-    }
-    window.clearAdminLogs = function() {
-        if (!isAdminUser()) return;
-        if (!confirm('Очистить все админ-логи?')) return;
-        AdminLogsDB.set([]);
-        showToast('Очищено', '', 'warning');
-        renderAdminLogs();
-    };
-
+    // ============ ФУНКЦИОНАЛ ============
     function renderFunctionality() {
         const content = document.getElementById('content');
         const list = FuncLogDB.get();
@@ -2258,6 +2285,7 @@
     window.markAllRead = function() { FuncLogDB.markRead(); showToast('Отмечено', '', 'success'); renderFunctionality(); };
     window.clearAllLogs = function() { if (!confirm('Очистить все?')) return; FuncLogDB.clear(); showToast('Очищено', '', 'warning'); renderFunctionality(); };
 
+    // ============ КОНТЕКСТНОЕ МЕНЮ ============
     const ctxMenu = document.getElementById('ctxMenu');
     let ctxTarget = null, ctxSection = null;
     function findContextTarget(el) { while (el && el !== document.body) { if (el.dataset && el.dataset.ctxId) return el; el = el.parentElement; } return null; }
@@ -2362,7 +2390,6 @@
         }
         else if (section === 'chat') renderChatSection();
         else if (section === 'robocop') renderRobocopSection();
-        else if (section === 'adminchat') renderAdminChat();
         else if (section === 'adminlogs') renderAdminLogs();
         else if (section === 'site') renderSiteSection();
         else if (section === 'functionality') renderFunctionality();
@@ -2371,7 +2398,7 @@
             const tags = TagsDB.get();
             let rows = tags.map(t => `
                 <div class="tag-row" data-ctx-id="${t.id}" data-ctx-type="tag">
-                    <span class="tag-preview user-tag ${t.color}">${escapeHtml(t.name)}</span>
+                    <span class="user-tag ${t.color}" style="padding:4px 12px; font-size:0.7rem;">${escapeHtml(t.name)}</span>
                     <div class="tag-info">
                         <div class="tag-name">${escapeHtml(t.name)}</div>
                         <div class="tag-desc">${escapeHtml(t.desc || 'Без описания')}</div>
@@ -2392,9 +2419,9 @@
                 <div class="panel">
                     <div class="panel-title"><i class="fas fa-info-circle"></i> Как использовать</div>
                     <div style="font-family:'Share Tech Mono', monospace; font-size:0.8rem; line-height:2; color:var(--text-dim);">
-                        <div>• Создайте тег здесь или через <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code> в RoboCop AI</div>
+                        <div>• Создайте тег здесь или через <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code></div>
                         <div>• Выдайте тег сотруднику в <strong style="color:var(--theme-accent);">Сотрудники → Изменить → Теги</strong></div>
-                        <div>• Или через <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                        <div>• Или через <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code> в админ-панели</div>
                         <div>• Снять тег: <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code></div>
                     </div>
                 </div>
@@ -2412,12 +2439,14 @@
                 const userRole = roles.find(r => r.name === u.rank);
                 const roleIsAdmin = userRole && userRole.perms && userRole.perms.permAdmin;
                 const displayAdmin = isA || roleIsAdmin;
+                const displayDirector = u.isDirector;
                 return `<div class="employee-row" data-ctx-id="${u.id}" data-ctx-type="user">
                     ${u.avatar ? `<div class="emp-avatar-img" style="background-image:url(${u.avatar});"></div>` : `<div class="emp-avatar">${escapeHtml(getInitials(u.username))}</div>`}
                     <div class="emp-info">
                         <div class="emp-name">
                             ${escapeHtml(u.username)}
-                            ${displayAdmin ? '<span class="badge badge-admin">ADMIN</span>' : ''}
+                            ${displayDirector ? '<span class="badge badge-director">👑 DIRECTOR</span>' : ''}
+                            ${displayAdmin && !displayDirector ? '<span class="badge badge-admin">ADMIN</span>' : ''}
                             ${renderTagsHtml(u.tags)}
                         </div>
                         <div class="emp-meta">${escapeHtml(u.rank || 'Офицер')} · ${escapeHtml(u.registered || '—')}</div>
@@ -2467,9 +2496,12 @@
                 </div></div>`;
         }
     }
-
+    
+    // ============ СТАРТ ============
     checkSiteAccess();
-    setInterval(checkSiteAccess, 2000);
+    setInterval(checkSiteAccess, 1000);
+    updateClock();
+    setInterval(updateClock, 1000);
     if (currentUser) openApp();
     else checkSiteAccess();
     console.log('NCPD Terminal loaded.');
