@@ -1637,7 +1637,7 @@
             document.getElementById('wantedEditId').value = w.id;
             document.getElementById('wantedId').value = w.id;
             document.getElementById('wantedName').value = w.name;
-            document.getElementById('wantedStatus').value = w.status;
+            document.getElementById('wantedForm').addEventListener('submit', function(e) {
             document.getElementById('wantedReward').value = w.reward;
             document.getElementById('wantedCrime').value = w.crime;
             document.getElementById('wantedLocation').value = w.location;
@@ -1670,8 +1670,7 @@
             showToast('Добавлено в розыск', `${name} (${id})`, 'danger');
         }
         saveWanted(); closeWantedModal(); renderSection('wanted');
-    };
-
+        });
     window.removeFromWanted = function(id) {
         const w = wantedList.find(x => x.id === id);
         if (!w) return;
