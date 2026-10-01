@@ -109,7 +109,7 @@
         .sidebar-item .badge-count { margin-left: auto; background: var(--theme-accent-2); color: #fff; font-size: 0.6rem; padding: 1px 7px; border-radius: 10px; font-family: 'Share Tech Mono', monospace; font-weight: 700; }
         .sidebar-item .badge-count.hidden { display: none; }
         .sidebar-item .badge-count.func { background: var(--neon-orange); }
-        
+
         .announce-box { border-top: 1px solid var(--border); padding: 14px 16px 16px; background: rgba(0, 0, 0, 0.2); }
         .announce-title { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .announce-title i { color: var(--neon-yellow); }
@@ -122,7 +122,7 @@
         .announce-item .announce-author { color: var(--theme-accent-2); font-weight: 700; }
         .announce-item .announce-text { color: var(--text); font-size: 0.7rem; }
         .announce-empty { padding: 8px 0; text-align: center; opacity: 0.5; font-size: 0.7rem; }
-
+        
         .content { padding: 24px 28px; overflow-x: hidden; }
         .content-header { margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
         .content-header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 15px var(--theme-accent); margin-bottom: 4px; }
@@ -289,35 +289,18 @@
         .rc-quick button.secret { background: rgba(179, 0, 255, 0.1); border-color: var(--neon-purple); color: var(--neon-purple); }
         .rc-quick button.secret:hover { background: var(--neon-purple); color: #000; }
 
+        /* КИБЕР-ЗАГЛУШКА */
         .site-off-overlay { position: fixed; inset: 0; background: #000; z-index: 999999; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 30px; text-align: center; }
         .site-off-overlay h1 { font-family: 'Orbitron', sans-serif; font-size: 3rem; font-weight: 900; color: var(--neon-red); text-shadow: 0 0 30px var(--neon-red); letter-spacing: 8px; margin-bottom: 20px; }
-        .site-off-overlay p { font-family: 'Share Tech Mono', monospace; color: var(--text-dim); font-size: 1rem; margin-bottom: 10px; }
-        .site-off-overlay .offline-badge { font-family: 'Share Tech Mono', monospace; color: var(--neon-red); font-size: 0.8rem; letter-spacing: 4px; padding: 8px 20px; border: 2px solid var(--neon-red); border-radius: 4px; }
+        .site-off-overlay p { font-family: 'Share Tech Mono', monospace; color: var(--text-dim); font-size: 1rem; margin-bottom: 10px; line-height: 1.8; }
+        .site-off-overlay .offline-badge { font-family: 'Share Tech Mono', monospace; color: var(--neon-red); font-size: 0.8rem; letter-spacing: 4px; padding: 8px 20px; border: 2px solid var(--neon-red); border-radius: 4px; margin-top: 20px; animation: blinkBadge 1.5s infinite; }
+        @keyframes blinkBadge { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .site-off-overlay .cyber-shield { font-size: 5rem; color: var(--neon-red); text-shadow: 0 0 40px var(--neon-red); margin-bottom: 20px; animation: shieldPulse 2s ease-in-out infinite; }
+        @keyframes shieldPulse { 0%, 100% { transform: scale(1); text-shadow: 0 0 40px var(--neon-red); } 50% { transform: scale(1.08); text-shadow: 0 0 60px var(--neon-red), 0 0 100px var(--neon-red); } }
+        .site-off-overlay .cyber-sub { font-family: 'Share Tech Mono', monospace; color: var(--neon-red); font-size: 0.85rem; letter-spacing: 6px; margin-bottom: 30px; opacity: 0.8; }
         .site-status-on { display: flex; align-items: center; gap: 12px; padding: 20px; background: rgba(0, 255, 136, 0.08); border: 1px solid var(--neon-green); border-radius: 6px; font-family: 'Share Tech Mono', monospace; color: var(--neon-green); margin-bottom: 16px; }
         .site-status-off { display: flex; align-items: center; gap: 12px; padding: 20px; background: rgba(255, 34, 51, 0.08); border: 1px solid var(--neon-red); border-radius: 6px; font-family: 'Share Tech Mono', monospace; color: var(--neon-red); margin-bottom: 16px; }
         .site-status-on i, .site-status-off i { font-size: 1.5rem; }
-
-        .float-widget { position: fixed; bottom: 20px; right: 20px; z-index: 9990; background: var(--bg-panel); border: 2px solid var(--neon-orange); border-radius: 6px; box-shadow: 0 0 30px rgba(255, 136, 0, 0.3); display: flex; flex-direction: column; max-height: 500px; width: 340px; overflow: hidden; transition: 0.25s; }
-        .float-widget.collapsed { max-height: 42px; }
-        .float-widget .fw-header { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: linear-gradient(180deg, #0a0e14, #05070a); border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--neon-orange); flex-shrink: 0; }
-        .float-widget .fw-header .fw-badge { margin-left: auto; font-size: 0.6rem; padding: 2px 8px; border-radius: 10px; background: var(--neon-orange); color: #000; font-weight: 900; }
-        .fw-messages { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; gap: 8px; min-height: 250px; max-height: 340px; background: rgba(0, 0, 0, 0.3); }
-        .fw-msg { display: flex; gap: 8px; font-size: 0.78rem; }
-        .fw-msg .msg-avatar { width: 26px; height: 26px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 0.7rem; color: #000; background: linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)); background-size: cover; background-position: center; }
-        .fw-msg.robocop-msg .msg-avatar { background: linear-gradient(135deg, var(--neon-orange), var(--neon-yellow)); }
-        .fw-msg .msg-content { flex: 1; min-width: 0; }
-        .fw-msg .msg-author { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; font-weight: 700; color: var(--theme-accent); margin-bottom: 1px; }
-        .fw-msg.robocop-msg .msg-author { color: var(--neon-orange); }
-        .fw-msg .msg-text { color: var(--text); word-wrap: break-word; }
-        .fw-msg .msg-time { font-size: 0.6rem; color: var(--text-dim); margin-top: 2px; }
-        .fw-input { display: flex; gap: 6px; padding: 8px; border-top: 1px solid var(--border); background: var(--bg-dark); }
-        .fw-input input { flex: 1; background: var(--bg-panel-2); border: 1px solid var(--border); color: var(--text); padding: 8px 10px; border-radius: 3px; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; }
-        .fw-input input:focus { outline: none; border-color: var(--neon-orange); }
-        .fw-input button { background: transparent; border: 1px solid var(--neon-orange); color: var(--neon-orange); padding: 6px 10px; border-radius: 3px; cursor: pointer; font-size: 0.8rem; }
-        .fw-input button:hover { background: var(--neon-orange); color: #000; }
-        .robocop-quick { padding: 8px; display: flex; gap: 5px; flex-wrap: wrap; border-top: 1px solid var(--border); background: rgba(0, 0, 0, 0.2); }
-        .robocop-quick button { font-size: 0.6rem; padding: 4px 8px; background: rgba(255, 136, 0, 0.1); border: 1px solid var(--neon-orange); color: var(--neon-orange); border-radius: 3px; cursor: pointer; font-family: 'Orbitron', sans-serif; font-weight: 700; text-transform: uppercase; }
-        .robocop-quick button:hover { background: var(--neon-orange); color: #000; }
 
         .custom-context-menu { position: fixed; z-index: 100000; background: var(--bg-panel); border: 2px solid var(--theme-accent); border-radius: 6px; box-shadow: 0 0 30px var(--theme-accent); padding: 6px 0; min-width: 210px; }
         .custom-context-menu .ctx-item { display: flex; align-items: center; gap: 10px; padding: 9px 16px; color: var(--text); font-size: 0.85rem; font-weight: 600; cursor: pointer; }
@@ -345,7 +328,6 @@
             .top-bar { padding: 8px 12px; gap: 10px; }
             .top-actions { width: 100%; margin-left: 0; }
             .content { padding: 16px; }
-            .float-widget { width: calc(100vw - 24px); right: 12px; left: 12px; }
             .chat-container { height: calc(100vh - 420px); }
         }
         @media (max-width: 600px) {
@@ -361,12 +343,14 @@
 
 <body data-theme="cyan">
 
-<!-- ОВЕРЛЕЙ ВЫКЛЮЧЕННОГО САЙТА -->
+<!-- КИБЕР-ЗАГЛУШКА (когда сайт выключен) -->
 <div id="siteOffOverlay" class="hidden">
     <div class="site-off-overlay">
-        <h1>SITE OFFLINE</h1>
-        <p>Терминал NCPD временно отключён администрацией</p>
-        <div class="offline-badge">● OFFLINE ●</div>
+        <div class="cyber-shield"><i class="fas fa-shield-halved"></i></div>
+        <h1>ДОСТУП ЗАБЛОКИРОВАН</h1>
+        <div class="cyber-sub">CYBER SECURITY · NCPD</div>
+        <p>Кибер Безопасность сообщает о недоступе таблицы<br>на время расследования.</p>
+        <div class="offline-badge">● СИСТЕМА НА КАРАНТИНЕ ●</div>
     </div>
 </div>
 
@@ -444,10 +428,17 @@
                 <div class="sidebar-item active" data-section="dashboard" onclick="switchSection('dashboard')"><i class="fas fa-tachometer-alt"></i> Главная</div>
                 <div class="sidebar-item" data-section="wanted" onclick="switchSection('wanted')"><i class="fas fa-search"></i> База розыска</div>
                 <div class="sidebar-item" data-section="weapons" onclick="switchSection('weapons')"><i class="fas fa-gun"></i> Реестр оружия</div>
+
                 <div class="sidebar-item" data-section="chat" onclick="switchSection('chat')">
                     <i class="fas fa-comments"></i> Чат сотрудников
                     <span class="badge-count hidden" id="chatBadgeSidebar">0</span>
                 </div>
+
+                <!-- ROBOCOP AI — только для супервайзеров, ПЕРЕД «Функционал» -->
+                <div class="sidebar-item supervisor-only hidden" data-section="robocop" onclick="switchSection('robocop')">
+                    <i class="fas fa-robot" style="color:var(--neon-orange);"></i> RoboCop AI
+                </div>
+
                 <div class="sidebar-item" data-section="functionality" onclick="switchSection('functionality')">
                     <i class="fas fa-bell"></i> Функционал
                     <span class="badge-count func hidden" id="funcBadgeSidebar">0</span>
@@ -455,9 +446,6 @@
 
                 <div class="sidebar-title" id="supervisorSection" style="margin-top:12px; display:none;">// Супервайзер</div>
                 <div class="sidebar-item supervisor-only hidden" data-section="reports" onclick="switchSection('reports')"><i class="fas fa-file-alt"></i> Отчёты сотрудников</div>
-                <div class="sidebar-item supervisor-only hidden" data-section="robocop" onclick="switchSection('robocop')">
-                    <i class="fas fa-robot" style="color:var(--neon-orange);"></i> RoboCop AI
-                </div>
                 <div class="sidebar-item supervisor-only hidden" data-section="employees" onclick="switchSection('employees')"><i class="fas fa-users"></i> База данных сотрудников</div>
 
                 <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
@@ -477,28 +465,6 @@
             </div>
         </aside>
         <div class="content" id="content"></div>
-    </div>
-</div>
-
-<!-- ROBOCOP ПЛАВАЮЩИЙ ВИДЖЕТ -->
-<div class="float-widget" id="robocopWidget">
-    <div class="fw-header" onclick="toggleWidget('robocopWidget')">
-        <i class="fas fa-robot"></i> RoboCop
-        <span class="fw-badge">AI</span>
-        <span class="fw-toggle">▼</span>
-    </div>
-    <div class="fw-body">
-        <div class="fw-messages" id="robocopMessages"></div>
-        <div class="robocop-quick">
-            <button onclick="askRobocop('розыск')">🔍 Розыск</button>
-            <button onclick="askRobocop('правила')">📜 Правила</button>
-            <button onclick="askRobocop('статистика')">📊 Статистика</button>
-            <button onclick="askRobocop('помощь')">❓ Помощь</button>
-        </div>
-        <div class="fw-input">
-            <input type="text" id="robocopInput" placeholder="Спросите RoboCop..." onkeydown="if(event.key==='Enter') sendRobocopMsg()" />
-            <button onclick="sendRobocopMsg()"><i class="fas fa-paper-plane"></i></button>
-        </div>
     </div>
 </div>
 
@@ -1289,53 +1255,6 @@
         askRobocopSection(text);
     };
 
-    // ============ ROBOCOP ВИДЖЕТ ============
-    function renderRobocop() {
-        const container = document.getElementById('robocopMessages');
-        if (!container) return;
-        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
-        if (history.length === 0) {
-            history.push({ author: 'RoboCop', text: 'Здравствуйте. Я RoboCop — ИИ-помощник NCPD. Введите "помощь".', date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }), isBot: true });
-            localStorage.setItem('ncpd_robocop', JSON.stringify(history));
-        }
-        container.innerHTML = history.slice(-30).map(m => `
-            <div class="fw-msg ${m.isBot ? 'robocop-msg' : ''}">
-                <div class="msg-avatar">${m.isBot ? '<i class="fas fa-robot" style="font-size:0.8rem;"></i>' : getInitials(m.author)}</div>
-                <div class="msg-content">
-                    <div class="msg-author">${escapeHtml(m.author)}</div>
-                    <div class="msg-text">${escapeHtml(m.text).replace(/\n/g, '<br>')}</div>
-                    <div class="msg-time">${escapeHtml(m.date)}</div>
-                </div>
-            </div>
-        `).join('');
-        container.scrollTop = container.scrollHeight;
-    }
-
-    window.askRobocop = function(question) {
-        const history = JSON.parse(localStorage.getItem('ncpd_robocop')) || [];
-        const time = new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
-        history.push({ author: currentUser ? currentUser.username : 'Офицер', text: question, date: time, isBot: false });
-        history.push({ author: 'RoboCop', text: robocopReply(question), date: time, isBot: true });
-        localStorage.setItem('ncpd_robocop', JSON.stringify(history.slice(-80)));
-        renderRobocop();
-        if (currentSection === 'robocop') renderRobocopSection();
-    };
-
-    window.sendRobocopMsg = function() {
-        const input = document.getElementById('robocopInput');
-        const text = input.value.trim();
-        if (!text) return;
-        input.value = '';
-        askRobocop(text);
-    };
-
-    window.toggleWidget = function(id) {
-        const w = document.getElementById(id);
-        w.classList.toggle('collapsed');
-        const toggle = w.querySelector('.fw-toggle');
-        toggle.textContent = w.classList.contains('collapsed') ? '▲' : '▼';
-    };
-
     // ============ ПРОФИЛЬ ============
     let myAvatarData = null;
 
@@ -1414,6 +1333,16 @@
         msg.classList.remove('hidden', 'alert-success', 'alert-danger');
         const user = DB.getUsers().find(u => u.username === username && u.password === password);
         if (user) {
+            // ПРОВЕРКА: если сайт выключен и это НЕ админ — не пускаем
+            const isAdminUserCheck = user.isAdmin || user.username === 'Superadmin';
+            const siteOff = localStorage.getItem('ncpd_site_off') === '1';
+            if (siteOff && !isAdminUserCheck) {
+                msg.textContent = '✗ СИСТЕМА НА КАРАНТИНЕ';
+                msg.className = 'alert alert-danger';
+                currentUser = null; DB.setCurrent(null);
+                setTimeout(() => { checkSiteAccess(); }, 800);
+                return;
+            }
             currentUser = user; DB.setCurrent(user);
             msg.textContent = '✓ ДОСТУП РАЗРЕШЁН';
             msg.className = 'alert alert-success';
@@ -1449,9 +1378,8 @@
         updateTopProfile();
         updatePermissionsUI();
         updateAnnounceUI();
-        renderRobocop();
         updateFuncBadge();
-        applySiteState();
+        checkSiteAccess();
         switchSection('dashboard');
     }
 
@@ -1459,13 +1387,9 @@
         if (!confirm('Завершить сессию?')) return;
         currentUser = null; DB.setCurrent(null);
         app.classList.remove('active');
-        authScreen.classList.remove('hidden');
-        document.getElementById('authLoginForm').reset();
-        document.getElementById('authRegisterForm').reset();
-        document.getElementById('authLoginMsg').classList.add('hidden');
-        document.getElementById('authRegisterMsg').classList.add('hidden');
         if (shiftInterval) { clearInterval(shiftInterval); shiftInterval = null; }
         shiftActive = false;
+        checkSiteAccess();
     };
 
     function updatePermissionsUI() {
@@ -1490,6 +1414,7 @@
         else { topBar.classList.remove('collapsed'); icon.classList.remove('fa-chevron-down'); icon.classList.add('fa-chevron-up'); }
     };
 
+    // ============ ЧАСЫ ============
     function updateClock() {
         const now = new Date();
         const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
@@ -1498,6 +1423,7 @@
     }
     setInterval(updateClock, 1000); updateClock();
 
+    // ============ СМЕНА ============
     let shiftActive = false, shiftStart = null, shiftInterval = null;
     window.toggleShift = function() {
         const btn = document.getElementById('shiftBtn');
@@ -1522,6 +1448,7 @@
         }
     };
 
+    // ============ ПАНИКА ============
     window.triggerPanic = function() {
         const overlay = document.createElement('div');
         overlay.className = 'panic-overlay';
@@ -1531,6 +1458,7 @@
         FuncLogDB.add(`🚨 ПАНИКА от ${currentUser.username}`);
     };
 
+    // ============ ОРУЖИЕ ============
     window.openWeaponModal = function() { document.getElementById('weaponModal').classList.remove('hidden'); };
     window.closeWeaponModal = function() { document.getElementById('weaponModal').classList.add('hidden'); document.getElementById('weaponMsg').classList.add('hidden'); };
 
@@ -1803,6 +1731,7 @@
         renderSection('reports');
     };
 
+    // ============ АДМИН: ДОБАВЛЕНИЕ АККАУНТА ============
     window.openAdminAddUserModal = function() {
         if (!isAdminUser()) return;
         document.getElementById('adminAddUserForm').reset();
@@ -1829,7 +1758,7 @@
         closeAdminAddUserModal();
         renderSection('employees');
     });
-
+    
     // ============ АДМИН-ЧАТ ============
     function renderAdminChat() {
         if (!isAdminUser()) { document.getElementById('content').innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
@@ -1873,7 +1802,6 @@
         if (!input) return;
         const text = input.value.trim();
         if (!text) return;
-
         if (text.startsWith('/website')) {
             const args = text.replace('/website', '').trim();
             handleWebsiteCommand(args);
@@ -1902,7 +1830,6 @@
             showToast('Роль выдана', `${target.username} → ${role.name}`, 'success');
             return;
         }
-
         const msgs = AdminChatDB.get();
         msgs.push({ id: Date.now(), author: currentUser.username, avatar: currentUser.avatar || null, text, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
         AdminChatDB.set(msgs);
@@ -1955,13 +1882,27 @@
     };
 
     // ============ САЙТ ВКЛ/ВЫКЛ ============
-    function applySiteState() {
+    function checkSiteAccess() {
         const off = localStorage.getItem('ncpd_site_off') === '1';
         const overlay = document.getElementById('siteOffOverlay');
+        const authScreenLocal = document.getElementById('authScreen');
+        const appLocal = document.getElementById('app');
         if (!overlay) return;
-        if (off && !isAdminUser()) overlay.classList.remove('hidden');
-        else overlay.classList.add('hidden');
+        if (off && !isAdminUser()) {
+            overlay.classList.remove('hidden');
+            overlay.style.display = 'flex';
+            if (authScreenLocal) authScreenLocal.classList.add('hidden');
+            if (appLocal) appLocal.classList.remove('active');
+        } else {
+            overlay.classList.add('hidden');
+            overlay.style.display = 'none';
+            if (!currentUser && authScreenLocal) {
+                authScreenLocal.classList.remove('hidden');
+                if (appLocal) appLocal.classList.remove('active');
+            }
+        }
     }
+    window.applySiteState = checkSiteAccess;
 
     window.toggleSiteState = function() {
         if (!isAdminUser()) { showToast('Отказано', '', 'danger'); return; }
@@ -1970,7 +1911,7 @@
         localStorage.setItem('ncpd_site_off', newState);
         AdminLogsDB.add(`🌐 ${currentUser.username} ${newState === '1' ? 'ОТКЛЮЧИЛ' : 'ВКЛЮЧИЛ'} сайт`);
         showToast(newState === '1' ? 'Сайт ОТКЛЮЧЁН' : 'Сайт ВКЛЮЧЁН', '', newState === '1' ? 'danger' : 'success');
-        applySiteState();
+        checkSiteAccess();
         if (currentSection === 'site') renderSiteSection();
     };
 
@@ -2245,10 +2186,10 @@
     }
 
     // ============ СТАРТ ============
-    applySiteState();
-    setInterval(applySiteState, 2000);
+    checkSiteAccess();
+    setInterval(checkSiteAccess, 2000);
     if (currentUser) openApp();
-    else authScreen.classList.remove('hidden');
+    else checkSiteAccess();
     console.log('NCPD Terminal loaded.');
 })();
 </script>
