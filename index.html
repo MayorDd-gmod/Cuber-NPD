@@ -97,6 +97,7 @@
         .top-profile .tp-info { display: flex; flex-direction: column; font-size: 0.7rem; line-height: 1.2; }
         .top-profile .tp-info .tp-name { color: #fff; font-weight: 700; font-family: 'Orbitron', sans-serif; font-size: 0.72rem; }
         .top-profile .tp-info .tp-rank { color: var(--theme-accent); font-size: 0.6rem; letter-spacing: 1px; text-transform: uppercase; }
+        .top-profile .tp-tags { display: flex; gap: 4px; margin-top: 3px; flex-wrap: wrap; }
 
         .collapse-bar { position: sticky; top: 0; z-index: 99; background: var(--bg-panel); border-bottom: 1px solid var(--border); padding: 2px 0; display: flex; justify-content: center; }
         .collapse-bar button { background: transparent; border: none; color: var(--theme-accent); cursor: pointer; padding: 4px 20px; font-size: 0.9rem; opacity: 0.7; }
@@ -113,7 +114,7 @@
         .sidebar-item .badge-count { margin-left: auto; background: var(--theme-accent-2); color: #fff; font-size: 0.6rem; padding: 1px 7px; border-radius: 10px; font-family: 'Share Tech Mono', monospace; font-weight: 700; }
         .sidebar-item .badge-count.hidden { display: none; }
         .sidebar-item .badge-count.func { background: var(--neon-orange); }
-
+        
         .announce-box { border-top: 1px solid var(--border); padding: 14px 16px 16px; background: rgba(0, 0, 0, 0.2); }
         .announce-title { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700; color: var(--text-dim); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .announce-title i { color: var(--neon-yellow); }
@@ -126,7 +127,7 @@
         .announce-item .announce-author { color: var(--theme-accent-2); font-weight: 700; }
         .announce-item .announce-text { color: var(--text); font-size: 0.7rem; }
         .announce-empty { padding: 8px 0; text-align: center; opacity: 0.5; font-size: 0.7rem; }
-        
+
         .content { padding: 24px 28px; overflow-x: hidden; }
         .content-header { margin-bottom: 24px; border-bottom: 1px solid var(--border); padding-bottom: 16px; }
         .content-header h1 { font-family: 'Orbitron', sans-serif; font-size: 1.6rem; font-weight: 900; letter-spacing: 2px; color: #fff; text-shadow: 0 0 15px var(--theme-accent); margin-bottom: 4px; }
@@ -155,6 +156,34 @@
         .operator-tile .op-value.green { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         .operator-tile .op-value.red { color: var(--neon-red); text-shadow: 0 0 10px var(--neon-red); }
 
+        /* ============ ТЕГИ ============ */
+        .user-tag { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; border-radius: 3px; font-family: 'Orbitron', sans-serif; font-size: 0.55rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border: 1px solid; }
+        .user-tag.admin { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple); }
+        .user-tag.management { background: rgba(0, 240, 255, 0.15); color: var(--theme-accent); border-color: var(--theme-accent); }
+        .user-tag.staff { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border-color: var(--neon-green); }
+        .user-tag.warning { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border-color: var(--neon-orange); }
+        .user-tag.cyan { background: rgba(0, 240, 255, 0.15); color: var(--neon-cyan); border-color: var(--neon-cyan); }
+        .user-tag.pink { background: rgba(255, 0, 85, 0.15); color: var(--neon-pink); border-color: var(--neon-pink); }
+        .user-tag.yellow { background: rgba(247, 255, 0, 0.15); color: var(--neon-yellow); border-color: var(--neon-yellow); }
+        .user-tag.red { background: rgba(255, 34, 51, 0.2); color: var(--neon-red); border-color: var(--neon-red); }
+        .user-tag.purple { background: rgba(179, 0, 255, 0.2); color: var(--neon-purple); border-color: var(--neon-purple); }
+        .user-tag.orange { background: rgba(255, 136, 0, 0.15); color: var(--neon-orange); border-color: var(--neon-orange); }
+        .user-tag.green { background: rgba(0, 255, 136, 0.15); color: var(--neon-green); border-color: var(--neon-green); }
+        .user-tags-row { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 4px; }
+
+        .tag-row { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: var(--bg-panel-2); border: 1px solid var(--border); border-radius: 5px; margin-bottom: 8px; flex-wrap: wrap; }
+        .tag-row:hover { border-color: var(--neon-purple); }
+        .tag-preview { padding: 4px 12px; border-radius: 3px; font-family: 'Orbitron', sans-serif; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; border: 1px solid; }
+        .tag-info { flex: 1; min-width: 150px; }
+        .tag-info .tag-name { font-family: 'Orbitron', sans-serif; font-weight: 700; font-size: 0.9rem; color: #fff; }
+        .tag-info .tag-desc { font-family: 'Share Tech Mono', monospace; font-size: 0.7rem; color: var(--text-dim); }
+        .tag-actions { display: flex; gap: 6px; flex-wrap: wrap; }
+
+        .tag-checkbox-row { display: flex; align-items: center; gap: 8px; padding: 6px 10px; background: rgba(0, 0, 0, 0.3); border: 1px solid var(--border); border-radius: 3px; cursor: pointer; transition: 0.2s; }
+        .tag-checkbox-row:hover { border-color: var(--theme-accent); }
+        .tag-checkbox-row input { width: auto !important; cursor: pointer; }
+        .tag-checkbox-row label { cursor: pointer; color: var(--text); font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; margin: 0; text-transform: none; letter-spacing: 0; }
+
         .data-table { width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
         .data-table th { text-align: left; padding: 10px 12px; background: var(--bg-dark); color: var(--theme-accent); text-transform: uppercase; letter-spacing: 1px; font-size: 0.7rem; border-bottom: 2px solid var(--theme-accent); font-weight: 700; }
         .data-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); color: var(--text); }
@@ -173,7 +202,7 @@
         .emp-avatar { width: 44px; height: 44px; border-radius: 4px; background: linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)); display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', sans-serif; font-size: 1.1rem; font-weight: 900; color: #000; flex-shrink: 0; }
         .emp-avatar-img { width: 44px; height: 44px; border-radius: 4px; background-size: cover; background-position: center; border: 1px solid var(--border); flex-shrink: 0; }
         .emp-info { flex: 1; min-width: 160px; }
-        .emp-info .emp-name { font-family: 'Orbitron', sans-serif; font-weight: 700; color: #fff; font-size: 0.9rem; }
+        .emp-info .emp-name { font-family: 'Orbitron', sans-serif; font-weight: 700; color: #fff; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
         .emp-info .emp-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: var(--text-dim); }
         .emp-id { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; color: var(--theme-accent); background: rgba(0, 240, 255, 0.08); padding: 4px 10px; border-radius: 3px; border: 1px solid rgba(0, 240, 255, 0.2); }
         .emp-actions { display: flex; gap: 6px; flex-wrap: wrap; }
@@ -409,6 +438,7 @@
         <div class="top-brand" id="topBrand">NCPD<span>·</span>TERM</div>
         <div class="top-divider"></div>
         <div class="tarkov-display">
+            <div class="display-item"><span class="d-label">LOCAL TIME</span><span class="d-value yellow" id="localClock">--:--:--</span></div>
             <div class="display-item"><span class="d-label">MSK TIME</span><span class="d-value" id="clock">--:--:--</span></div>
             <div class="display-item"><span class="d-label">DATE</span><span class="d-value yellow" id="dateDisplay">--.--.----</span></div>
             <div class="display-item"><span class="d-label">SHIFT</span><span class="d-value red" id="shiftStatus">OFF</span></div>
@@ -424,6 +454,7 @@
                 <div class="tp-info">
                     <div class="tp-name" id="topName">---</div>
                     <div class="tp-rank" id="topRank">---</div>
+                    <div class="tp-tags" id="topTags"></div>
                 </div>
             </div>
             <button class="action-btn" onclick="logout()" style="border-color:var(--theme-accent-2);color:var(--theme-accent-2);"><i class="fas fa-sign-out-alt"></i> Выход</button>
@@ -459,6 +490,7 @@
 
                 <div class="sidebar-title" id="adminSectionTitle" style="margin-top:12px; display:none;">// Админ</div>
                 <div class="sidebar-item admin-only hidden" data-section="roles" onclick="switchSection('roles')"><i class="fas fa-user-shield"></i> Управление ролями</div>
+                <div class="sidebar-item admin-only hidden" data-section="tags" onclick="switchSection('tags')"><i class="fas fa-tags"></i> Теги</div>
                 <div class="sidebar-item admin-only hidden" data-section="adminchat" onclick="switchSection('adminchat')"><i class="fas fa-user-secret"></i> Админ-чат</div>
                 <div class="sidebar-item admin-only hidden" data-section="adminlogs" onclick="switchSection('adminlogs')"><i class="fas fa-clipboard-list"></i> Админ-логи</div>
                 <div class="sidebar-item admin-only hidden" data-section="site" onclick="switchSection('site')"><i class="fas fa-globe"></i> Сайт</div>
@@ -599,11 +631,39 @@
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permManageRoles" style="width:auto;" /> Управлять ролями</label>
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permDeleteAny" style="width:auto;" /> Удалять любых сотрудников</label>
                     <label style="display:flex; gap:8px; cursor:pointer; color:var(--text);"><input type="checkbox" id="permAnnounce" style="width:auto;" /> Писать объявления</label>
+                    <label style="display:flex; gap:8px; cursor:pointer; color:var(--neon-purple); font-weight:700;"><input type="checkbox" id="permAdmin" style="width:auto;" /> 👑 Администратор (полный доступ)</label>
                 </div>
             </div>
             <div style="display:flex; gap:10px;">
                 <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
                 <button type="button" class="btn" style="flex:1;" onclick="closeRoleModal()">Отмена</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay hidden" id="tagModal">
+    <div class="modal" style="border-color: var(--neon-purple);">
+        <h3 style="color: var(--neon-purple);" id="tagModalTitle"><i class="fas fa-tags"></i> Создать тег</h3>
+        <form id="tagForm">
+            <input type="hidden" id="tagEditId" />
+            <div class="form-group"><label for="tagName">Название тега</label><input type="text" id="tagName" placeholder="Например: Management" required /></div>
+            <div class="form-group"><label for="tagColor">Цвет</label>
+                <select id="tagColor">
+                    <option value="cyan">Циан</option>
+                    <option value="purple">Фиолетовый</option>
+                    <option value="pink">Розовый</option>
+                    <option value="green">Зелёный</option>
+                    <option value="yellow">Жёлтый</option>
+                    <option value="orange">Оранжевый</option>
+                    <option value="red">Красный</option>
+                    <option value="admin">Особый (Админ)</option>
+                </select>
+            </div>
+            <div class="form-group"><label for="tagDesc">Описание (необязательно)</label><input type="text" id="tagDesc" placeholder="Краткое описание" /></div>
+            <div style="display:flex; gap:10px;">
+                <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
+                <button type="button" class="btn" style="flex:1;" onclick="closeTagModal()">Отмена</button>
             </div>
         </form>
     </div>
@@ -620,6 +680,9 @@
             <div class="form-group"><label for="editUsername">Никнейм</label><input type="text" id="editUsername" required /></div>
             <div class="form-group"><label for="editAvatarFile">Аватарка</label><input type="file" id="editAvatarFile" accept="image/*" /></div>
             <div class="form-group"><label for="editRole">Роль</label><select id="editRole"></select></div>
+            <div class="form-group"><label>Теги</label>
+                <div id="editUserTags" style="display:flex; flex-direction:column; gap:6px;"></div>
+            </div>
             <div style="display:flex; gap:10px;">
                 <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
                 <button type="button" class="btn" style="flex:1;" onclick="closeEditUserModal()">Отмена</button>
@@ -636,6 +699,7 @@
                 <div id="myProfilePreview" style="width:120px; height:120px; border-radius:50%; background:linear-gradient(135deg, var(--theme-accent), var(--theme-accent-2)); display:flex; align-items:center; justify-content:center; font-family:'Orbitron',sans-serif; font-size:3rem; font-weight:900; color:#000; margin:0 auto 10px; background-size:cover; background-position:center; border:3px solid var(--theme-accent);">?</div>
             </div>
             <div class="form-group"><label>Ваш позывной</label><input type="text" id="myProfileName" disabled style="opacity:0.6;" /></div>
+            <div class="form-group"><label>Ваши теги</label><div id="myProfileTags" style="display:flex; gap:4px; flex-wrap:wrap;"></div></div>
             <div class="form-group"><label for="myAvatarFile">Сменить аватарку</label><input type="file" id="myAvatarFile" accept="image/*" /></div>
             <div style="display:flex; gap:10px;">
                 <button type="submit" class="btn btn-green" style="flex:1;">Сохранить</button>
@@ -694,7 +758,7 @@
 </div>
 
 <div class="toast-container" id="toastContainer"></div>
-
+    
 <script>
 (function() {
     'use strict';
@@ -711,6 +775,14 @@
         setReports(r) { localStorage.setItem('ncpd_reports', JSON.stringify(r)); },
         getWeaponLog() { return JSON.parse(localStorage.getItem('ncpd_weapon_log')) || []; },
         setWeaponLog(w) { localStorage.setItem('ncpd_weapon_log', JSON.stringify(w)); }
+    };
+
+    const TagsDB = {
+        get() { return JSON.parse(localStorage.getItem('ncpd_tags')) || [
+            { id: 't1', name: 'ADMIN', color: 'admin', desc: 'Администратор системы' },
+            { id: 't2', name: 'Management', color: 'cyan', desc: 'Управляющий состав' }
+        ]; },
+        set(t) { localStorage.setItem('ncpd_tags', JSON.stringify(t)); }
     };
 
     const ChatDB = {
@@ -762,7 +834,7 @@
             users.push({
                 id: 'NCPD-0001', username: 'Superadmin', password: '12348ef',
                 rank: 'СУПЕР-АДМИН', isAdmin: true, isSupervisor: true,
-                warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU')
+                tags: ['t1'], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU')
             });
             DB.setUsers(users);
         }
@@ -829,6 +901,25 @@
 
     function getInitials(name) { return name ? name.charAt(0).toUpperCase() : '?'; }
 
+    function getTagById(id) {
+        return TagsDB.get().find(t => t.id === id);
+    }
+
+    function getUserTags(user) {
+        if (!user || !user.tags) return [];
+        return user.tags.map(id => getTagById(id)).filter(t => t);
+    }
+
+    function renderTagsHtml(tagIds, extraClass) {
+        if (!tagIds || tagIds.length === 0) return '';
+        const allTags = TagsDB.get();
+        return tagIds.map(id => {
+            const tag = allTags.find(t => t.id === id);
+            if (!tag) return '';
+            return `<span class="user-tag ${tag.color} ${extraClass || ''}">${escapeHtml(tag.name)}</span>`;
+        }).join('');
+    }
+
     function canAnnounce(user) {
         if (!user) return false;
         if (user.isAdmin || user.username === 'Superadmin') return true;
@@ -841,12 +932,20 @@
 
     function isAdminOrSupervisor() {
         if (!currentUser) return false;
-        return currentUser.isAdmin || currentUser.username === 'Superadmin' || currentUser.isSupervisor ||
-               ['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank);
+        if (currentUser.isAdmin || currentUser.username === 'Superadmin') return true;
+        if (currentUser.isSupervisor) return true;
+        if (['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank)) return true;
+        const userRole = roles.find(r => r.name === currentUser.rank);
+        if (userRole && userRole.perms && (userRole.perms.permSupervisor || userRole.perms.permManageEmp)) return true;
+        return false;
     }
 
     function isAdminUser() {
-        return currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
+        if (!currentUser) return false;
+        if (currentUser.isAdmin || currentUser.username === 'Superadmin') return true;
+        const userRole = roles.find(r => r.name === currentUser.rank);
+        if (userRole && userRole.perms && userRole.perms.permAdmin) return true;
+        return false;
     }
 
     function applyTheme(theme) {
@@ -921,6 +1020,7 @@
         const msgs = chatTab === 'general' ? generalMsgs : announceMsgs;
         const unread = chatTab === 'general' ? Math.max(0, generalMsgs.length - chatLastRead) : Math.max(0, announceMsgs.length - announceLastRead);
         const isAdminOrSup = isAdminOrSupervisor();
+        const allUsers = DB.getUsers();
 
         let messagesHtml = msgs.length === 0
             ? `<div style="text-align:center; padding:40px 20px; color:var(--text-dim); font-family:'Share Tech Mono'; font-size:0.85rem;"><i class="fas fa-${chatTab === 'general' ? 'comments' : 'bullhorn'}" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>${chatTab === 'general' ? 'Пока нет сообщений.' : 'Пока нет объявлений.'}</div>`
@@ -932,12 +1032,14 @@
                         <button class="del" onclick="deleteMsg(${m.id}, '${chatTab}')" title="Удалить"><i class="fas fa-trash"></i></button>
                     </div>
                 ` : '';
+                const sender = allUsers.find(u => u.id === m.authorId);
+                const senderTags = sender ? renderTagsHtml(sender.tags) : '';
                 return `
                 <div class="chat-msg ${isMine && chatTab === 'general' ? 'mine' : ''} ${chatTab === 'announce' ? 'announce-msg' : ''}">
                     <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
                     <div class="cm-content">
                         ${adminBtns}
-                        <div class="cm-author">${escapeHtml(m.author)} <span class="cm-rank">· ${escapeHtml(m.rank || '')}</span></div>
+                        <div class="cm-author">${escapeHtml(m.author)} <span class="cm-rank">· ${escapeHtml(m.rank || '')}</span> ${senderTags}</div>
                         <div class="cm-text">${escapeHtml(m.text)}</div>
                         <div class="cm-time">${escapeHtml(m.date)}</div>
                     </div>
@@ -1089,12 +1191,12 @@
     const ROBOCOP_KB = {
         'розыск': () => { const list = wantedList.slice(0, 3).map(w => `${w.name} (${w.id}) — ${w.status}`).join('\n'); return `🔍 Активные ордера:\n\n${list}\n\nВсего: ${wantedList.length}`; },
         'правила': () => `📜 Правила NCPD:\n\n1. Уважение\n2. Протоколы\n3. Конфиденциальность\n4. Оружие только при угрозе\n5. Докладывать о нарушениях`,
-        'статистика': () => `📊 NCPD:\n\n👮 Сотрудников: ${DB.getUsers().length}\n🚨 Ордеров: ${wantedList.length}\n🔫 Оружия: ${weaponsList.length}`,
+        'статистика': () => `📊 NCPD:\n\n👮 Сотрудников: ${DB.getUsers().length}\n🚨 Ордеров: ${wantedList.length}\n🔫 Оружия: ${weaponsList.length}\n🏷️ Тегов: ${TagsDB.get().length}`,
         'помощь': () => `🤖 RoboCop — ИИ-помощник NCPD.\n\n• розыск\n• правила\n• статистика\n• помощь`,
         'привет': () => `Здравствуйте, ${currentUser ? currentUser.username : 'офицер'}.`,
-        'время': () => `⏰ ${document.getElementById('clock').textContent} · ${document.getElementById('dateDisplay').textContent}`,
+        'время': () => `⏰ MSK: ${document.getElementById('clock').textContent}\n🌍 Local: ${document.getElementById('localClock') ? document.getElementById('localClock').textContent : '—'}\n📅 ${document.getElementById('dateDisplay').textContent}`,
         'смена': () => `📅 Смена: ${document.getElementById('shiftStatus').textContent}`,
-        'доступ': () => `🔒 ID: ${currentUser ? currentUser.id : '—'}\nЗвание: ${currentUser ? currentUser.rank : '—'}`
+        'доступ': () => `🔒 ID: ${currentUser ? currentUser.id : '—'}\nЗвание: ${currentUser ? currentUser.rank : '—'}\nТеги: ${currentUser ? getUserTags(currentUser).map(t => t.name).join(', ') || '—' : '—'}`
     };
 
     function handleSecretAICommand(text) {
@@ -1120,7 +1222,7 @@
             const users = DB.getUsers();
             if (users.some(u => u.username === name)) return `❌ Логин "${name}" уже занят`;
             const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
-            users.push({ id: newId, username: name, password: pass, rank: 'Офицер', isAdmin: false, isSupervisor: false, warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
+            users.push({ id: newId, username: name, password: pass, rank: 'Офицер', isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
             DB.setUsers(users);
             AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
             FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
@@ -1139,7 +1241,7 @@
             DB.setUsers(users);
             AdminLogsDB.add(`🎖️ ${currentUser.username} выдал роль "${role.name}" → ${target.username}`);
             FuncLogDB.add(`🎖️ Роль "${role.name}" выдана ${target.username}`);
-            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); }
+            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); updatePermissionsUI(); }
             return `✅ Роль "${role.name}" выдана: ${name}`;
         }
         if (cmd === '/remove_role') {
@@ -1154,6 +1256,54 @@
             AdminLogsDB.add(`🔻 ${currentUser.username} снял роль с ${target.username} → Офицер`);
             FuncLogDB.add(`🔻 Роль снята с ${target.username}`);
             return `✅ Роль снята: ${name} → Офицер`;
+        }
+        if (cmd === '/add_tag') {
+            const tagName = parts.slice(1).join(' ');
+            if (!tagName) return '⚠ Синтаксис: /add_tag <название>';
+            const tags = TagsDB.get();
+            if (tags.some(t => t.name.toLowerCase() === tagName.toLowerCase())) return `❌ Тег "${tagName}" уже существует`;
+            tags.push({ id: 't' + Date.now(), name: tagName, color: 'cyan', desc: '' });
+            TagsDB.set(tags);
+            AdminLogsDB.add(`🏷️ ${currentUser.username} создал тег: ${tagName}`);
+            FuncLogDB.add(`🏷️ Создан тег: ${tagName}`);
+            return `✅ Тег "${tagName}" создан`;
+        }
+        if (cmd === '/give_tag') {
+            const name = parts[1];
+            const tagName = parts.slice(2).join(' ');
+            if (!name || !tagName) return '⚠ Синтаксис: /give_tag <ник> <тег>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ "${name}" не найден`;
+            const tags = TagsDB.get();
+            const tag = tags.find(t => t.name.toLowerCase() === tagName.toLowerCase());
+            if (!tag) return `❌ Тег "${tagName}" не найден\n📋 Доступные: ${tags.map(t => t.name).join(', ')}`;
+            if (!target.tags) target.tags = [];
+            if (target.tags.includes(tag.id)) return `❌ У "${name}" уже есть тег "${tag.name}"`;
+            target.tags.push(tag.id);
+            DB.setUsers(users);
+            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); }
+            AdminLogsDB.add(`🏷️ ${currentUser.username} выдал тег "${tag.name}" → ${target.username}`);
+            FuncLogDB.add(`🏷️ Тег "${tag.name}" выдан ${target.username}`);
+            return `✅ Тег "${tag.name}" выдан: ${name}`;
+        }
+        if (cmd === '/remove_tag') {
+            const name = parts[1];
+            const tagName = parts.slice(2).join(' ');
+            if (!name || !tagName) return '⚠ Синтаксис: /remove_tag <ник> <тег>';
+            const users = DB.getUsers();
+            const target = users.find(u => u.username === name);
+            if (!target) return `❌ "${name}" не найден`;
+            const tags = TagsDB.get();
+            const tag = tags.find(t => t.name.toLowerCase() === tagName.toLowerCase());
+            if (!tag) return `❌ Тег "${tagName}" не найден`;
+            if (!target.tags || !target.tags.includes(tag.id)) return `❌ У "${name}" нет тега "${tag.name}"`;
+            target.tags = target.tags.filter(id => id !== tag.id);
+            DB.setUsers(users);
+            if (target.id === currentUser.id) { currentUser = target; DB.setCurrent(target); updateTopProfile(); }
+            AdminLogsDB.add(`🔻 ${currentUser.username} снял тег "${tag.name}" с ${target.username}`);
+            FuncLogDB.add(`🔻 Тег "${tag.name}" снят с ${target.username}`);
+            return `✅ Тег "${tag.name}" снят с ${name}`;
         }
         return null;
     }
@@ -1208,6 +1358,9 @@
                             <button class="secret" onclick="askRobocopSection('/delete_user')">🗑 delete_user</button>
                             <button class="secret" onclick="askRobocopSection('/set_role')">🎖 set_role</button>
                             <button class="secret" onclick="askRobocopSection('/remove_role')">🔻 remove_role</button>
+                            <button class="secret" onclick="askRobocopSection('/add_tag')">🏷 add_tag</button>
+                            <button class="secret" onclick="askRobocopSection('/give_tag')">🎗 give_tag</button>
+                            <button class="secret" onclick="askRobocopSection('/remove_tag')">🔻 remove_tag</button>
                         ` : ''}
                     </div>
                     <div class="chat-messages" id="robocopSectionMessages" style="background:rgba(0,0,0,0.3);">${msgsHtml}</div>
@@ -1219,10 +1372,16 @@
                 ${isAdm ? `
                     <div style="margin-top:16px; padding:14px; background:rgba(179,0,255,0.06); border-left:3px solid var(--neon-purple); border-radius:4px; font-family:'Share Tech Mono',monospace; font-size:0.75rem; color:var(--text-dim);">
                         <div style="color:var(--neon-purple); font-weight:700; margin-bottom:6px;">🔒 СЕКРЕТНЫЕ КОМАНДЫ (только админ):</div>
-                        <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code> — создать аккаунт</div>
-                        <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code> — удалить аккаунт</div>
-                        <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code> — выдать роль</div>
-                        <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code> — снять роль</div>
+                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">👤 Аккаунты:</div>
+                        <div>• <code style="color:var(--neon-purple);">/add_user &lt;ник&gt; &lt;пароль&gt;</code> — создать</div>
+                        <div>• <code style="color:var(--neon-purple);">/delete_user &lt;ник&gt;</code> — удалить</div>
+                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">🎖 Роли:</div>
+                        <div>• <code style="color:var(--neon-purple);">/set_role &lt;ник&gt; &lt;роль&gt;</code> — выдать</div>
+                        <div>• <code style="color:var(--neon-purple);">/remove_role &lt;ник&gt;</code> — снять</div>
+                        <div style="color:var(--neon-cyan); font-weight:700; margin-top:8px;">🏷 Теги:</div>
+                        <div>• <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code> — создать тег</div>
+                        <div>• <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code> — выдать</div>
+                        <div>• <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code> — снять</div>
                     </div>
                 ` : ''}
             </div>
@@ -1258,6 +1417,10 @@
         const preview = document.getElementById('myProfilePreview');
         if (currentUser.avatar) { preview.style.backgroundImage = `url(${currentUser.avatar})`; preview.textContent = ''; }
         else { preview.style.backgroundImage = 'none'; preview.textContent = getInitials(currentUser.username); }
+        const tagsBox = document.getElementById('myProfileTags');
+        const userTags = getUserTags(currentUser);
+        if (userTags.length === 0) tagsBox.innerHTML = '<span style="color:var(--text-dim); font-family:\'Share Tech Mono\'; font-size:0.75rem;">Нет тегов</span>';
+        else tagsBox.innerHTML = userTags.map(t => `<span class="user-tag ${t.color}">${escapeHtml(t.name)}</span>`).join('');
         document.getElementById('myProfileModal').classList.remove('hidden');
     };
     window.closeMyProfileModal = function() { document.getElementById('myProfileModal').classList.add('hidden'); myAvatarData = null; };
@@ -1299,6 +1462,8 @@
         else { avatar.style.backgroundImage = 'none'; avatar.textContent = getInitials(currentUser.username); }
         document.getElementById('topName').textContent = currentUser.username;
         document.getElementById('topRank').textContent = currentUser.rank || 'Офицер';
+        const tagsBox = document.getElementById('topTags');
+        if (tagsBox) tagsBox.innerHTML = renderTagsHtml(currentUser.tags);
     }
 
     const authScreen = document.getElementById('authScreen');
@@ -1325,7 +1490,8 @@
         msg.classList.remove('hidden', 'alert-success', 'alert-danger');
         const user = DB.getUsers().find(u => u.username === username && u.password === password);
         if (user) {
-            const isAdminUserCheck = user.isAdmin || user.username === 'Superadmin';
+            currentUser = user;
+            const isAdminUserCheck = isAdminUser();
             const siteOff = localStorage.getItem('ncpd_site_off') === '1';
             if (siteOff && !isAdminUserCheck) {
                 msg.textContent = '✗ СИСТЕМА НА КАРАНТИНЕ';
@@ -1334,7 +1500,7 @@
                 setTimeout(() => { checkSiteAccess(); }, 800);
                 return;
             }
-            currentUser = user; DB.setCurrent(user);
+            DB.setCurrent(user);
             msg.textContent = '✓ ДОСТУП РАЗРЕШЁН';
             msg.className = 'alert alert-success';
             setTimeout(() => openApp(), 700);
@@ -1353,7 +1519,7 @@
         if (password.length < 4) { msg.textContent = '✗ Минимум 4 символа'; msg.className = 'alert alert-danger'; return; }
         if (DB.getUsers().some(u => u.username === username)) { msg.textContent = '✗ Логин занят'; msg.className = 'alert alert-danger'; return; }
         const usersCount = DB.getUsers().length;
-        const newUser = { id: 'NCPD-' + String(1000 + usersCount).padStart(4, '0'), username, password, rank: 'Офицер', isAdmin: false, isSupervisor: false, warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') };
+        const newUser = { id: 'NCPD-' + String(1000 + usersCount).padStart(4, '0'), username, password, rank: 'Офицер', isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') };
         const users = DB.getUsers();
         users.push(newUser); DB.setUsers(users);
         currentUser = newUser; DB.setCurrent(newUser);
@@ -1384,8 +1550,8 @@
     };
 
     function updatePermissionsUI() {
-        const isAdmin = currentUser && (currentUser.isAdmin || currentUser.username === 'Superadmin');
-        const isSupervisor = currentUser && (currentUser.isSupervisor || isAdmin || ['Супервайзер', 'Капитан', 'Лейтенант'].includes(currentUser.rank));
+        const isAdmin = isAdminUser();
+        const isSupervisor = isAdminOrSupervisor();
         const canManageRoles = isAdmin || isSupervisor;
         document.querySelectorAll('.supervisor-only').forEach(el => el.classList.toggle('hidden', !isSupervisor));
         document.getElementById('supervisorSection').style.display = isSupervisor ? 'block' : 'none';
@@ -1410,6 +1576,8 @@
         const msk = new Date(now.getTime() + (3 * 60 * 60 * 1000) + (now.getTimezoneOffset() * 60 * 1000));
         document.getElementById('clock').textContent = `${String(msk.getHours()).padStart(2, '0')}:${String(msk.getMinutes()).padStart(2, '0')}:${String(msk.getSeconds()).padStart(2, '0')}`;
         document.getElementById('dateDisplay').textContent = `${String(msk.getDate()).padStart(2, '0')}.${String(msk.getMonth() + 1).padStart(2, '0')}.${msk.getFullYear()}`;
+        const lc = document.getElementById('localClock');
+        if (lc) lc.textContent = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
     }
     setInterval(updateClock, 1000); updateClock();
 
@@ -1576,6 +1744,7 @@
             document.getElementById('permManageRoles').checked = !!role.perms.permManageRoles;
             document.getElementById('permDeleteAny').checked = !!role.perms.permDeleteAny;
             document.getElementById('permAnnounce').checked = !!role.perms.permAnnounce;
+            document.getElementById('permAdmin').checked = !!role.perms.permAdmin;
             title.innerHTML = '<i class="fas fa-user-shield"></i> Редактировать роль';
         } else title.innerHTML = '<i class="fas fa-user-shield"></i> Создать роль';
         modal.classList.remove('hidden');
@@ -1592,7 +1761,8 @@
             permManageEmp: document.getElementById('permManageEmp').checked,
             permManageRoles: document.getElementById('permManageRoles').checked,
             permDeleteAny: document.getElementById('permDeleteAny').checked,
-            permAnnounce: document.getElementById('permAnnounce').checked
+            permAnnounce: document.getElementById('permAnnounce').checked,
+            permAdmin: document.getElementById('permAdmin').checked
         };
         if (!name) return;
         if (editId) {
@@ -1606,6 +1776,7 @@
             showToast('Создано', name, 'success');
         }
         saveRoles(); closeRoleModal(); renderSection('roles');
+        if (currentUser) { currentUser = DB.getUsers().find(u => u.id === currentUser.id) || currentUser; updatePermissionsUI(); }
     });
 
     window.deleteRole = function(id) {
@@ -1617,6 +1788,66 @@
         FuncLogDB.add(`🗑️ Удалена роль: ${role.name}`);
         showToast('Удалено', role.name, 'danger');
         renderSection('roles');
+    };
+
+    window.openTagModal = function(editId) {
+        const modal = document.getElementById('tagModal');
+        const title = document.getElementById('tagModalTitle');
+        document.getElementById('tagForm').reset();
+        document.getElementById('tagEditId').value = '';
+        if (editId) {
+            const tags = TagsDB.get();
+            const tag = tags.find(t => t.id === editId);
+            if (!tag) return;
+            document.getElementById('tagEditId').value = tag.id;
+            document.getElementById('tagName').value = tag.name;
+            document.getElementById('tagColor').value = tag.color;
+            document.getElementById('tagDesc').value = tag.desc || '';
+            title.innerHTML = '<i class="fas fa-tags"></i> Редактировать тег';
+        } else title.innerHTML = '<i class="fas fa-tags"></i> Создать тег';
+        modal.classList.remove('hidden');
+    };
+    window.closeTagModal = function() { document.getElementById('tagModal').classList.add('hidden'); };
+
+    document.getElementById('tagForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const editId = document.getElementById('tagEditId').value;
+        const name = document.getElementById('tagName').value.trim();
+        const color = document.getElementById('tagColor').value;
+        const desc = document.getElementById('tagDesc').value.trim();
+        if (!name) return;
+        const tags = TagsDB.get();
+        if (editId) {
+            const tag = tags.find(t => t.id === editId);
+            if (tag) { tag.name = name; tag.color = color; tag.desc = desc; }
+            FuncLogDB.add(`✏️ Изменён тег: ${name}`);
+            showToast('Обновлено', name, 'success');
+        } else {
+            if (tags.some(t => t.name.toLowerCase() === name.toLowerCase())) { showToast('Ошибка', 'Тег уже существует', 'danger'); return; }
+            tags.push({ id: 't' + Date.now(), name, color, desc });
+            FuncLogDB.add(`➕ Создан тег: ${name}`);
+            showToast('Создано', name, 'success');
+        }
+        TagsDB.set(tags);
+        closeTagModal();
+        renderSection('tags');
+    });
+
+    window.deleteTag = function(id) {
+        const tags = TagsDB.get();
+        const tag = tags.find(t => t.id === id);
+        if (!tag) return;
+        if (!confirm(`Удалить тег "${tag.name}"? Он будет снят у всех сотрудников.`)) return;
+        TagsDB.set(tags.filter(t => t.id !== id));
+        const users = DB.getUsers();
+        users.forEach(u => {
+            if (u.tags && u.tags.includes(id)) u.tags = u.tags.filter(tid => tid !== id);
+        });
+        DB.setUsers(users);
+        if (currentUser) { currentUser = DB.getUsers().find(u => u.id === currentUser.id) || currentUser; updateTopProfile(); }
+        FuncLogDB.add(`🗑️ Удалён тег: ${tag.name}`);
+        showToast('Удалено', tag.name, 'danger');
+        renderSection('tags');
     };
 
     let editAvatarData = null;
@@ -1631,6 +1862,16 @@
         if (user.avatar) { preview.style.backgroundImage = `url(${user.avatar})`; preview.textContent = ''; }
         else { preview.style.backgroundImage = 'none'; preview.textContent = getInitials(user.username); }
         document.getElementById('editRole').innerHTML = roles.filter(r => canAssignRole(r.name)).map(r => `<option value="${r.name}" ${r.name === user.rank ? 'selected' : ''}>${r.name}</option>`).join('');
+        const tagsBox = document.getElementById('editUserTags');
+        const allTags = TagsDB.get();
+        const userTags = user.tags || [];
+        if (allTags.length === 0) tagsBox.innerHTML = '<div style="color:var(--text-dim); font-family:\'Share Tech Mono\'; font-size:0.75rem;">Нет созданных тегов. Перейдите в раздел «Теги».</div>';
+        else tagsBox.innerHTML = allTags.map(t => `
+            <label class="tag-checkbox-row">
+                <input type="checkbox" value="${t.id}" ${userTags.includes(t.id) ? 'checked' : ''} />
+                <span class="user-tag ${t.color}">${escapeHtml(t.name)}</span>
+            </label>
+        `).join('');
         document.getElementById('editUserModal').classList.remove('hidden');
     };
     window.closeEditUserModal = function() { document.getElementById('editUserModal').classList.add('hidden'); editAvatarData = null; };
@@ -1661,8 +1902,12 @@
         if (users.some(u => u.username === newName && u.id !== id)) { showToast('Ошибка', 'Ник занят', 'danger'); return; }
         user.username = newName; user.rank = newRole;
         if (editAvatarData) user.avatar = editAvatarData;
+        // Собираем теги
+        const checkedTags = [];
+        document.querySelectorAll('#editUserTags input[type="checkbox"]:checked').forEach(cb => checkedTags.push(cb.value));
+        user.tags = checkedTags;
         DB.setUsers(users);
-        if (currentUser && currentUser.id === id) { currentUser = user; DB.setCurrent(user); updateTopProfile(); }
+        if (currentUser && currentUser.id === id) { currentUser = user; DB.setCurrent(user); updateTopProfile(); updatePermissionsUI(); }
         FuncLogDB.add(`✏️ Изменён сотрудник: ${newName}`);
         showToast('Обновлено', `${newName} · ${newRole}`, 'success');
         closeEditUserModal(); renderSection('employees');
@@ -1733,7 +1978,7 @@
         const users = DB.getUsers();
         if (users.some(u => u.username === name)) { showToast('Ошибка', 'Логин занят', 'danger'); return; }
         const newId = 'NCPD-' + String(1000 + users.length).padStart(4, '0');
-        users.push({ id: newId, username: name, password: pass, rank: role, isAdmin: false, isSupervisor: false, warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
+        users.push({ id: newId, username: name, password: pass, rank: role, isAdmin: false, isSupervisor: false, tags: [], warnings: 0, theme: 'cyan', registered: new Date().toLocaleDateString('ru-RU') });
         DB.setUsers(users);
         AdminLogsDB.add(`➕ ${currentUser.username} создал аккаунт: ${name} (${newId})`);
         FuncLogDB.add(`➕ Создан аккаунт: ${name}`);
@@ -1747,7 +1992,7 @@
         const content = document.getElementById('content');
         const msgs = AdminChatDB.get();
         let messagesHtml = msgs.length === 0
-            ? `<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Share Tech Mono';"><i class="fas fa-user-secret" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Админ-чат пуст. Используйте /setrol или /website</div>`
+            ? `<div style="text-align:center; padding:40px; color:var(--text-dim); font-family:'Share Tech Mono';"><i class="fas fa-user-secret" style="font-size:2rem; opacity:0.3; display:block; margin-bottom:10px;"></i>Админ-чат пуст. Используйте /setrol, /website или команды тегов</div>`
             : msgs.map(m => `
                 <div class="chat-msg">
                     <div class="cm-avatar" style="${m.avatar ? `background-image:url(${m.avatar});` : ''}">${!m.avatar ? getInitials(m.author) : ''}</div>
@@ -1763,12 +2008,12 @@
             <div class="panel purple">
                 <div class="panel-title"><i class="fas fa-user-secret"></i> Закрытый канал</div>
                 <p style="font-family:'Share Tech Mono'; font-size:0.75rem; color:var(--text-dim); margin-bottom:10px;">
-                    Команды: <code style="color:var(--neon-purple);">/setrol &lt;ник&gt; &lt;роль&gt;</code> · <code style="color:var(--neon-purple);">/website &lt;команда&gt;</code>
+                    Команды: <code style="color:var(--neon-purple);">/setrol &lt;ник&gt; &lt;роль&gt;</code> · <code style="color:var(--neon-purple);">/website &lt;команда&gt;</code> · <code style="color:var(--neon-purple);">/add_tag</code> · <code style="color:var(--neon-purple);">/give_tag</code> · <code style="color:var(--neon-purple);">/remove_tag</code>
                 </p>
                 <div class="chat-container" style="height:400px;">
                     <div class="chat-messages" id="adminChatMessages">${messagesHtml}</div>
                     <div class="chat-input-area">
-                        <input type="text" id="adminChatInput" placeholder="Сообщение, /setrol ник роль, /website title текст..." onkeydown="if(event.key==='Enter') sendAdminChatMsg()" />
+                        <input type="text" id="adminChatInput" placeholder="Сообщение или команда..." onkeydown="if(event.key==='Enter') sendAdminChatMsg()" />
                         <button onclick="sendAdminChatMsg()" style="background:var(--neon-purple); color:#fff;"><i class="fas fa-paper-plane"></i></button>
                     </div>
                 </div>
@@ -1810,6 +2055,17 @@
             input.value = '';
             renderAdminChat();
             showToast('Роль выдана', `${target.username} → ${role.name}`, 'success');
+            return;
+        }
+        if (text.startsWith('/add_tag') || text.startsWith('/give_tag') || text.startsWith('/remove_tag')) {
+            const reply = handleSecretAICommand(text);
+            if (reply) {
+                const msgs = AdminChatDB.get();
+                msgs.push({ id: Date.now(), author: 'SYSTEM', avatar: null, text: reply, date: new Date().toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' }) });
+                AdminChatDB.set(msgs);
+                input.value = '';
+                renderAdminChat();
+            }
             return;
         }
         const msgs = AdminChatDB.get();
@@ -2014,7 +2270,7 @@
         const parentRow = findContextTarget(e.target);
         const items = ctxMenu.querySelectorAll('.ctx-item');
         items.forEach(item => item.classList.remove('disabled'));
-        if (ctxSection === 'weapons' || ctxSection === 'roles' || ctxSection === 'wanted') items[0].classList.remove('disabled'); else items[0].classList.add('disabled');
+        if (ctxSection === 'weapons' || ctxSection === 'roles' || ctxSection === 'wanted' || ctxSection === 'tags') items[0].classList.remove('disabled'); else items[0].classList.add('disabled');
         if (!hasSelection && !isInput) items[2].classList.add('disabled');
         if (!isInput) items[3].classList.add('disabled');
         if (!parentRow) { items[1].classList.add('disabled'); items[4].classList.add('disabled'); }
@@ -2033,11 +2289,11 @@
         const row = findContextTarget(ctxTarget);
         const ctxId = row ? row.dataset.ctxId : null;
         const ctxType = row ? row.dataset.ctxType : null;
-        if (action === 'add') { if (ctxSection === 'weapons') openAddWeaponModal(); else if (ctxSection === 'roles') openRoleModal(); else if (ctxSection === 'wanted') openWantedModal(); return; }
-        if (action === 'edit') { if (!ctxId) return; if (ctxType === 'role') openRoleModal(ctxId); else if (ctxType === 'wanted') openWantedModal(ctxId); else if (ctxType === 'user') { if (isAdminOrSupervisor()) openEditUserModal(ctxId); } return; }
-        if (action === 'delete') { if (!ctxId) return; if (ctxType === 'weapon') deleteWeapon(ctxId); else if (ctxType === 'role') deleteRole(ctxId); else if (ctxType === 'wanted') removeFromWanted(ctxId); else if (ctxType === 'user') { if (isAdminOrSupervisor()) deleteUser(ctxId); } return; }
+        if (action === 'add') { if (ctxSection === 'weapons') openAddWeaponModal(); else if (ctxSection === 'roles') openRoleModal(); else if (ctxSection === 'wanted') openWantedModal(); else if (ctxSection === 'tags') openTagModal(); return; }
+        if (action === 'edit') { if (!ctxId) return; if (ctxType === 'role') openRoleModal(ctxId); else if (ctxType === 'wanted') openWantedModal(ctxId); else if (ctxType === 'tag') openTagModal(ctxId); else if (ctxType === 'user') { if (isAdminOrSupervisor()) openEditUserModal(ctxId); } return; }
+        if (action === 'delete') { if (!ctxId) return; if (ctxType === 'weapon') deleteWeapon(ctxId); else if (ctxType === 'role') deleteRole(ctxId); else if (ctxType === 'wanted') removeFromWanted(ctxId); else if (ctxType === 'tag') deleteTag(ctxId); else if (ctxType === 'user') { if (isAdminOrSupervisor()) deleteUser(ctxId); } return; }
     };
-
+    
     let currentSection = 'dashboard';
     window.switchSection = function(section) {
         currentSection = section;
@@ -2067,6 +2323,12 @@
                         <div class="operator-tile"><div class="op-label">ЗВАНИЕ</div><div class="op-value yellow">${escapeHtml(currentUser.rank)}</div></div>
                         <div class="operator-tile"><div class="op-label">ВЫГОВОРОВ</div><div class="op-value ${currentUser.warnings > 0 ? 'red' : 'green'}">${currentUser.warnings || 0}</div></div>
                     </div>
+                    ${getUserTags(currentUser).length > 0 ? `
+                        <div style="margin-top:16px;">
+                            <div style="font-family:'Orbitron'; font-size:0.7rem; font-weight:700; color:var(--text-dim); letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">// Ваши теги</div>
+                            <div style="display:flex; gap:6px; flex-wrap:wrap;">${renderTagsHtml(currentUser.tags)}</div>
+                        </div>
+                    ` : ''}
                 </div>
             `;
         }
@@ -2104,6 +2366,40 @@
         else if (section === 'adminlogs') renderAdminLogs();
         else if (section === 'site') renderSiteSection();
         else if (section === 'functionality') renderFunctionality();
+        else if (section === 'tags') {
+            if (!isAdminUser()) { content.innerHTML = '<div class="panel"><div class="panel-title">Отказано</div></div>'; return; }
+            const tags = TagsDB.get();
+            let rows = tags.map(t => `
+                <div class="tag-row" data-ctx-id="${t.id}" data-ctx-type="tag">
+                    <span class="tag-preview user-tag ${t.color}">${escapeHtml(t.name)}</span>
+                    <div class="tag-info">
+                        <div class="tag-name">${escapeHtml(t.name)}</div>
+                        <div class="tag-desc">${escapeHtml(t.desc || 'Без описания')}</div>
+                    </div>
+                    <div class="tag-actions">
+                        <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="openTagModal('${t.id}')"><i class="fas fa-pen"></i> Изменить</button>
+                        <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteTag('${t.id}')"><i class="fas fa-trash"></i> Удалить</button>
+                    </div>
+                </div>
+            `).join('') || '<div style="text-align:center; padding:40px; color:var(--text-dim);">Тегов пока нет</div>';
+            content.innerHTML = `
+                <div class="content-header"><h1>ТЕГИ</h1><div class="breadcrumb">// NCPD · Админ · <span>Управление тегами</span></div></div>
+                <div class="panel purple">
+                    <div class="panel-title"><i class="fas fa-tags"></i> Всего тегов: ${tags.length}</div>
+                    ${rows}
+                    <button class="add-btn purple" onclick="openTagModal()"><i class="fas fa-plus"></i> Создать тег</button>
+                </div>
+                <div class="panel">
+                    <div class="panel-title"><i class="fas fa-info-circle"></i> Как использовать</div>
+                    <div style="font-family:'Share Tech Mono', monospace; font-size:0.8rem; line-height:2; color:var(--text-dim);">
+                        <div>• Создайте тег здесь или через <code style="color:var(--neon-purple);">/add_tag &lt;название&gt;</code> в RoboCop AI</div>
+                        <div>• Выдайте тег сотруднику в <strong style="color:var(--theme-accent);">Сотрудники → Изменить → Теги</strong></div>
+                        <div>• Или через <code style="color:var(--neon-purple);">/give_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                        <div>• Снять тег: <code style="color:var(--neon-purple);">/remove_tag &lt;ник&gt; &lt;тег&gt;</code></div>
+                    </div>
+                </div>
+            `;
+        }
         else if (section === 'reports') {
             const reports = DB.getReports();
             let rows = reports.slice().reverse().map(r => `<tr><td style="color:var(--theme-accent-2);">${escapeHtml(r.operatorId || '—')}</td><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.type)}</td><td style="color:var(--text-dim);">${escapeHtml(r.content)}</td><td style="color:var(--text-dim); font-size:0.7rem;">${escapeHtml(r.date)}</td></tr>`).join('') || '<tr><td colspan="5" style="text-align:center; color:var(--text-dim); padding:20px;">Пусто</td></tr>';
@@ -2113,16 +2409,26 @@
             const users = DB.getUsers();
             let rows = users.map(u => {
                 const isA = u.isAdmin || u.username === 'Superadmin';
+                const userRole = roles.find(r => r.name === u.rank);
+                const roleIsAdmin = userRole && userRole.perms && userRole.perms.permAdmin;
+                const displayAdmin = isA || roleIsAdmin;
                 return `<div class="employee-row" data-ctx-id="${u.id}" data-ctx-type="user">
                     ${u.avatar ? `<div class="emp-avatar-img" style="background-image:url(${u.avatar});"></div>` : `<div class="emp-avatar">${escapeHtml(getInitials(u.username))}</div>`}
-                    <div class="emp-info"><div class="emp-name">${escapeHtml(u.username)} ${isA ? '<span class="badge badge-admin">ADMIN</span>' : ''}</div><div class="emp-meta">${escapeHtml(u.rank || 'Офицер')} · ${escapeHtml(u.registered || '—')}</div></div>
+                    <div class="emp-info">
+                        <div class="emp-name">
+                            ${escapeHtml(u.username)}
+                            ${displayAdmin ? '<span class="badge badge-admin">ADMIN</span>' : ''}
+                            ${renderTagsHtml(u.tags)}
+                        </div>
+                        <div class="emp-meta">${escapeHtml(u.rank || 'Офицер')} · ${escapeHtml(u.registered || '—')}</div>
+                    </div>
                     <div class="emp-id">${escapeHtml(u.id)}</div>
                     <div style="font-family:'Share Tech Mono'; font-size:0.8rem; color:${u.warnings > 0 ? 'var(--neon-red)' : 'var(--neon-green)'};">⚠ ${u.warnings || 0}</div>
                     <div class="emp-actions">
-                        <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="giveWarning('${u.id}')"><i class="fas fa-exclamation"></i></button>
-                        <button class="btn" style="padding:5px 12px; font-size:0.65rem;" onclick="openEditUserModal('${u.id}')"><i class="fas fa-user-edit"></i></button>
-                        <button class="btn btn-green" style="padding:5px 12px; font-size:0.65rem;" onclick="changeId('${u.id}')"><i class="fas fa-id-card"></i></button>
-                        <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteUser('${u.id}')"><i class="fas fa-trash"></i></button>
+                        <button class="btn btn-orange" style="padding:5px 12px; font-size:0.65rem;" onclick="giveWarning('${u.id}')" title="Выговор"><i class="fas fa-exclamation"></i></button>
+                        <button class="btn" style="padding:5px 12px; font-size:0.65rem;" onclick="openEditUserModal('${u.id}')" title="Изменить"><i class="fas fa-user-edit"></i></button>
+                        <button class="btn btn-green" style="padding:5px 12px; font-size:0.65rem;" onclick="changeId('${u.id}')" title="ID"><i class="fas fa-id-card"></i></button>
+                        <button class="btn btn-red" style="padding:5px 12px; font-size:0.65rem;" onclick="deleteUser('${u.id}')" title="Удалить"><i class="fas fa-trash"></i></button>
                     </div>
                 </div>`;
             }).join('');
@@ -2131,6 +2437,7 @@
         else if (section === 'roles') {
             let rows = roles.map(r => {
                 const permList = [];
+                if (r.perms.permAdmin) permList.push('👑 Администратор');
                 if (r.perms.permSupervisor) permList.push('Отчёты');
                 if (r.perms.permManageEmp) permList.push('Сотрудники');
                 if (r.perms.permManageRoles) permList.push('Роли');
